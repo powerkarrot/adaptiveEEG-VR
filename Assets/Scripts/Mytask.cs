@@ -19,7 +19,7 @@ public class Mytask : MonoBehaviour
     public GameObject feedbackWrong;
     private Coroutine disableFeedback;
 
-    public GameObject questionner;
+    public GameObject questionnaire;
     public GameObject vivepointer;
 
     public GameObject feedbackStats;
@@ -58,6 +58,8 @@ public class Mytask : MonoBehaviour
     public bool isRecodingBaseline = false;
 
     public AdaptiveEDA adaptiveEDA = null;
+
+    public AdaptiveEEG adaptiveEEG = null;
 
     private int counter = 0;
 
@@ -160,7 +162,7 @@ public class Mytask : MonoBehaviour
             //feedbackCorrect.SetActive(false);
             //feedbackWrong.SetActive(false);
             //feedbackStats.SetActive(false);
-            questionner.SetActive(false);
+            questionnaire.SetActive(false);
             vivepointer.SetActive(false);
             blockDesigner.IsIAfBaseline = true;
             blockDesigner.duration = 10.00;
@@ -177,7 +179,7 @@ public class Mytask : MonoBehaviour
             //feedbackCorrect.SetActive(false);
             //feedbackWrong.SetActive(false);
             //feedbackStats.SetActive(false);
-            questionner.SetActive(false);
+            questionnaire.SetActive(false);
             vivepointer.SetActive(false);
             blockDesigner.IsIAfBaseline = false;
             pedestrianSpawner.pedestriansToSpawn = 0;
@@ -191,7 +193,7 @@ public class Mytask : MonoBehaviour
             //feedbackCorrect.SetActive(false);
             //feedbackWrong.SetActive(false);
             //feedbackStats.SetActive(false);
-            questionner.SetActive(false);
+            questionnaire.SetActive(false);
             vivepointer.SetActive(false);
             blockDesigner.IsIAfBaseline = false;
             CountNr.SetActive(true);
@@ -216,8 +218,9 @@ public class Mytask : MonoBehaviour
             //feedbackCorrect.SetActive(false);
             //feedbackWrong.SetActive(false);
             //feedbackStats.SetActive(false);
-            questionner.SetActive(false);
+            questionnaire.SetActive(false);
             vivepointer.SetActive(false);
+            adaptiveEEG.isActive = true;
             blockDesigner.IsIAfBaseline = false;
             pedestrianSpawner.pedestriansToSpawn = 200;
         }
@@ -232,8 +235,9 @@ public class Mytask : MonoBehaviour
             //feedbackWrong.SetActive(true);
             //feedbackStats.SetActive(true);
             blockDesigner.IsIAfBaseline = false;           
-            questionner.SetActive(false);
+            questionnaire.SetActive(false);
             vivepointer.SetActive(false);
+            adaptiveEEG.isActive = true;
             pedestrianSpawner.pedestriansToSpawn = 0;
 
         }
@@ -247,8 +251,9 @@ public class Mytask : MonoBehaviour
             //feedbackWrong.SetActive(true);
             //feedbackStats.SetActive(true);
             blockDesigner.IsIAfBaseline = false;
-            questionner.SetActive(false);
+            questionnaire.SetActive(false);
             vivepointer.SetActive(false);
+            adaptiveEEG.isActive = true;
             pedestrianSpawner.pedestriansToSpawn = 50;
 
         }
@@ -263,8 +268,10 @@ public class Mytask : MonoBehaviour
             //feedbackStats.SetActive(true);
             blockDesigner.duration = 360.00;
             blockDesigner.IsIAfBaseline = false;
+            adaptiveEEG.isActive = true;
 
-            questionner.SetActive(false);
+
+            questionnaire.SetActive(false);
             vivepointer.SetActive(false);
             pedestrianSpawner.pedestriansToSpawn = 200;
 
@@ -277,7 +284,7 @@ public class Mytask : MonoBehaviour
             ///feedbackCorrect.SetActive(true);
             //feedbackWrong.SetActive(true);
             //feedbackStats.SetActive(true);
-            questionner.SetActive(true);
+            questionnaire.SetActive(true);
             vivepointer.SetActive(true);
             blockDesigner.IsIAfBaseline = false;
             blockDesigner.duration = 360.00;
@@ -340,6 +347,7 @@ public class Mytask : MonoBehaviour
             else 
             {
                 adaptiveEDA.isActive = false;
+                adaptiveEEG.isActive = false;
                 //pedestrianSpawner.pedestriansToSpawn = 0 + ((nextBlock-1)*100);
                 logger.writeState(timestamp, "start", nextBlock, 1, nBackNumber);
             }
