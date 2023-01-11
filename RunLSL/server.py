@@ -32,6 +32,9 @@ lstDataTimes = []
 lstDataTonicStart = []
 lstDataTonicEnd = []
 
+lst_eeg_values = []
+lst_eeg_times = []
+
 def current_milli_time():
     return round(time.time() * 1000)
 
@@ -60,6 +63,12 @@ while True:
                         lstDataTimes.extend(obj["times"])
                         print(len(lstDataValues))
                         
+                    elif (obj["type"] == "eeg_data"):
+                        print("getting eeg data")
+                        lst_eeg_values.extend(obj["values"])
+                        lst_eeg_times.extend(obj["times"])
+                        print(len(lst_eeg_values))
+                        
                     elif (obj["type"] == "iaf"):
                         print("doing iaf")
                         curId = obj["values"]
@@ -85,14 +94,16 @@ while True:
                         time.sleep(1) # TODO: remove this
                         print(curId)
 
-                        raw = make_raw(curId)
-                        print(raw.info)
+                        alpha_baseline = calculate_alpha_baseline(curId)
+                        print("alpha baseline is " , str(alpha_baseline))
                         data = {"baselineDone":1, "error":""}
                         signals_data = json.dumps(data) 
-                        print("did power baseline")
                         connection.sendall(signals_data.encode("utf-8"))
                        
-                            
+                    elif (obj["type"] == "calc_eeg"):
+                        print("todo")
+                        signals_data = json.dumps({"slopet1":0, "slopet2":0,"error":"not ready"}) 
+                        connection.sendall(signals_data.encode("utf-8"))
                     
                     elif (obj["type"] == "calc"):
                     

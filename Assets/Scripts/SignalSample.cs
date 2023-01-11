@@ -34,6 +34,19 @@ public class SignalSample: ICloneable
         }
     }
 
+      public SignalSample(SignalSample1D signal, bool eeg)
+    {
+        this.time = signal.Time;
+        this.timeLsl = signal.timeLsl;
+        if(!eeg)
+        {
+            this.values = signal.values[0];
+            if (signal.values.Length > 1) {
+                Debug.LogWarning("WARNING: data is being dropped");
+            }  
+        }
+    }
+
     public SignalSample(double lastTimeStamp, double timeLsl, float samples)
     {
         this.time = lastTimeStamp;
@@ -143,6 +156,19 @@ public class SignalSample: ICloneable
         }
         return ret;
     }
+
+     public static List<SignalSample> convertEEG (List<SignalSample1D> lst)
+    {
+        List<SignalSample> ret = new List<SignalSample>();
+
+        foreach (SignalSample1D s in lst)
+        {
+            ret.Add(new SignalSample(s, true));
+        }
+        //ret = ret.GetRange(0,64);
+        return ret;
+    }
+    
     
     public static double GetMovingAverage(List<SignalSample> samples)
     {
