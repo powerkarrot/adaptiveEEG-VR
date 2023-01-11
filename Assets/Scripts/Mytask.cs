@@ -25,6 +25,11 @@ public class Mytask : MonoBehaviour
     public GameObject feedbackStats;
     public int feedbackStatsPresentValue = 20;
     private int feedbackStatsCounter = 0;
+
+    public GameObject CountNr;
+
+    public bool startCountNrCoroutine = true;
+
     private Coroutine feedbackStatCoroutineDisable;
 
     public GameObject pilar;
@@ -74,8 +79,10 @@ public class Mytask : MonoBehaviour
 
     public ServerIAFResponse iafResponse;
 
-
+    public ServerAlphaBaselineResponse alphabaselineResponse;
+    
     private int currencount = 0;
+    private int currencount2 = 0; //TODO: remove this lol
 
     [SerializeField]
     private tcpClient tcp;
@@ -141,16 +148,7 @@ public class Mytask : MonoBehaviour
     {
         currentBlock = blockDesigner.getCurrentBlock();
 
-        /* if (state == STATES.wait && currentBlock == 7)
-         {
-             TimeSinceStart += Time.deltaTime;
-         }
-
-         if (state == STATES.wait && currentBlock == 6 )
-         {
-             TimeSinceStart2 += Time.deltaTime;
-         }
-        */
+        double timestamp = UnixTime.GetTime();
 
         if (state == STATES.wait && currentBlock == 1)
         {
@@ -158,13 +156,14 @@ public class Mytask : MonoBehaviour
             CorrectTrash.SetActive(false);
             trash_square.SetActive(false);
             sphere.SetActive(false);
-            feedbackCorrect.SetActive(false);
-            feedbackWrong.SetActive(false);
-            feedbackStats.SetActive(false);
+            CountNr.SetActive(false);
+            //feedbackCorrect.SetActive(false);
+            //feedbackWrong.SetActive(false);
+            //feedbackStats.SetActive(false);
             questionner.SetActive(false);
             vivepointer.SetActive(false);
             blockDesigner.IsIAfBaseline = true;
-            blockDesigner.duration = 60.00;
+            blockDesigner.duration = 10.00;
         }
 
         else if (state == STATES.wait && currentBlock == 2)
@@ -173,9 +172,11 @@ public class Mytask : MonoBehaviour
             sphere.SetActive(false);
             CorrectTrash.SetActive(false);
             trash_square.SetActive(false);
-            feedbackCorrect.SetActive(false);
-            feedbackWrong.SetActive(false);
-            feedbackStats.SetActive(false);
+            CountNr.SetActive(false);
+
+            //feedbackCorrect.SetActive(false);
+            //feedbackWrong.SetActive(false);
+            //feedbackStats.SetActive(false);
             questionner.SetActive(false);
             vivepointer.SetActive(false);
             blockDesigner.IsIAfBaseline = false;
@@ -187,23 +188,34 @@ public class Mytask : MonoBehaviour
             sphere.SetActive(false);
             CorrectTrash.SetActive(false);
             trash_square.SetActive(false);
-            feedbackCorrect.SetActive(false);
-            feedbackWrong.SetActive(false);
-            feedbackStats.SetActive(false);
+            //feedbackCorrect.SetActive(false);
+            //feedbackWrong.SetActive(false);
+            //feedbackStats.SetActive(false);
             questionner.SetActive(false);
             vivepointer.SetActive(false);
             blockDesigner.IsIAfBaseline = false;
-            pedestrianSpawner.pedestriansToSpawn = 50;
+            CountNr.SetActive(true);
+            //pedestrianSpawner.pedestriansToSpawn = 50;
+            TextMeshPro tmp = CountNr.GetComponent<TextMeshPro>() as TextMeshPro;
+            
+            if (startCountNrCoroutine == true) 
+            {
+                StartCoroutine(countNrCoroutine(timestamp));         
+            } 
+            blockDesigner.duration = 15.00;
+            //sendData();
+        
         }
         else if (state == STATES.wait && currentBlock == 4)
         {
+            CountNr.SetActive(false);
             pilar.SetActive(false);
             sphere.SetActive(false);
             CorrectTrash.SetActive(false);
             trash_square.SetActive(false);
-            feedbackCorrect.SetActive(false);
-            feedbackWrong.SetActive(false);
-            feedbackStats.SetActive(false);
+            //feedbackCorrect.SetActive(false);
+            //feedbackWrong.SetActive(false);
+            //feedbackStats.SetActive(false);
             questionner.SetActive(false);
             vivepointer.SetActive(false);
             blockDesigner.IsIAfBaseline = false;
@@ -212,12 +224,13 @@ public class Mytask : MonoBehaviour
 
         else if (state == STATES.wait && currentBlock == 5)
         {
+            CountNr.SetActive(false);
             pilar.SetActive(true);
             CorrectTrash.SetActive(true);
             trash_square.SetActive(true);
-            feedbackCorrect.SetActive(true);
-            feedbackWrong.SetActive(true);
-            feedbackStats.SetActive(true);
+            //feedbackCorrect.SetActive(true);
+            //feedbackWrong.SetActive(true);
+            //feedbackStats.SetActive(true);
             blockDesigner.IsIAfBaseline = false;           
             questionner.SetActive(false);
             vivepointer.SetActive(false);
@@ -226,12 +239,13 @@ public class Mytask : MonoBehaviour
         }
         else if (state == STATES.wait && currentBlock == 6)
         {
+            CountNr.SetActive(false);
             pilar.SetActive(true);
             CorrectTrash.SetActive(true);
             trash_square.SetActive(true);
-            feedbackCorrect.SetActive(true);
-            feedbackWrong.SetActive(true);
-            feedbackStats.SetActive(true);
+            //feedbackCorrect.SetActive(true);
+            //feedbackWrong.SetActive(true);
+            //feedbackStats.SetActive(true);
             blockDesigner.IsIAfBaseline = false;
             questionner.SetActive(false);
             vivepointer.SetActive(false);
@@ -240,12 +254,13 @@ public class Mytask : MonoBehaviour
         }
         else if (state == STATES.wait && currentBlock == 7)
         {
+            CountNr.SetActive(false);
             pilar.SetActive(true);
             CorrectTrash.SetActive(true);
             trash_square.SetActive(true);
-            feedbackCorrect.SetActive(true);
-            feedbackWrong.SetActive(true);
-            feedbackStats.SetActive(true);
+            //feedbackCorrect.SetActive(true);
+            //feedbackWrong.SetActive(true);
+            //feedbackStats.SetActive(true);
             blockDesigner.duration = 360.00;
             blockDesigner.IsIAfBaseline = false;
 
@@ -259,9 +274,9 @@ public class Mytask : MonoBehaviour
             pilar.SetActive(true);
             CorrectTrash.SetActive(true);
             trash_square.SetActive(true);
-            feedbackCorrect.SetActive(true);
-            feedbackWrong.SetActive(true);
-            feedbackStats.SetActive(true);
+            ///feedbackCorrect.SetActive(true);
+            //feedbackWrong.SetActive(true);
+            //feedbackStats.SetActive(true);
             questionner.SetActive(true);
             vivepointer.SetActive(true);
             blockDesigner.IsIAfBaseline = false;
@@ -270,7 +285,6 @@ public class Mytask : MonoBehaviour
         }
 
 
-        double timestamp = UnixTime.GetTime();
 
       /*  if (Input.GetKeyDown("a"))
         {
@@ -332,8 +346,8 @@ public class Mytask : MonoBehaviour
 
             if (state == STATES.wait) {
                 isRecodingBaseline = false;
-                feedbackCorrect.SetActive(false);
-                feedbackWrong.SetActive(false);
+                //feedbackCorrect.SetActive(false);
+                //feedbackWrong.SetActive(false);
                 counterBalls = 0;
                 feedbackStatsCounter = 0;
                 colorList.Clear();
@@ -348,8 +362,8 @@ public class Mytask : MonoBehaviour
             isRecodingBaseline = true;
             recordBaseline.startRecoding();
             adaptiveEDA.isActive = true;
-            feedbackCorrect.SetActive(false);
-            feedbackWrong.SetActive(false);
+            //feedbackCorrect.SetActive(false);
+            //feedbackWrong.SetActive(false);
             counterBalls = 0;
             feedbackStatsCounter = 0;
             state = STATES.baseline;
@@ -417,6 +431,29 @@ public class Mytask : MonoBehaviour
             {
                 Destroy(sphere);
             }
+        }
+    }
+
+    public void sendData(double timestamp) {
+        if(blockDesigner.IsIAfBaseline) 
+        print("sending data");
+        {
+                if(blockDesigner.counter == 2) 
+                {
+                    currencount2 += 1; //TODO: remove this 
+                    if (currencount2==1)  {
+                        if (timestamp - timeLastSendTcp > tcpDelay) 
+                        {
+                            String curID = logger.participantId.ToString();
+                            String s = tcp.SendMessage("{\"type\":\"alphapow_baseline\", \"values\": " + curID + "}");
+                            alphabaselineResponse = JsonUtility.FromJson<ServerAlphaBaselineResponse>(s); 
+                            print("is done" + alphabaselineResponse.baselineDone);
+                            timeLastSendTcp = timestamp;
+                            blockDesigner.gotAlphaPowBaseline = Convert.ToBoolean(alphabaselineResponse.baselineDone); 
+                        }
+                    }
+                    
+                }                    
         }
     }
 
@@ -553,6 +590,37 @@ public class Mytask : MonoBehaviour
     {
         yield return new WaitForSeconds(4f); // Wait for one second
         feedbackStats.SetActive(false);
+    }
+
+    IEnumerator countNrCoroutine(double timestamp)
+    {
+
+        for(int z = 0; z < 3; z++) 
+        {
+            
+            System.Random rnd = new System.Random();
+            
+            int i = rnd.Next(100,300);
+            int y;
+            do {
+                y = rnd.Next(-9,9);
+            } while (y == 0);
+
+            TextMeshPro tmp = CountNr.GetComponent<TextMeshPro>() as TextMeshPro;
+            
+            if (y > 0) {
+                tmp.SetText(i + " \n + " + y );
+            } else {
+                tmp.SetText(i + " \n " + y );
+            }
+            
+            startCountNrCoroutine = false;
+            yield return new WaitForSeconds(5f);
+            }
+            Debug.Log("30 seconds passed");
+            //CountNr.SetActive(false);
+            sendData(timestamp);
+
     }
 }
 

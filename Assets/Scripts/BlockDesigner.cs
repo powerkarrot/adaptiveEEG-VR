@@ -10,6 +10,7 @@ public class BlockDesigner : MonoBehaviour
     public double currentDuration = 0.0;
 
     public bool gotIAF = false;
+    public bool gotAlphaPowBaseline = false;
     public bool getIAF = false;
     public bool closeswIAF = false;
 
@@ -24,7 +25,7 @@ public class BlockDesigner : MonoBehaviour
     {
         order.Shuffle();
 
-        while (order[0] != 1)
+        while (order[0] != 1 || order[1] != 2 || order[2] != 3 )
         {
             order.Shuffle();
         }
@@ -41,14 +42,25 @@ public class BlockDesigner : MonoBehaviour
             {
                 closeswIAF = true;
                 getIAF = true;
+                //block 2 is only done when iaf is calculated
                 if(gotIAF == true) {
                     isDone = true;
                 }
-            }
-            else
+            } else
             {
                 getIAF = false;
-                isDone = true;
+
+                // block 3 is only done when alpha power baseline is calculated
+                if(order[0] == 2 ) 
+                {
+                    if(gotAlphaPowBaseline) 
+                    {
+                        isDone = true;
+                    }
+                } else 
+                {
+                    isDone = true;
+                }
             }
         }
     }

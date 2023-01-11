@@ -13,6 +13,7 @@ import pandas as pd
 #from iaf import *
 import json
 from IAF.iaf import *
+from adaptation.baseline import *
 import pickle
 
 
@@ -62,15 +63,35 @@ while True:
                     elif (obj["type"] == "iaf"):
                         print("doing iaf")
                         curId = obj["values"]
-                        time.sleep(1)
+                        
+                        time.sleep(1) #TODO: remove this after testing
                         alpha = get_alpha_bands(curId)
                         #data = {"lowerAlpha":1,"upperAlpha":2, "iafDone":1, "error":""}
-                        data = {"lowerAlpha":alpha.AlphaBand[0],"upperAlpha":alpha.AlphaBand[1], "iafDone":1, "error":""}
+                        print(type(alpha))
+                        data = {"lowerAlpha":alpha[0],"upperAlpha":alpha[1], "iafDone":1, "error":""}
                         signals_data = json.dumps(data) 
-                        print("did alpha", alpha.AlphaBand[0])
+                        print("did alpha", alpha)
                         connection.sendall(signals_data.encode("utf-8"))
                        
                         #TODO: save alpha as pickle or something
+                        filename = './RunLSL/IAF/pickles/' + str(curId) + '-iaf.pickle'
+                    
+                        with open(filename, 'wb') as handle:
+                            pickle.dump(alpha, handle, protocol=pickle.HIGHEST_PROTOCOL)
+                            
+                    elif (obj["type"] == "alphapow_baseline"):
+                        print("doing iaf")
+                        curId = obj["values"]
+                        time.sleep(1) # TODO: remove this
+                        print(curId)
+
+                        raw = make_raw(curId)
+                        print(raw.info)
+                        data = {"baselineDone":1, "error":""}
+                        signals_data = json.dumps(data) 
+                        print("did power baseline")
+                        connection.sendall(signals_data.encode("utf-8"))
+                       
                             
                     
                     elif (obj["type"] == "calc"):
