@@ -74,4 +74,6 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 LogData/
+RunLSL/IAF/pickles
+
 .fake
