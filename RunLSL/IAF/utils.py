@@ -50,7 +50,7 @@ def test_channels_savgol_iaf(raw1,channel_list):
     for _, ch in enumerate(channel_list):
         p =  select_channels_picks(raw1, ch)
         try:
-            philistine.mne.savgol_iaf(raw1, picks=p)
+            philistine.mne.savgol_iaf_test(raw1, picks=p)
         except:
             bad_chs.append(ch)
     return(bad_chs)

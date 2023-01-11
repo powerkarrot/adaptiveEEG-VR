@@ -33,13 +33,25 @@ def get_alpha_bands(subject):
     for g, grp in enumerate(alpha_ch_groups):   
          
         #picks =  select_channels_picks(raws[0], grp)  
-        picks =  select_channels_picks(raws[0], alpha_ch_groups[1])   
+        picks =  select_channels_picks(raws[0], alpha_ch_groups[0])   
         
         bad_channels = test_channels_savgol_iaf(raws[0], picks)
         #TODO: remove bad_channels from picks. if no picks left use std alpha range
+        print(bad_channels)
+
+        clean_picks = np.setdiff1d(picks, bad_channels)
+        print(clean_picks)
 
         #alpha = philistine.mne.attenuation_iaf([raws[0],raws[1]], picks=picks, savgol='diff', resolution=.1)
-        alpha = philistine.mne.savgol_iaf(raws[0], picks=picks, resolution=.1)
+        try:
+            #TODO: ask francesco if we manually set upper/lower bands separately or throw everything away
+            # i dont think we do, replace with savgol_iaf_test (keep valueError)
+            alpha_iaf = philistine.mne.savgol_iaf(raws[0], picks=picks, resolution=.1)
+            alpha = [alpha_iaf.AlphaBand[0], alpha_iaf.AlphaBand[1]]
+        except Exception as e:
+            print(e)
+            alpha = [7., 14.]
+            
 
         print("ID", subject , "ch_group ", g, alpha )
         return alpha

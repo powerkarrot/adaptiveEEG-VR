@@ -50,3 +50,13 @@ public struct ServerIAFResponse
     [SerializeField]
     public string error;
 }
+
+[Serializable]
+public struct ServerAlphaBaselineResponse
+{
+    [SerializeField]
+    public float baselineDone;
+
+    [SerializeField]
+    public string error;
+}
