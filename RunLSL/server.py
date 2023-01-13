@@ -58,17 +58,18 @@ while True:
                 #    print(data)
                 try:
                     obj = json.loads(data)
+
+                    
                     if (obj["type"] == "data"):
                         lstDataValues.extend(obj["values"])
                         lstDataTimes.extend(obj["times"])
                         print(len(lstDataValues))
                         
                     elif (obj["type"] == "eeg_data"):
-                        lst_eeg_values.append(obj["values"])
+                        lst_eeg_values.extend(obj["values"])
                         lst_eeg_times.extend(obj["times"])
-                        if(len(lst_eeg_values) % 100 == 0):
-                            samples = np.asarray(lst_eeg_values)
-                            print(samples.T)
+                        if(len(lst_eeg_values) % 10 == 0):
+                            samples = np.asarray(lst_eeg_values, dtype=object)
                             raw = make_raw_arr(preprocess=False, samples=samples.T) #TODO: try with .T
                             print(raw.info)
                             
@@ -77,7 +78,7 @@ while True:
                         #print("doing iaf")
                         curId = obj["values"]
                         
-                        time.sleep(1) #TODO: remove this after testing
+                        #time.sleep(1) #TODO: remove this after testing
                         alpha = get_alpha_bands(curId)
                         #data = {"lowerAlpha":1,"upperAlpha":2, "iafDone":1, "error":""}
                         #print(type(alpha))
@@ -174,7 +175,8 @@ while True:
                             connection.sendall(signals_data.encode("utf-8"))
 
                 except Exception as e:
-                    print("Exception:", e)          
+                    e
+                    #print("Exception:", e)          
             
     finally:
         # Clean up the connection

@@ -28,6 +28,7 @@ def make_raw_arr(preprocess=True, samples=None):
     raw = mne.io.RawArray(samples, info)
     if preprocess:
         raw = preprocess_raw(raw)
+    return raw
 
 def preprocess_raw(raw):
     raw.notch_filter(60., n_jobs=2)       

@@ -88,7 +88,7 @@ public class AdaptiveEEG: MonoBehaviour
         if (time - timeLastSendTcp > tcpDelay)
         {
             List<SignalSample1D> lstInput = lSLInput.samples;
-            Debug.Log(lSLInput.samples[0].values[0]);
+            //Debug.Log(lSLInput.samples[0].values[0]);
             //Debug.Log(lstInput.Count);
 
             if (lstInput.Count > 0)
@@ -98,16 +98,30 @@ public class AdaptiveEEG: MonoBehaviour
                 string outputValues = "";
                 string outputTimes = "";
                 int i = 0;
+
+                
                
                //TODO: ask yagiz
-                foreach (SignalSample value in lst)
+                foreach (SignalSample1D value in lstInput)
                 {
+                    //string v = "[";
+                    //string t = "[";
                     if (value.time > timeLastSendTcp)
                     {
-                        outputValues += value.values.ToString("0.000000") + ",";
+                        
+                        string tmp = String.Join(",", value.values.Select(p=>p.ToString()).ToArray());
+                        string arr = "[" + tmp + "]";
+                        if (i++ < lstInput.Count) 
+                        {
+                           arr += ",";
+                        }
+                        outputValues += arr;
+                        outputTimes += arr;
+                        
+                        //outputValues += value.values.ToString("0.000000") + ",";
                         //outputValues.literal_eval();
                         
-                        outputTimes += value.time.ToString("0.000000") + ",";
+                        //outputTimes += value.time.ToString("0.000000") + ",";
                         //outputTimes.literal_eval();
                         
                         i++;
@@ -116,6 +130,7 @@ public class AdaptiveEEG: MonoBehaviour
 
                 if (i > 0) 
                 { 
+                    //Debug.Log(outputValues);
                     timeLastSendTcp = time;
                     outputValues = outputValues.Remove(outputValues.Length-1);
                     outputTimes = outputTimes.Remove(outputTimes.Length-1);
