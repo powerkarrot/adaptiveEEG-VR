@@ -9,7 +9,7 @@ from pathlib import Path
 from scipy.integrate import simpson
 
 
-def make_raw(pid,preprocess=True):
+def make_raw_csv(pid=1,preprocess=True):
     print(path)
     
     dfEEG = pd.read_csv(f"{path}\ID{pid}-EEG.csv")
@@ -20,8 +20,14 @@ def make_raw(pid,preprocess=True):
     samples = dfEEG.T
     raw = mne.io.RawArray(samples, info)
     
-
     return raw
+
+def make_raw_arr(preprocess=True, samples=None):
+    info = mne.create_info(ch_names=ch_names, sfreq=sfreq, ch_types=ch_types)
+    info.set_montage('standard_1020',  match_case=False)
+    raw = mne.io.RawArray(samples, info)
+    if preprocess:
+        raw = preprocess_raw(raw)
 
 def preprocess_raw(raw):
     raw.notch_filter(60., n_jobs=2)       

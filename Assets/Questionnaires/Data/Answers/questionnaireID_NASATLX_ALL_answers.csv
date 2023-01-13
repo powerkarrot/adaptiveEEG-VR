@@ -1,14 +1,26 @@
-QuestionType,Question,QuestionID,Answer_Participant_id2_condition_AB,Answer_Participant_id2_condition_AB
-linearGrid,Mental Demand:  How mentally demanding was the task?,g1,13,14
-linearGrid,Physical Demand:  How physically demanding was the task?,g2,14,15
-linearGrid,Temporal Demand:  How hurried or rushed was the pace of the task?,g3,15,16
-linearGrid,Performance:  How succesfull were you in accomplishing what you were asked to do?,g4,5,2
-linearGrid,Effort:  How hard did you have to work to accomplish your level of performance?,g5,7,4
-linearGrid,Frustration:  How insecure / discouraged / irritated / stressed and annoyed were you?,g6,9,6
-linearGrid,Mental Demand:  How mentally demanding was the task?,g1,11,14
-linearGrid,Physical Demand:  How physically demanding was the task?,g2,12,15
-linearGrid,Temporal Demand:  How hurried or rushed was the pace of the task?,g3,13,16
-linearGrid,Performance:  How succesfull were you in accomplishing what you were asked to do?,g4,16,13
-linearGrid,Effort:  How hard did you have to work to accomplish your level of performance?,g5,17,14
-linearGrid,Frustration:  How insecure / discouraged / irritated / stressed and annoyed were you?,g6,18,15
+QuestionType,Question,QuestionID,Answer_Participant_id2_condition_AB,Answer_Participant_id2_condition_AB,Answer_Participant_id2_condition_AB
+linearGrid,Mental Demand:  How mentally demanding was the task?,g1,13,14,8
+linearGrid,Physical Demand:  How physically demanding was the task?,g2,14,15,10
+linearGrid,Temporal Demand:  How hurried or rushed was the pace of the task?,g3,15,16,11
+linearGrid,Performance:  How succesfull were you in accomplishing what you were asked to do?,g4,5,2,9
+linearGrid,Effort:  How hard did you have to work to accomplish your level of performance?,g5,7,4,10
+linearGrid,Frustration:  How insecure / discouraged / irritated / stressed and annoyed were you?,g6,9,6,14
+linearGrid,Mental Demand:  How mentally demanding was the task?,g1,11,14,4
+linearGrid,Physical Demand:  How physically demanding was the task?,g2,12,15,4
+linearGrid,Temporal Demand:  How hurried or rushed was the pace of the task?,g3,13,16,4
+linearGrid,Performance:  How succesfull were you in accomplishing what you were asked to do?,g4,16,13,4
+linearGrid,Effort:  How hard did you have to work to accomplish your level of performance?,g5,17,14,4
+linearGrid,Frustration:  How insecure / discouraged / irritated / stressed and annoyed were you?,g6,18,15,4
+,15
+,15
+,15
+,12
+,13
+,14
+,4
+,4
+,4
+,4
+,4
+,4
 

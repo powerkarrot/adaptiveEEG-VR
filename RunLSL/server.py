@@ -64,22 +64,26 @@ while True:
                         print(len(lstDataValues))
                         
                     elif (obj["type"] == "eeg_data"):
-                        print("getting eeg data")
-                        lst_eeg_values.extend(obj["values"])
+                        lst_eeg_values.append(obj["values"])
                         lst_eeg_times.extend(obj["times"])
-                        print(len(lst_eeg_values))
+                        if(len(lst_eeg_values) % 100 == 0):
+                            samples = np.asarray(lst_eeg_values)
+                            print(samples.T)
+                            raw = make_raw_arr(preprocess=False, samples=samples.T) #TODO: try with .T
+                            print(raw.info)
+                            
                         
                     elif (obj["type"] == "iaf"):
-                        print("doing iaf")
+                        #print("doing iaf")
                         curId = obj["values"]
                         
                         time.sleep(1) #TODO: remove this after testing
                         alpha = get_alpha_bands(curId)
                         #data = {"lowerAlpha":1,"upperAlpha":2, "iafDone":1, "error":""}
-                        print(type(alpha))
+                        #print(type(alpha))
                         data = {"lowerAlpha":alpha[0],"upperAlpha":alpha[1], "iafDone":1, "error":""}
                         signals_data = json.dumps(data) 
-                        print("did alpha", alpha)
+                        #print("did alpha", alpha)
                         connection.sendall(signals_data.encode("utf-8"))
                        
                         #TODO: save alpha as pickle or something
@@ -89,21 +93,28 @@ while True:
                             pickle.dump(alpha, handle, protocol=pickle.HIGHEST_PROTOCOL)
                             
                     elif (obj["type"] == "alphapow_baseline"):
-                        print("doing iaf")
+                        #print("doing iaf")
                         curId = obj["values"]
-                        time.sleep(1) # TODO: remove this
-                        print(curId)
+                        #time.sleep(1) # TODO: remove this
+                        #print(curId)
 
                         alpha_baseline = calculate_alpha_baseline(curId)
                         print("alpha baseline is " , str(alpha_baseline))
-                        data = {"baselineDone":1, "error":""}
+                        data = {"baselineDone":1, "error":""} #TODO: finish. save baseline as pickle too.
                         signals_data = json.dumps(data) 
                         connection.sendall(signals_data.encode("utf-8"))
                        
                     elif (obj["type"] == "calc_eeg"):
-                        print("todo")
+                        print("calculating eeg for adaptation")
+
+                        #raw = make_raw_arr(preprocess=False, samples=lst_eeg_values)
+                        #print(raw.info)
+                        #turn into raw here
                         signals_data = json.dumps({"slopet1":0, "slopet2":0,"error":"not ready"}) 
                         connection.sendall(signals_data.encode("utf-8"))
+                        #print("resetting array")
+                        #lst_eeg_values = []
+                        #lst_eeg_times = []
                     
                     elif (obj["type"] == "calc"):
                     

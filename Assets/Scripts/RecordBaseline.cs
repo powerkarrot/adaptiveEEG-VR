@@ -39,7 +39,7 @@ public class RecordBaseline : MonoBehaviour
     {
     
     }
-    
+
     public void Update() 
     {
         if (timeStart == 0.0)
@@ -56,7 +56,6 @@ public class RecordBaseline : MonoBehaviour
         {
             return;
         }
-
 
         double time = UnixTime.GetTime();
 
