@@ -111,12 +111,12 @@ public class AdaptiveEEG: MonoBehaviour
                         
                         string tmp = String.Join(",", value.values.Select(p=>p.ToString()).ToArray());
                         string arr = "[" + tmp + "]";
-                        if (i++ < lstInput.Count) 
-                        {
-                           arr += ",";
-                        }
-                        outputValues += arr;
-                        outputTimes += arr;
+                        //if (i++ < lstInput.Count) 
+                        //{
+                        //   arr += ",";
+                        //}
+                        outputValues += arr + ",";
+                        outputTimes += arr + ",";
                         
                         //outputValues += value.values.ToString("0.000000") + ",";
                         //outputValues.literal_eval();
@@ -133,6 +133,7 @@ public class AdaptiveEEG: MonoBehaviour
                     //Debug.Log(outputValues);
                     timeLastSendTcp = time;
                     outputValues = outputValues.Remove(outputValues.Length-1);
+                    print(outputValues[outputValues.Length-1]);
                     outputTimes = outputTimes.Remove(outputTimes.Length-1);
                     tcp.SendMessageNoReturn("{\"type\":\"eeg_data\", \"values\": [" + outputValues + "], \"times\": [" + outputTimes + "]}");
                     totalCount = lst.Count;
