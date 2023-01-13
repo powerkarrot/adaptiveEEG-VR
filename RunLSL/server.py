@@ -58,6 +58,8 @@ while True:
                 #    print(data)
                 try:
                     obj = json.loads(data)
+                    if not obj["type"]  == "eeg_data":
+                        print(obj["type"])
 
                     
                     if (obj["type"] == "data"):
@@ -174,9 +176,8 @@ while True:
                             signals_data = json.dumps({"slopet1":0, "slopet2":0,"error":"no data"}) 
                             connection.sendall(signals_data.encode("utf-8"))
 
-                except Exception as e:
-                    e
-                    #print("Exception:", e)          
+                except Exception as e:         
+                    print("Exception:", e)          
             
     finally:
         # Clean up the connection
