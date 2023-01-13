@@ -9,6 +9,7 @@ public class SignalSample: ICloneable
     public double time;
     public double timeLsl;
     public float values;
+
     private float highPassValue;
     private float lowPassValue;
 
@@ -37,6 +38,7 @@ public class SignalSample: ICloneable
     {
         this.time = signal.Time;
         this.timeLsl = signal.timeLsl;
+        //this.values = signal.values;
         if(!eeg)
         {
             this.values = signal.values[0];
