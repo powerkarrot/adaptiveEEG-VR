@@ -16,7 +16,6 @@ public class SignalSample: ICloneable
     {
     }
 
-
     public SignalSample(SignalSample signal)
     {
         this.time = signal.Time;

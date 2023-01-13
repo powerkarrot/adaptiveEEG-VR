@@ -162,10 +162,10 @@ public class Mytask : MonoBehaviour
             //feedbackCorrect.SetActive(false);
             //feedbackWrong.SetActive(false);
             //feedbackStats.SetActive(false);
-            questionnaire.SetActive(false);
+            questionnaire.SetActive(true);
             vivepointer.SetActive(false);
             blockDesigner.IsIAfBaseline = true;
-            blockDesigner.duration = 10.00;
+            blockDesigner.duration = 5.00;
         }
 
         else if (state == STATES.wait && currentBlock == 2)
@@ -204,7 +204,7 @@ public class Mytask : MonoBehaviour
             {
                 StartCoroutine(countNrCoroutine(timestamp));         
             } 
-            blockDesigner.duration = 15.00;
+            blockDesigner.duration = 5.00;
             //sendData();
         
         }

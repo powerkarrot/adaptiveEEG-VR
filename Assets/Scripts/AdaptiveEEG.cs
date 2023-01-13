@@ -88,6 +88,7 @@ public class AdaptiveEEG: MonoBehaviour
         if (time - timeLastSendTcp > tcpDelay)
         {
             List<SignalSample1D> lstInput = lSLInput.samples;
+            Debug.Log(lSLInput.samples[0].values[0]);
             //Debug.Log(lstInput.Count);
 
             if (lstInput.Count > 0)
@@ -123,15 +124,18 @@ public class AdaptiveEEG: MonoBehaviour
                 }
                 
                 // get data after every 20s
-                if (mytask.TimeSinceStart > nextActionTime )
+                else if (mytask.TimeSinceStart > nextActionTime )
                 {
+                    Debug.Log("time 1");
                     nextActionTime += adaptionRate;
                     String s = tcp.SendMessage("{\"type\":\"calc_eeg\"}");                   
                     response = JsonUtility.FromJson<ServerResponse>(s);
                 }
 
-                if (mytask.TimeSinceStart2 > nextActionTime2 )
+                //TODO: ask yagiz
+                else if (mytask.TimeSinceStart2 > nextActionTime2 )
                 {
+                    Debug.Log("time 2");
                     nextActionTime2 += adaptionRate;
                     String s = tcp.SendMessage("{\"type\":\"calc_eeg\"}");                   
                     response = JsonUtility.FromJson<ServerResponse>(s);
@@ -139,6 +143,37 @@ public class AdaptiveEEG: MonoBehaviour
 
                 // adaptation in every 20s logged as 6
                 
+                if (mytask.TimeSinceStart2 > firstadaptationtime2 && mytask.currentBlock == 4)
+                {
+                    firstadaptationtime2 += adaptionRate;
+
+                    if(response.error == ""){
+                    
+                        //if(mytask.currentBlock == 6 && response.slopet2 > response.slopet1) 
+                        if(mytask.currentBlock == 4 && (response.slopet2 - response.slopet1) >  slopeThreshold)
+                        {
+                            currentCount = pedestrianSpawner.pedestriansToSpawn;
+                            currentCount -= adaptationDown;
+                            pedestrianSpawner.pedestriansToSpawn = currentCount;
+                            logger.writeAdaption(time, "less", currentCount, response.slopet1, response.slopet2, 4);
+                            Debug.Log("Less LIAMS");
+                            
+                        }
+                        //else if(mytask.currentBlock == 6 && response.slopet2 < response.slopet1) 
+                        else if(mytask.currentBlock == 4 && (response.slopet2 - response.slopet1) < - slopeThreshold)
+                        {
+                            currentCount = pedestrianSpawner.pedestriansToSpawn;
+                            currentCount += adaptationUp;
+                            pedestrianSpawner.pedestriansToSpawn = currentCount;
+                            logger.writeAdaption(time, "more", currentCount, response.slopet1, response.slopet2, 4); 
+                            Debug.Log("More LIAMS");
+                            
+                        }
+
+                    }       
+
+                }   
+
 
                 if (mytask.TimeSinceStart2 > firstadaptationtime2 && mytask.currentBlock == 5)
                 {
@@ -157,12 +192,43 @@ public class AdaptiveEEG: MonoBehaviour
                             
                         }
                         //else if(mytask.currentBlock == 6 && response.slopet2 < response.slopet1) 
-                        else if(mytask.currentBlock == 6 && (response.slopet2 - response.slopet1) < - slopeThreshold)
+                        else if(mytask.currentBlock == 5 && (response.slopet2 - response.slopet1) < - slopeThreshold)
                         {
                             currentCount = pedestrianSpawner.pedestriansToSpawn;
                             currentCount += adaptationUp;
                             pedestrianSpawner.pedestriansToSpawn = currentCount;
                             logger.writeAdaption(time, "more", currentCount, response.slopet1, response.slopet2, 5); 
+                            Debug.Log("More LIAMS");
+                            
+                        }
+
+                    }       
+
+                }   
+
+                if (mytask.TimeSinceStart2 > firstadaptationtime2 && mytask.currentBlock == 6)
+                {
+                    firstadaptationtime2 += adaptionRate;
+
+                    if(response.error == ""){
+                    
+                        //if(mytask.currentBlock == 6 && response.slopet2 > response.slopet1) 
+                        if(mytask.currentBlock == 6 && (response.slopet2 - response.slopet1) >  slopeThreshold)
+                        {
+                            currentCount = pedestrianSpawner.pedestriansToSpawn;
+                            currentCount -= adaptationDown;
+                            pedestrianSpawner.pedestriansToSpawn = currentCount;
+                            logger.writeAdaption(time, "less", currentCount, response.slopet1, response.slopet2, 6);
+                            Debug.Log("Less LIAMS");
+                            
+                        }
+                        //else if(mytask.currentBlock == 6 && response.slopet2 < response.slopet1) 
+                        else if(mytask.currentBlock == 6 && (response.slopet2 - response.slopet1) < - slopeThreshold)
+                        {
+                            currentCount = pedestrianSpawner.pedestriansToSpawn;
+                            currentCount += adaptationUp;
+                            pedestrianSpawner.pedestriansToSpawn = currentCount;
+                            logger.writeAdaption(time, "more", currentCount, response.slopet1, response.slopet2, 6); 
                             Debug.Log("More LIAMS");
                             
                         }
@@ -205,7 +271,8 @@ public class AdaptiveEEG: MonoBehaviour
                 
                 else 
                     {
-                        Debug.LogWarning("Server:" + response.error);
+                        //TODO: ask yagiz, does this really mean there is an error? 
+                        //Debug.LogWarning("Server:" + response.error);
                     }
                    // Debug.Log(tonicEDA + " " + slopeBaseline + " " + (tonicEDA - slopeBaseline) + " " + slopeThreshold);
             }

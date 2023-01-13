@@ -11,5 +11,5 @@ def calculate_alpha_baseline(pid):
     with open(filename, 'rb') as handle:
         alpha = pickle.load(handle)
         
-    raw = make_raw(pid)
+    raw = make_raw_csv(pid=pid, preprocess=False)
     return compute_freq_power(raw, alpha[0], alpha[1])
