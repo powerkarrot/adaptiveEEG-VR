@@ -52,7 +52,8 @@ while True:
         # Receive the data in small chunks and retransmit it
         while True:
              while True:
-                data = connection.recv(1024*2*2*2*2).decode("utf-8")
+                data = connection.recv(4096*4*4*4*4).decode("utf-8")
+                #data = connection.recv(8192).decode("utf-8")
                 #print(data)
                 #if len(data) > 0:
                 #    print(data)
@@ -69,8 +70,8 @@ while True:
                         
                     elif (obj["type"] == "eeg_data"):
                         lst_eeg_values.extend(obj["values"])
-                        lst_eeg_times.extend(obj["times"])
-                        if(len(lst_eeg_values) % 10 == 0):
+                        #lst_eeg_times.extend(obj["times"])
+                        if(len(lst_eeg_values) % 50 == 0):
                             samples = np.asarray(lst_eeg_values, dtype=object)
                             raw = make_raw_arr(preprocess=False, samples=samples.T) #TODO: try with .T
                             print(raw.info)
@@ -176,7 +177,10 @@ while True:
                             signals_data = json.dumps({"slopet1":0, "slopet2":0,"error":"no data"}) 
                             connection.sendall(signals_data.encode("utf-8"))
 
-                except Exception as e:         
+                except Exception as e:       
+                    f = open("error.txt", "a")
+                    f.write(data)
+                    f.close()  
                     print("Exception:", e)          
             
     finally:
