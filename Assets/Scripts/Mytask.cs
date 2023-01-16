@@ -204,7 +204,7 @@ public class Mytask : MonoBehaviour
             {
                 StartCoroutine(countNrCoroutine(timestamp));         
             } 
-            blockDesigner.duration = 15.00;
+            blockDesigner.duration = 3.00;
             //sendData();
         
         }
@@ -623,7 +623,7 @@ public class Mytask : MonoBehaviour
             }
             
             startCountNrCoroutine = false;
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(1f);
             }
             Debug.Log("5 seconds passed");
             //CountNr.SetActive(false);

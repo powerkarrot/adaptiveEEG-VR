@@ -104,19 +104,22 @@ public class AdaptiveEEG: MonoBehaviour
                //TODO: ask yagiz
                 foreach (SignalSample1D value in lstInput)
                 {
-                    //string v = "[";
-                    //string t = "[";
+
                     if (value.time > timeLastSendTcp)
                     {
-                        
-                        string tmp = String.Join(",", value.values.Select(p=>p.ToString()).ToArray());
-                        string arr = "[" + tmp + "]";
-                        //if (i++ < lstInput.Count) 
-                        //{
-                        //   arr += ",";
+                        var cutValues = value.values.Take(20);
+                        //string tmp = String.Join(",", value.values.Select(p=>p.ToString("0.000000")).ToArray());
+                        string tmp = String.Join(",", cutValues.Select(p=>p.ToString("0.000000")).ToArray());
+
+                        string arr = "[" + tmp + "],";
+                        //if (i < 200) {
+                            outputValues += arr;
+                            outputTimes += arr; //TODO: use the correct array
                         //}
-                        outputValues += arr + ",";
-                        outputTimes += arr + ",";
+             
+                        
+
+                   
                         
                         //outputValues += value.values.ToString("0.000000") + ",";
                         //outputValues.literal_eval();
@@ -130,14 +133,21 @@ public class AdaptiveEEG: MonoBehaviour
 
                 if (i > 0) 
                 { 
-                    //Debug.Log(outputValues);
+                //Debug.Log(outputValues);
+
                     timeLastSendTcp = time;
                     outputValues = outputValues.Remove(outputValues.Length-1);
-                    print(outputValues[outputValues.Length-1]);
+                    //print(outputValues[outputValues.Length-1]);
                     outputTimes = outputTimes.Remove(outputTimes.Length-1);
-                    tcp.SendMessageNoReturn("{\"type\":\"eeg_data\", \"values\": [" + outputValues + "], \"times\": [" + outputTimes + "]}");
-                    totalCount = lst.Count;
+                    //string message = "{\"type\":\"eeg_data\",\"values\":[" + outputValues + "],\"times\":[" + outputTimes + "]}";
+                    if (i % 200 == 0 )
+                    {
+                        //Debug.Log(message);
+                    }
+                    tcp.SendMessageNoReturn("{\"type\":\"eeg_data\",\"values\":[" + outputValues + "]}");
+                totalCount = lst.Count;
                 }
+                
                 
                 // get data after every 20s
                 else if (mytask.TimeSinceStart > nextActionTime )
