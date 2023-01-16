@@ -11,12 +11,11 @@ ch_names = ['Fp1','Fz','F3','F7','F9','FC5','FC1','C3','T7','CP5','CP1',
             ,'F1','F5','FT7','FC3','C1','C5','TP7','CP3','P1','P5','PO7','PO3','Iz'
             ,'POz','PO4','PO8','P6','P2','CPz','CP4','TP8','C6','C2','FC4','FT8','F6','F2','AF4','AF8']
 
+
 ch_types = ['eeg'] * 64
+
 
 alpha_ch_groups = [
                    ['Pz','P3', 'P4','O1','O2', 'Oz'],
                    ch_names
                    ]
-
-
-
