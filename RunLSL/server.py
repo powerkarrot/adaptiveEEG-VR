@@ -59,9 +59,6 @@ while True:
                 #    print(data)
                 try:
                     obj = json.loads(data)
-                    if not obj["type"]  == "eeg_data":
-                        print(obj["type"])
-
                     
                     if (obj["type"] == "data"):
                         lstDataValues.extend(obj["values"])
