@@ -28,7 +28,6 @@ def get_alpha_bands(subject):
             picks =  select_channels_picks(raws[0], grp)   
             alpha_iaf = philistine.mne.savgol_iaf(raws[0], picks=picks, resolution=.1)
             alpha = [alpha_iaf.AlphaBand[0], alpha_iaf.AlphaBand[1]]
-            print(alpha)
             break
         except Exception as e:
             print("Didn't work ", e)
