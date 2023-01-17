@@ -106,15 +106,14 @@ public class AdaptiveEEG: MonoBehaviour
                     {
                         
                         //var cutValues = value.values.Take(20);
-                        var cutValues = value.values.Take(20);
+                        var cutValues = value.values.Take(64);
                         //string tmp = String.Join(",", value.values.Select(p=>p.ToString("0.000000")).ToArray());
                         //string tmp = String.Join(",", cutValues.Select(p=>p.ToString("0.000000")).ToArray());
                         string tmp = String.Join(",", cutValues.Select(p=>p.ToString()).ToArray());
 
-
                         string arr = "[" + tmp + "],";
                         outputValues += arr;
-                        //outputTimes += arr; //TODO: use the correct array
+                        //outputTimes += arr; //TODO: use the correct array. or don't use it at all :D
         
                         
                         i++;
@@ -147,6 +146,7 @@ public class AdaptiveEEG: MonoBehaviour
                 }
 
                 //TODO: ask yagiz why twice and where is TimeSinceStart supposed to be set?
+                /*
                 else if (mytask.TimeSinceStart2 > nextActionTime2 )
                 {
                     Debug.Log("time 2");
@@ -154,7 +154,7 @@ public class AdaptiveEEG: MonoBehaviour
                     String s = tcp.SendMessage("{\"type\":\"calc_eeg\"}");                   
                     response = JsonUtility.FromJson<ServerResponse>(s);
                 }
-
+                */
                 // adaptation in every 20s logged as 6
                 
                 if (mytask.TimeSinceStart2 > firstadaptationtime2 && mytask.currentBlock == 4)
