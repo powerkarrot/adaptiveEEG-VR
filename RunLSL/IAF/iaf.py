@@ -13,15 +13,47 @@ mne.set_log_level(False)
 #mne.cuda.init_cuda(verbose=True)
 plt.rcParams.update({'figure.max_open_warning': 0})
 
-
 matplotlib.use('Agg') # supress plots
+
+   
+def get_alpha_bands(subject):
+    
+    eyesopen = make_raw(subject, "01")#.crop(tmin = 4.0, tmax = 116.)
+    #eyesclosed = make_raw(subject, "02").crop(tmin = 4.0, tmax = 116.)
+    #raws = [eyesopen,eyesclosed]
+    raws = [eyesopen] # not actually eyes open, this is a test
+
+    
+    #TODO dont do for all channel groups, just have one lul
+    
+    alpha = []
+    for g, grp in enumerate(alpha_ch_groups):  
+        
+        try:
+            picks =  select_channels_picks(raws[0], grp)   
+            alpha_iaf = philistine.mne.savgol_iaf(raws[0], picks=picks, resolution=.1)
+            alpha = [alpha_iaf.AlphaBand[0], alpha_iaf.AlphaBand[1]]
+            print(alpha)
+            break
+        except Exception as e:
+            print("Didn't work ", e)
+            
+    
+    if not alpha: alpha = [7., 14.] 
+        
+
+    print("ID", subject , "ch_group ", g, alpha )
+    return alpha
+
 
 #TODO: consider excluding failed channels 
 def test_subj_channels(subject):
     test = test_channels(subject[0],subject[1], channels)
     print("Subject", subject , "problematic channels:" , test)
-
-def get_alpha_bands(subject):
+    
+    
+    
+def get_alpha_bands_old(subject):
     
     eyesopen = make_raw(subject, "01")#.crop(tmin = 4.0, tmax = 116.)
     #eyesclosed = make_raw(subject, "02").crop(tmin = 4.0, tmax = 116.)
@@ -49,11 +81,12 @@ def get_alpha_bands(subject):
             alpha_iaf = philistine.mne.savgol_iaf(raws[0], picks=picks, resolution=.1)
             alpha = [alpha_iaf.AlphaBand[0], alpha_iaf.AlphaBand[1]]
         except Exception as e:
-            print(e)
             alpha = [7., 14.]
             
 
         print("ID", subject , "ch_group ", g, alpha )
         return alpha
+    
+
     
 # %%
