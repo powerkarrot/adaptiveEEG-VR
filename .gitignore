@@ -75,5 +75,7 @@ crashlytics-build.properties
 
 LogData/
 RunLSL/IAF/pickles
+RunLSL/adaptation/pickles
+*.pickle
 
 .fake
