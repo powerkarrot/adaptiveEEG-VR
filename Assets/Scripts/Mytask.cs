@@ -208,41 +208,7 @@ public class Mytask : MonoBehaviour
             //sendData();
         
         }
-        /*
-        else if (state == STATES.wait && currentBlock == 4)
-        {
-            CountNr.SetActive(false);
-            pilar.SetActive(false);
-            sphere.SetActive(false);
-            CorrectTrash.SetActive(false);
-            trash_square.SetActive(false);
-            //feedbackCorrect.SetActive(false);
-            //feedbackWrong.SetActive(false);
-            //feedbackStats.SetActive(false);
-            questionnaire.SetActive(false);
-            vivepointer.SetActive(false);
-            adaptiveEEG.isActive = true;
-            blockDesigner.IsIAfBaseline = false;
-            pedestrianSpawner.pedestriansToSpawn = 200;
-        }
 
-        else if (state == STATES.wait && currentBlock == 5)
-        {
-            CountNr.SetActive(false);
-            pilar.SetActive(true);
-            CorrectTrash.SetActive(true);
-            trash_square.SetActive(true);
-            //feedbackCorrect.SetActive(true);
-            //feedbackWrong.SetActive(true);
-            //feedbackStats.SetActive(true);
-            blockDesigner.IsIAfBaseline = false;           
-            questionnaire.SetActive(false);
-            vivepointer.SetActive(false);
-            adaptiveEEG.isActive = true;
-            pedestrianSpawner.pedestriansToSpawn = 0;
-
-        }
-        */
         else if (state == STATES.wait && currentBlock == 4)
         {
             CountNr.SetActive(false);
@@ -293,8 +259,6 @@ public class Mytask : MonoBehaviour
            
         }
 
-
-
       /*  if (Input.GetKeyDown("a"))
         {
             adaptiveEDA.isActive = !adaptiveEDA.isActive;
@@ -320,15 +284,7 @@ public class Mytask : MonoBehaviour
                 Application.Quit();
 #endif
             }
-            /*
-            if (nextBlock == 5) 
-            {
-                //adaptiveEDA.isActive = true;
-                pedestrianSpawner.pedestriansToSpawn = 0;
-                logger.writeState(timestamp, "start", nextBlock, 1, nBackNumber);
-                //Debug.Log("Start adaptation 7");
-            }   
-            */ 
+
             else if (nextBlock == 4) 
             {
                 //adaptiveEDA.isActive = true;  

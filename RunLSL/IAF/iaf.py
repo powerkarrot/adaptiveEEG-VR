@@ -18,13 +18,8 @@ matplotlib.use('Agg') # supress plots
    
 def get_alpha_bands(subject):
     
-    eyesopen = make_raw(subject, "01")#.crop(tmin = 4.0, tmax = 116.)
-    #eyesclosed = make_raw(subject, "02").crop(tmin = 4.0, tmax = 116.)
-    #raws = [eyesopen,eyesclosed]
-    raws = [eyesopen] # not actually eyes open, this is a test
-
-    
-    #TODO dont do for all channel groups, just have one lul
+    eyesclosed = make_raw(subject, "01")#.crop(tmin = 4.0, tmax = 116.) #TODO: add crop back!!!
+    raws = [eyesclosed] #NOTE: no need for array anymore 
     
     alpha = []
     for g, grp in enumerate(alpha_ch_groups):  
@@ -41,7 +36,6 @@ def get_alpha_bands(subject):
     
     if not alpha: alpha = [7., 14.] 
         
-
     print("ID", subject , "ch_group ", g, alpha )
     return alpha
 
