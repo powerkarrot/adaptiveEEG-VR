@@ -208,6 +208,7 @@ public class Mytask : MonoBehaviour
             //sendData();
         
         }
+        /*
         else if (state == STATES.wait && currentBlock == 4)
         {
             CountNr.SetActive(false);
@@ -241,7 +242,8 @@ public class Mytask : MonoBehaviour
             pedestrianSpawner.pedestriansToSpawn = 0;
 
         }
-        else if (state == STATES.wait && currentBlock == 6)
+        */
+        else if (state == STATES.wait && currentBlock == 4)
         {
             CountNr.SetActive(false);
             pilar.SetActive(true);
@@ -257,7 +259,7 @@ public class Mytask : MonoBehaviour
             pedestrianSpawner.pedestriansToSpawn = 50;
 
         }
-        else if (state == STATES.wait && currentBlock == 7)
+        else if (state == STATES.wait && currentBlock == 5)
         {
             CountNr.SetActive(false);
             pilar.SetActive(true);
@@ -318,14 +320,16 @@ public class Mytask : MonoBehaviour
                 Application.Quit();
 #endif
             }
+            /*
             if (nextBlock == 5) 
             {
                 //adaptiveEDA.isActive = true;
                 pedestrianSpawner.pedestriansToSpawn = 0;
                 logger.writeState(timestamp, "start", nextBlock, 1, nBackNumber);
                 //Debug.Log("Start adaptation 7");
-            }    
-            else if (nextBlock == 6) 
+            }   
+            */ 
+            else if (nextBlock == 4) 
             {
                 //adaptiveEDA.isActive = true;  
                 //rInt = UnityEngine.Random.Range(20, 120);
@@ -335,7 +339,7 @@ public class Mytask : MonoBehaviour
                
             }
 
-            else if (nextBlock == 7)
+            else if (nextBlock == 5)
             {
                 //adaptiveEDA.isActive = true;  
                 //rInt = UnityEngine.Random.Range(20, 120);

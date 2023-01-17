@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class BlockDesigner : MonoBehaviour
 {
-    public List<int> order = new List<int>{1, 2, 3, 4, 5, 6, 7};
+    public List<int> order = new List<int>{1, 2, 3, 4, 5};
 
     private double timeStart = 0.0;
     public double duration = 360.0;
