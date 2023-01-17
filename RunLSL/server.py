@@ -35,6 +35,8 @@ lstDataTonicEnd = []
 lst_eeg_values = []
 lst_eeg_times = []
 
+lst_eeg_pws = []
+
 def current_milli_time():
     return round(time.time() * 1000)
 
@@ -51,8 +53,12 @@ while True:
 
         # Receive the data in small chunks and retransmit it
         while True:
-             while True:
-                data = connection.recv(4096*4*4*4*4).decode("utf-8")
+            total_data=[]
+            while True:
+                data = connection.recv(4096*8*8*8*8).decode("utf-8")
+                #if not data: break
+                #total_data.extend(data)
+                
                 #data = connection.recv(8192).decode("utf-8")
                 #print(data)
                 #if len(data) > 0:
@@ -68,10 +74,10 @@ while True:
                     elif (obj["type"] == "eeg_data"):
                         lst_eeg_values.extend(obj["values"])
                         #lst_eeg_times.extend(obj["times"])
-                        if(len(lst_eeg_values) % 50 == 0):
-                            samples = np.asarray(lst_eeg_values, dtype=object)
-                            raw = make_raw_arr(preprocess=False, samples=samples.T) #TODO: try with .T
-                            print(raw.info)
+                        #if(len(lst_eeg_values) % 10 == 0):
+                        #    samples = np.asarray(lst_eeg_values, dtype=object)
+                        #    raw = make_raw_arr(preprocess=False, samples=samples.T) #TODO: try with .T
+                        #    print(raw.info)
                             
                         
                     elif (obj["type"] == "iaf"):
@@ -87,19 +93,19 @@ while True:
                         #print("did alpha", alpha)
                         connection.sendall(signals_data.encode("utf-8"))
                        
-                        #TODO: save alpha as pickle or something
                         filename = './RunLSL/IAF/pickles/' + str(curId) + '-iaf.pickle'
-                    
                         with open(filename, 'wb') as handle:
                             pickle.dump(alpha, handle, protocol=pickle.HIGHEST_PROTOCOL)
                             
+
                     elif (obj["type"] == "alphapow_baseline"):
-                        #print("doing iaf")
                         curId = obj["values"]
-                        #time.sleep(1) # TODO: remove this
-                        #print(curId)
 
                         alpha_baseline = calculate_alpha_baseline(curId)
+                        filename = './RunLSL/adaptation/pickles/' + str(curId) + '-baseline.pickle'
+                        with open(filename, 'wb') as handle:
+                            pickle.dump(alpha_baseline, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
                         print("alpha baseline is " , str(alpha_baseline))
                         data = {"baselineDone":1, "error":""} #TODO: finish. save baseline as pickle too.
                         signals_data = json.dumps(data) 
@@ -107,15 +113,18 @@ while True:
                        
                     elif (obj["type"] == "calc_eeg"):
                         print("calculating eeg for adaptation")
-
-                        #raw = make_raw_arr(preprocess=False, samples=lst_eeg_values)
-                        #print(raw.info)
-                        #turn into raw here
+                        
+                        try:
+                            samples = np.asarray(lst_eeg_values, dtype=object)
+                            raw = make_raw_arr(preprocess=False, samples=samples.T) #TODO: try with .T
+                            print(raw.info)
+                        except Exception as e:
+                            print(e)
+                            
                         signals_data = json.dumps({"slopet1":0, "slopet2":0,"error":"not ready"}) 
                         connection.sendall(signals_data.encode("utf-8"))
-                        #print("resetting array")
-                        #lst_eeg_values = []
-                        #lst_eeg_times = []
+                        print("resetting array")
+                        lst_eeg_values = []
                     
                     elif (obj["type"] == "calc"):
                     
@@ -176,7 +185,7 @@ while True:
 
                 except Exception as e:       
                     f = open("error.txt", "a")
-                    f.write(data)
+                    f.write(e)
                     f.close()  
                     print("Exception:", e)          
             
