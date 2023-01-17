@@ -136,7 +136,9 @@ public class AdaptiveEEG: MonoBehaviour
                 
                 
                 // get data after every 20s
-                else if (mytask.TimeSinceStart > nextActionTime )
+                //else if (mytask.TimeSinceStart > nextActionTime )
+                else if (Time.realtimeSinceStartup > nextActionTime )
+
                 {
                     Debug.Log("time 1");
                     nextActionTime += adaptionRate;
@@ -144,7 +146,7 @@ public class AdaptiveEEG: MonoBehaviour
                     response = JsonUtility.FromJson<ServerResponse>(s);
                 }
 
-                //TODO: ask yagiz
+                //TODO: ask yagiz why twice and where is TimeSinceStart supposed to be set?
                 else if (mytask.TimeSinceStart2 > nextActionTime2 )
                 {
                     Debug.Log("time 2");
