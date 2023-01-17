@@ -45,7 +45,6 @@ while True:
     print('waiting for a connection')
     connection, client_address = sock.accept()
 
-
     #tonic_old = []
 
     try:
@@ -58,11 +57,7 @@ while True:
                 data = connection.recv(4096*8*8*8*8).decode("utf-8")
                 #if not data: break
                 #total_data.extend(data)
-                
-                #data = connection.recv(8192).decode("utf-8")
-                #print(data)
-                #if len(data) > 0:
-                #    print(data)
+   
                 try:
                     obj = json.loads(data)
                     
@@ -73,24 +68,13 @@ while True:
                         
                     elif (obj["type"] == "eeg_data"):
                         lst_eeg_values.extend(obj["values"])
-                        #lst_eeg_times.extend(obj["times"])
-                        #if(len(lst_eeg_values) % 10 == 0):
-                        #    samples = np.asarray(lst_eeg_values, dtype=object)
-                        #    raw = make_raw_arr(preprocess=False, samples=samples.T) #TODO: try with .T
-                        #    print(raw.info)
-                            
+
                         
                     elif (obj["type"] == "iaf"):
-                        #print("doing iaf")
                         curId = obj["values"]
-                        
-                        #time.sleep(1) #TODO: remove this after testing
                         alpha = get_alpha_bands(curId)
-                        #data = {"lowerAlpha":1,"upperAlpha":2, "iafDone":1, "error":""}
-                        #print(type(alpha))
                         data = {"lowerAlpha":alpha[0],"upperAlpha":alpha[1], "iafDone":1, "error":""}
                         signals_data = json.dumps(data) 
-                        #print("did alpha", alpha)
                         connection.sendall(signals_data.encode("utf-8"))
                        
                         filename = './RunLSL/IAF/pickles/' + str(curId) + '-iaf.pickle'
@@ -107,7 +91,7 @@ while True:
                             pickle.dump(alpha_baseline, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
                         print("alpha baseline is " , str(alpha_baseline))
-                        data = {"baselineDone":1, "error":""} #TODO: finish. save baseline as pickle too.
+                        data = {"baselineDone":1, "error":""}
                         signals_data = json.dumps(data) 
                         connection.sendall(signals_data.encode("utf-8"))
                        
@@ -121,8 +105,9 @@ while True:
                         except Exception as e:
                             print(e)
                             
-                        signals_data = json.dumps({"slopet1":0, "slopet2":0,"error":"not ready"}) 
+                        signals_data = json.dumps({"slopet1":0, "slopet2":0,"error":"not ready"}) #TODO: calculate and fill in actual values
                         connection.sendall(signals_data.encode("utf-8"))
+                        
                         print("resetting array")
                         lst_eeg_values = []
                     
@@ -184,9 +169,9 @@ while True:
                             connection.sendall(signals_data.encode("utf-8"))
 
                 except Exception as e:       
-                    f = open("error.txt", "a")
-                    f.write(e)
-                    f.close()  
+                    #f = open("error.txt", "a")
+                    #f.write(e)
+                    #f.close()  
                     print("Exception:", e)          
             
     finally:
