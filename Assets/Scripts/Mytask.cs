@@ -165,7 +165,7 @@ public class Mytask : MonoBehaviour
             questionnaire.SetActive(true);
             vivepointer.SetActive(false);
             blockDesigner.IsIAfBaseline = true;
-            blockDesigner.duration = 5.00;
+            blockDesigner.duration = 10.00;
         }
 
         else if (state == STATES.wait && currentBlock == 2)
