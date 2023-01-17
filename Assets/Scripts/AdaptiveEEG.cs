@@ -91,6 +91,7 @@ public class AdaptiveEEG: MonoBehaviour
             //Debug.Log(lSLInput.samples[0].values[0]);
             //Debug.Log(lstInput.Count);
 
+            #TODO: suggestion: start script in beginning and then only run this part on blocks 4 and 5 to get rid of the initial delay
             if (lstInput.Count > 0)
             {
                 List<SignalSample> lst = SignalSample.convertEEG(lstInput);
