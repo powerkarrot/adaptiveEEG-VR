@@ -96,7 +96,7 @@ while True:
                         connection.sendall(signals_data.encode("utf-8"))
                        
                     elif (obj["type"] == "calc_eeg"):
-                        print("calculating pws for adaptation")
+                        #print("calculating pws for adaptation")
                         cur_ratio = calculate_iaf_power(curId, lst_eeg_values)
                         filename = './RunLSL/adaptation/pickles/' + str(curId) + '-baseline.pickle'
                         with open(filename, 'rb') as handle:
