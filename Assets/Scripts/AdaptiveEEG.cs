@@ -40,7 +40,7 @@ public class AdaptiveEEG: MonoBehaviour
     public int countPerWindow;
     public double average;
 
-    public double slopeThreshold;
+    public double percentageThreshold;
     //public double offset; 
     // Pedestrian Spawning Variables
 
@@ -50,7 +50,7 @@ public class AdaptiveEEG: MonoBehaviour
 
     public List<float> slope = new List<float>();
 
-    public ServerResponse response;
+    public ServerAdaptationResponse response;
 
 
     [ReadOnly] public int currencount = 0;
@@ -115,8 +115,7 @@ public class AdaptiveEEG: MonoBehaviour
                         string arr = "[" + tmp + "],";
                         outputValues += arr;
                         //outputTimes += arr; //TODO: use the correct array. or don't use it at all :D
-        
-                        
+    
                         i++;
                     }
                 }
@@ -142,160 +141,70 @@ public class AdaptiveEEG: MonoBehaviour
                 {
                     Debug.Log("time 1");
                     nextActionTime += adaptionRate;
+                    Debug.Log("Sending calc_eeg");
                     String s = tcp.SendMessage("{\"type\":\"calc_eeg\"}");                   
-                    response = JsonUtility.FromJson<ServerResponse>(s);
-                }
+                    response = JsonUtility.FromJson<ServerAdaptationResponse>(s);
+                    Debug.Log("got response " + response);
 
-                //TODO: ask yagiz why twice and where is TimeSinceStart supposed to be set?
-                /*
-                else if (mytask.TimeSinceStart2 > nextActionTime2 )
-                {
-                    Debug.Log("time 2");
-                    nextActionTime2 += adaptionRate;
-                    String s = tcp.SendMessage("{\"type\":\"calc_eeg\"}");                   
-                    response = JsonUtility.FromJson<ServerResponse>(s);
-                }
-                */
-                // adaptation in every 20s logged as 6
-                
-                if (mytask.TimeSinceStart2 > firstadaptationtime2 && mytask.currentBlock == 4)
-                {
-                    firstadaptationtime2 += adaptionRate;
+                    if(response.error == "")
+                    {
 
-                    if(response.error == ""){
-                    
-                        //if(mytask.currentBlock == 6 && response.slopet2 > response.slopet1) 
-                        if(mytask.currentBlock == 4 && (response.slopet2 - response.slopet1) >  slopeThreshold)
+                        float percentageDiff = ((response.ratio2 - response.ratio1) / response.ratio1) * 100;
+                        Debug.Log("PercentageDiff" + percentageDiff);
+                         
+                        if(percentageDiff >  percentageThreshold) 
                         {
-                            currentCount = pedestrianSpawner.pedestriansToSpawn;
-                            currentCount -= adaptationDown;
-                            pedestrianSpawner.pedestriansToSpawn = currentCount;
-                            logger.writeAdaption(time, "less", currentCount, response.slopet1, response.slopet2, 4);
-                            Debug.Log("Less LIAMS");
-                            
+                            if(mytask.currentBlock == 6) 
+                            {
+                                currentCount = pedestrianSpawner.pedestriansToSpawn;
+                                currentCount -= adaptationDown;
+                                pedestrianSpawner.pedestriansToSpawn = currentCount;
+                                logger.writeAdaption(time, "less", currentCount, response.ratio1, response.ratio2, 6);
+                                Debug.Log("Less LIAMS");
+                            }
+
+                            if(mytask.currentBlock == 7) 
+                            {
+                                currentCount = pedestrianSpawner.pedestriansToSpawn;
+                                currentCount += adaptationUp;
+                                pedestrianSpawner.pedestriansToSpawn = currentCount;
+                                logger.writeAdaption(time, "more", currentCount, response.ratio1, response.ratio2, 7); 
+                                Debug.Log("More LIAMS");
+                            }
                         }
-                        //else if(mytask.currentBlock == 6 && response.slopet2 < response.slopet1) 
-                        else if(mytask.currentBlock == 4 && (response.slopet2 - response.slopet1) < - slopeThreshold)
-                        {
-                            currentCount = pedestrianSpawner.pedestriansToSpawn;
-                            currentCount += adaptationUp;
-                            pedestrianSpawner.pedestriansToSpawn = currentCount;
-                            logger.writeAdaption(time, "more", currentCount, response.slopet1, response.slopet2, 4); 
-                            Debug.Log("More LIAMS");
-                            
-                        }
-
-                    }       
-
-                }   
-
-
-                if (mytask.TimeSinceStart2 > firstadaptationtime2 && mytask.currentBlock == 5)
-                {
-                    firstadaptationtime2 += adaptionRate;
-
-                    if(response.error == ""){
-                    
-                        //if(mytask.currentBlock == 6 && response.slopet2 > response.slopet1) 
-                        if(mytask.currentBlock == 5 && (response.slopet2 - response.slopet1) >  slopeThreshold)
-                        {
-                            currentCount = pedestrianSpawner.pedestriansToSpawn;
-                            currentCount -= adaptationDown;
-                            pedestrianSpawner.pedestriansToSpawn = currentCount;
-                            logger.writeAdaption(time, "less", currentCount, response.slopet1, response.slopet2, 5);
-                            Debug.Log("Less LIAMS");
-                            
-                        }
-                        //else if(mytask.currentBlock == 6 && response.slopet2 < response.slopet1) 
-                        else if(mytask.currentBlock == 5 && (response.slopet2 - response.slopet1) < - slopeThreshold)
-                        {
-                            currentCount = pedestrianSpawner.pedestriansToSpawn;
-                            currentCount += adaptationUp;
-                            pedestrianSpawner.pedestriansToSpawn = currentCount;
-                            logger.writeAdaption(time, "more", currentCount, response.slopet1, response.slopet2, 5); 
-                            Debug.Log("More LIAMS");
-                            
-                        }
-
-                    }       
-
-                }   
-
-                if (mytask.TimeSinceStart2 > firstadaptationtime2 && mytask.currentBlock == 6)
-                {
-                    firstadaptationtime2 += adaptionRate;
-
-                    if(response.error == ""){
-                    
-                        //if(mytask.currentBlock == 6 && response.slopet2 > response.slopet1) 
-                        if(mytask.currentBlock == 6 && (response.slopet2 - response.slopet1) >  slopeThreshold)
-                        {
-                            currentCount = pedestrianSpawner.pedestriansToSpawn;
-                            currentCount -= adaptationDown;
-                            pedestrianSpawner.pedestriansToSpawn = currentCount;
-                            logger.writeAdaption(time, "less", currentCount, response.slopet1, response.slopet2, 6);
-                            Debug.Log("Less LIAMS");
-                            
-                        }
-                        //else if(mytask.currentBlock == 6 && response.slopet2 < response.slopet1) 
-                        else if(mytask.currentBlock == 6 && (response.slopet2 - response.slopet1) < - slopeThreshold)
-                        {
-                            currentCount = pedestrianSpawner.pedestriansToSpawn;
-                            currentCount += adaptationUp;
-                            pedestrianSpawner.pedestriansToSpawn = currentCount;
-                            logger.writeAdaption(time, "more", currentCount, response.slopet1, response.slopet2, 6); 
-                            Debug.Log("More LIAMS");
-                            
-                        }
-
-                    }       
-
-                }   
-
-
-                // invere adaptation in every 20s logged as 7
-                if (mytask.TimeSinceStart > firstadaptationtime && mytask.currentBlock == 7 )
-                {
-                    firstadaptationtime += adaptionRate;                                 
-                    if(response.error == ""){
-                     
-
-                        if(mytask.currentBlock == 7 && (response.slopet2 - response.slopet1)  >  slopeThreshold)
-                        //if (mytask.currentBlock == 7 && (response.slopet2/  response.slopet1) < 1 - slopeThreshold) 
-                        {   
-                            currentCount = pedestrianSpawner.pedestriansToSpawn;
-                            currentCount += adaptationUp;
-                            pedestrianSpawner.pedestriansToSpawn = currentCount;
-                            logger.writeAdaption(time, "more", currentCount, response.slopet1, response.slopet2, 7); 
-                            Debug.Log("More LIAMS");
                         
-                        }
-                        else if(mytask.currentBlock == 7 && (response.slopet2 - response.slopet1)  < - slopeThreshold)
-                        //else if(mytask.currentBlock == 7 && (response.slopet2 / response.slopet1) > 1 + slopeThreshold)
+                        if (percentageDiff < - percentageThreshold)
                         {
-                            currentCount = pedestrianSpawner.pedestriansToSpawn;
-                            currentCount -= adaptationDown;
-                            pedestrianSpawner.pedestriansToSpawn = currentCount;
-                            logger.writeAdaption(time, "less", currentCount, response.slopet1, response.slopet2, 7);
-                            Debug.Log("Less LIAMS");
-                            
-                        }
+                            if(mytask.currentBlock == 6) 
+                            {
+                                currentCount = pedestrianSpawner.pedestriansToSpawn;
+                                currentCount += adaptationUp;
+                                pedestrianSpawner.pedestriansToSpawn = currentCount;
+                                logger.writeAdaption(time, "more", currentCount, response.ratio1, response.ratio2, 6); 
+                                Debug.Log("More LIAMS");
+                            }
+                            if(mytask.currentBlock == 7) 
+                            {
+                                currentCount = pedestrianSpawner.pedestriansToSpawn;
+                                currentCount -= adaptationDown;
+                                pedestrianSpawner.pedestriansToSpawn = currentCount;
+                                logger.writeAdaption(time, "less", currentCount, response.ratio1, response.ratio2, 7);
+                                Debug.Log("Less LIAMS");
+                            }
+                        } 
                     }
                 }
-                
-                
+
                 else 
                     {
                         //TODO: ask yagiz, does this really mean there is an error? 
                         //Debug.LogWarning("Server:" + response.error);
                     }
-                   // Debug.Log(tonicEDA + " " + slopeBaseline + " " + (tonicEDA - slopeBaseline) + " " + slopeThreshold);
+                   // Debug.Log(tonicEDA + " " + slopeBaseline + " " + (tonicEDA - slopeBaseline) + " " + percentageThreshold
             }
         }    
 
     }
-    
-
     
 
     public List<SignalSample> getAffectedSamples(List<SignalSample> samples, double time)
