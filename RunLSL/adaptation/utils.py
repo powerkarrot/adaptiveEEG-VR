@@ -19,7 +19,6 @@ def make_raw_csv(pid=1,preprocess=True):
     info.set_montage('standard_1020',  match_case=False)
     samples = dfEEG.T
     raw = mne.io.RawArray(samples, info)
-    
     return raw
 
 def make_raw_arr(preprocess=True, samples=None):
@@ -43,7 +42,6 @@ def compute_freq_power(raw, fmin, fmax, picks):
     psds_mean= psds.mean(0)
     freq_res = freqs[1] - freqs[0]
     bp = simpson(psds_mean, dx=freq_res)
-
     return bp
 
     

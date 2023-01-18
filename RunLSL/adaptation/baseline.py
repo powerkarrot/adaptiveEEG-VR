@@ -18,7 +18,6 @@ def calculate_iaf_power(pid, lst_eeg_values = None, baseline=False):
         raw = make_raw_arr(preprocess=False, samples=samples.T) 
         lst_eeg_values = []
 
-            
     filename = './RunLSL/IAF/pickles/' + str(pid) + '-iaf.pickle'
     with open(filename, 'rb') as handle:
         alpha = pickle.load(handle)
