@@ -27,7 +27,7 @@ sock.bind(server_address)
 # Listen for incoming connections
 sock.listen(1)
 
-lstDataValues = []
+#lstDataValues = []
 lstDataTimes = []
 lstDataTonicStart = []
 lstDataTonicEnd = []
@@ -85,31 +85,29 @@ while True:
                     elif (obj["type"] == "alphapow_baseline"):
                         curId = obj["values"]
 
-                        alpha_baseline = calculate_alpha_baseline(curId)
+                        baseline = calculate_iaf_power(curId,baseline=True)
                         filename = './RunLSL/adaptation/pickles/' + str(curId) + '-baseline.pickle'
                         with open(filename, 'wb') as handle:
-                            pickle.dump(alpha_baseline, handle, protocol=pickle.HIGHEST_PROTOCOL)
+                            pickle.dump(baseline, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-                        print("alpha baseline is " , str(alpha_baseline))
+                        print("baseline is " , str(baseline))
                         data = {"baselineDone":1, "error":""}
                         signals_data = json.dumps(data) 
                         connection.sendall(signals_data.encode("utf-8"))
                        
                     elif (obj["type"] == "calc_eeg"):
                         print("calculating eeg for adaptation")
+                        print("value length is ", len(lst_eeg_values))                        
+                        cur_ratio = calculate_iaf_power(curId, lst_eeg_values)
+                        filename = './RunLSL/adaptation/pickles/' + str(curId) + '-baseline.pickle'
+                        with open(filename, 'rb') as handle:
+                            baseline_ratio = pickle.load(handle)
                         
-                        try:
-                            samples = np.asarray(lst_eeg_values, dtype=object)
-                            raw = make_raw_arr(preprocess=False, samples=samples.T) #TODO: try with .T
-                            print(raw.info)
-                        except Exception as e:
-                            print(e)
-                            
-                        signals_data = json.dumps({"slopet1":0, "slopet2":0,"error":"not ready"}) #TODO: calculate and fill in actual values
+                        signals_data = json.dumps({"ratio1":baseline_ratio, "ratio2":cur_ratio,"error":""})
                         connection.sendall(signals_data.encode("utf-8"))
                         
                         print("resetting array")
-                        lst_eeg_values = []
+                        #lst_eeg_values = [] #TODO: consider putting this somewhere else. directly after creating the raw
                     
                     elif (obj["type"] == "calc"):
                     

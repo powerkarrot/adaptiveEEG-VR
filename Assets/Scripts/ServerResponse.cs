@@ -15,24 +15,6 @@ public struct ServerResponse
 
     [SerializeField]
     public string error;
-
-    /*public float slope3 {
-        get {
-            return _slope3;
-        }
-        set {
-            _slope3 = value;
-        }
-    }
-    
-    public float slope1 {
-        get {
-            return _slope1;
-        }
-        set {
-            _slope1 = value;
-        }
-    }*/
 }
 
 [Serializable]
@@ -56,6 +38,18 @@ public struct ServerAlphaBaselineResponse
 {
     [SerializeField]
     public float baselineDone;
+
+    [SerializeField]
+    public string error;
+}
+
+public struct ServerAdaptationResponse
+{
+    [SerializeField]
+    public float ratio1;
+
+    [SerializeField]
+    public float ratio2;
 
     [SerializeField]
     public string error;

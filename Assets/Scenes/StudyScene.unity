@@ -888,7 +888,7 @@ MonoBehaviour:
   logger: {fileID: 1233132789}
   pedestrianSpawner: {fileID: 2082574699}
   isActive: 0
-  adaptionRate: 20
+  adaptionRate: 5
   adaptationUp: 16
   adaptationDown: 8
   timeWindowInSeconds: 20
@@ -900,14 +900,10 @@ MonoBehaviour:
   totalCount: 0
   countPerWindow: 0
   average: 0
-  slopeThreshold: 0.0001
+  percentageThreshold: 20
   minCount: 20
   maxCount: 300
   slope: []
-  response:
-    slopet1: 0
-    slopet2: 0
-    error: 
   currencount: 0
   tcp: {fileID: 98548243}
   tcpDelay: 0.01
@@ -2359,14 +2355,10 @@ MonoBehaviour:
   totalCount: 0
   countPerWindow: 0
   average: 0
-  slopeThreshold: 0
+  percentageThreshold: 0
   minCount: 0
   maxCount: 0
   slope: []
-  response:
-    slopet1: 0
-    slopet2: 0
-    error: 
   currencount: 0
   tcp: {fileID: 0}
   tcpDelay: 0.01
@@ -2400,14 +2392,10 @@ MonoBehaviour:
   totalCount: 0
   countPerWindow: 0
   average: 0
-  slopeThreshold: 0
+  percentageThreshold: 0
   minCount: 0
   maxCount: 0
   slope: []
-  response:
-    slopet1: 0
-    slopet2: 0
-    error: 
   currencount: 0
   tcp: {fileID: 0}
   tcpDelay: 0.01
@@ -2441,14 +2429,10 @@ MonoBehaviour:
   totalCount: 0
   countPerWindow: 0
   average: 0
-  slopeThreshold: 0
+  percentageThreshold: 0
   minCount: 0
   maxCount: 0
   slope: []
-  response:
-    slopet1: 0
-    slopet2: 0
-    error: 
   currencount: 0
   tcp: {fileID: 0}
   tcpDelay: 0.01
@@ -2482,14 +2466,10 @@ MonoBehaviour:
   totalCount: 0
   countPerWindow: 0
   average: 0
-  slopeThreshold: 0
+  percentageThreshold: 0
   minCount: 0
   maxCount: 0
   slope: []
-  response:
-    slopet1: 0
-    slopet2: 0
-    error: 
   currencount: 0
   tcp: {fileID: 0}
   tcpDelay: 0.01
@@ -2523,14 +2503,10 @@ MonoBehaviour:
   totalCount: 0
   countPerWindow: 0
   average: 0
-  slopeThreshold: 0
+  percentageThreshold: 0
   minCount: 0
   maxCount: 0
   slope: []
-  response:
-    slopet1: 0
-    slopet2: 0
-    error: 
   currencount: 0
   tcp: {fileID: 0}
   tcpDelay: 0.01
@@ -3746,14 +3722,10 @@ MonoBehaviour:
   totalCount: 0
   countPerWindow: 0
   average: 0
-  slopeThreshold: 0
+  percentageThreshold: 0
   minCount: 0
   maxCount: 0
   slope: []
-  response:
-    slopet1: 0
-    slopet2: 0
-    error: 
   currencount: 0
   tcp: {fileID: 0}
   tcpDelay: 0.01
@@ -4353,14 +4325,10 @@ MonoBehaviour:
   totalCount: 0
   countPerWindow: 0
   average: 0
-  slopeThreshold: 0
+  percentageThreshold: 0
   minCount: 0
   maxCount: 0
   slope: []
-  response:
-    slopet1: 0
-    slopet2: 0
-    error: 
   currencount: 0
   tcp: {fileID: 0}
   tcpDelay: 0.01

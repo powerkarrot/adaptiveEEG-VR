@@ -15,7 +15,14 @@ ch_names = ['Fp1','Fz','F3','F7','F9','FC5','FC1','C3','T7','CP5','CP1',
 ch_types = ['eeg'] * 64
 
 
+#NOTE: this is for iaf channel incrementation
 alpha_ch_groups = [
                    ['Pz','P3', 'P4','O1','O2', 'Oz'],
                    ch_names
                    ]
+
+#TODO change channels and rename vars
+#TODO: arda change here
+roi1 = ['Fp1','Fz','F3','F7','F9','FC5','FC1','C3','T7','CP5','CP1']
+roi2 = [ 'Pz','P3','P7','P9','O1','Oz','O2','P10','P8','P4','CP2','CP6']
+
