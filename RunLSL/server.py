@@ -96,8 +96,7 @@ while True:
                         connection.sendall(signals_data.encode("utf-8"))
                        
                     elif (obj["type"] == "calc_eeg"):
-                        print("calculating eeg for adaptation")
-                        print("value length is ", len(lst_eeg_values))                        
+                        print("calculating pws for adaptation")
                         cur_ratio = calculate_iaf_power(curId, lst_eeg_values)
                         filename = './RunLSL/adaptation/pickles/' + str(curId) + '-baseline.pickle'
                         with open(filename, 'rb') as handle:
@@ -105,10 +104,7 @@ while True:
                         
                         signals_data = json.dumps({"ratio1":baseline_ratio, "ratio2":cur_ratio,"error":""})
                         connection.sendall(signals_data.encode("utf-8"))
-                        
-                        print("resetting array")
-                        #lst_eeg_values = [] #TODO: consider putting this somewhere else. directly after creating the raw
-                    
+                                            
                     elif (obj["type"] == "calc"):
                     
                         span = 5*30
