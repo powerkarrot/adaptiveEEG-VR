@@ -139,8 +139,9 @@ public class AdaptiveEEG: MonoBehaviour
                 else if (Time.realtimeSinceStartup > nextActionTime )
 
                 {
-                    Debug.Log("time 1");
+                    
                     nextActionTime += adaptionRate;
+                    Debug.Log(nextActionTime.ToString() + " , cur: " + Time.realtimeSinceStartup.ToString());
                     Debug.Log("Sending calc_eeg");
                     String s = tcp.SendMessage("{\"type\":\"calc_eeg\"}");                   
                     response = JsonUtility.FromJson<ServerAdaptationResponse>(s);
@@ -152,10 +153,12 @@ public class AdaptiveEEG: MonoBehaviour
                         float percentageDiff = ((response.ratio2 - response.ratio1) / response.ratio1) * 100;
                         Debug.Log("PercentageDiff" + percentageDiff);
                          
+                        //TODO task 4 and task 5 are inverted here
                         if(percentageDiff >  percentageThreshold) 
                         {
-                            if(mytask.currentBlock == 6) 
+                            if(mytask.currentBlock == 4) 
                             {
+                                Debug.Log("TASK 4 " + percentageDiff.ToString()  + ">" + percentageThreshold.ToString());
                                 currentCount = pedestrianSpawner.pedestriansToSpawn;
                                 currentCount -= adaptationDown;
                                 pedestrianSpawner.pedestriansToSpawn = currentCount;
@@ -163,8 +166,10 @@ public class AdaptiveEEG: MonoBehaviour
                                 Debug.Log("Less LIAMS");
                             }
 
-                            if(mytask.currentBlock == 7) 
+                            if(mytask.currentBlock == 5) 
                             {
+                                Debug.Log("TASK 5 " + percentageDiff.ToString()  + ">" + percentageThreshold.ToString());
+
                                 currentCount = pedestrianSpawner.pedestriansToSpawn;
                                 currentCount += adaptationUp;
                                 pedestrianSpawner.pedestriansToSpawn = currentCount;
@@ -175,16 +180,20 @@ public class AdaptiveEEG: MonoBehaviour
                         
                         if (percentageDiff < - percentageThreshold)
                         {
-                            if(mytask.currentBlock == 6) 
+                            if(mytask.currentBlock == 4) 
                             {
+                                Debug.Log("TASK 4 " + percentageDiff.ToString()  + "< -" + percentageThreshold.ToString());
+
                                 currentCount = pedestrianSpawner.pedestriansToSpawn;
                                 currentCount += adaptationUp;
                                 pedestrianSpawner.pedestriansToSpawn = currentCount;
                                 logger.writeAdaption(time, "more", currentCount, response.ratio1, response.ratio2, 6); 
                                 Debug.Log("More LIAMS");
                             }
-                            if(mytask.currentBlock == 7) 
+                            if(mytask.currentBlock == 5) 
                             {
+                                Debug.Log("TASK 4 " + percentageDiff.ToString()  + "< -" + percentageThreshold.ToString());
+
                                 currentCount = pedestrianSpawner.pedestriansToSpawn;
                                 currentCount -= adaptationDown;
                                 pedestrianSpawner.pedestriansToSpawn = currentCount;
