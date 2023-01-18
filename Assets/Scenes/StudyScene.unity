@@ -176,160 +176,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.326398, y: 0.0779965, z: 0.32639807}
   m_Center: {x: 0.000000019868216, y: 0.03899825, z: -0.000000019868216}
---- !u!1 &72174083
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 72174085}
-  - component: {fileID: 72174084}
-  m_Layer: 0
-  m_Name: WaypointOut2 (2)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &72174084
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 72174083}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af06c26c608f3ef4395ea52f3ba14c75, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  previousWaypoint: {fileID: 0}
-  nextWaypoint: {fileID: 990023853}
-  isStart: 0
-  isEnd: 0
-  isReset: 0
-  width: 20
-  branches: []
-  branchRatio: 0.5
---- !u!4 &72174085
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 72174083}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -30.37, y: -1.341, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 2082574700}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!1 &98548242
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 98548244}
-  - component: {fileID: 98548243}
-  m_Layer: 0
-  m_Name: TCPClient
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &98548243
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 98548242}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: caaeea4d7685f3446863a072f97889ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  adaptiveEDA: {fileID: 1066601767}
-  timeout: 1
---- !u!4 &98548244
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 98548242}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.603326, y: 3.6706436, z: 0.65262234}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &191714972
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 191714974}
-  - component: {fileID: 191714973}
-  m_Layer: 0
-  m_Name: WaypointOut3
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &191714973
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 191714972}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af06c26c608f3ef4395ea52f3ba14c75, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  previousWaypoint: {fileID: 0}
-  nextWaypoint: {fileID: 1601637835}
-  isStart: 0
-  isEnd: 0
-  isReset: 0
-  width: 20
-  branches: []
-  branchRatio: 0.5
---- !u!4 &191714974
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 191714972}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -22.42, y: 0.05, z: 0}
-  m_LocalScale: {x: 1.2894889, y: 1.2894889, z: 1.2894889}
-  m_Children: []
-  m_Father: {fileID: 2082574700}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!1 &194906135 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8697000387260259617, guid: 93494b0f3d397d74ba1458871f004384,
-    type: 3}
-  m_PrefabInstance: {fileID: 902571024}
-  m_PrefabAsset: {fileID: 0}
---- !u!43 &239154575
+--- !u!43 &66127962
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -492,6 +339,159 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &72174083
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 72174085}
+  - component: {fileID: 72174084}
+  m_Layer: 0
+  m_Name: WaypointOut2 (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &72174084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 72174083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af06c26c608f3ef4395ea52f3ba14c75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  previousWaypoint: {fileID: 0}
+  nextWaypoint: {fileID: 990023853}
+  isStart: 0
+  isEnd: 0
+  isReset: 0
+  width: 20
+  branches: []
+  branchRatio: 0.5
+--- !u!4 &72174085
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 72174083}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -30.37, y: -1.341, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2082574700}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!1 &98548242
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 98548244}
+  - component: {fileID: 98548243}
+  m_Layer: 0
+  m_Name: TCPClient
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &98548243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 98548242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caaeea4d7685f3446863a072f97889ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  adaptiveEDA: {fileID: 1066601767}
+  timeout: 1
+--- !u!4 &98548244
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 98548242}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.603326, y: 3.6706436, z: 0.65262234}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &191714972
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 191714974}
+  - component: {fileID: 191714973}
+  m_Layer: 0
+  m_Name: WaypointOut3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &191714973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 191714972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af06c26c608f3ef4395ea52f3ba14c75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  previousWaypoint: {fileID: 0}
+  nextWaypoint: {fileID: 1601637835}
+  isStart: 0
+  isEnd: 0
+  isReset: 0
+  width: 20
+  branches: []
+  branchRatio: 0.5
+--- !u!4 &191714974
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 191714972}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -22.42, y: 0.05, z: 0}
+  m_LocalScale: {x: 1.2894889, y: 1.2894889, z: 1.2894889}
+  m_Children: []
+  m_Father: {fileID: 2082574700}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!1 &194906135 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8697000387260259617, guid: 93494b0f3d397d74ba1458871f004384,
+    type: 3}
+  m_PrefabInstance: {fileID: 902571024}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &265792117
 GameObject:
   m_ObjectHideFlags: 0
@@ -892,10 +892,6 @@ MonoBehaviour:
   adaptationUp: 16
   adaptationDown: 8
   timeWindowInSeconds: 20
-  butterworthLowPassFrequency: 0.01
-  butterworthHighPassFrequency: 0
-  adaptiveFactor: 0
-  proportional: 0.001
   fPS: 0
   totalCount: 0
   countPerWindow: 0
@@ -903,7 +899,6 @@ MonoBehaviour:
   percentageThreshold: 20
   minCount: 20
   maxCount: 300
-  slope: []
   currencount: 0
   tcp: {fileID: 98548243}
   tcpDelay: 0.01
@@ -1035,11 +1030,11 @@ PrefabInstance:
     - target: {fileID: 2348914, guid: 4d293c8e162f3874b982baadd71153d2, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 1119930289}
+      objectReference: {fileID: 2142227733}
     - target: {fileID: 3380982, guid: 4d293c8e162f3874b982baadd71153d2, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 239154575}
+      objectReference: {fileID: 66127962}
     - target: {fileID: 11417168, guid: 4d293c8e162f3874b982baadd71153d2, type: 3}
       propertyPath: index
       value: -1
@@ -1854,40 +1849,6 @@ MonoBehaviour:
   tcp: {fileID: 98548243}
   tcpDelay: 0.01
   mytask: {fileID: 9000841247625586147}
---- !u!21 &1119930289
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Sprites/Default
-  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _AlphaTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - PixelSnap: 0
-    - _EnableExternalAlpha: 0
-    m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &1225845672
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2381,10 +2342,6 @@ MonoBehaviour:
   adaptationUp: 0
   adaptationDown: 0
   timeWindowInSeconds: 20
-  butterworthLowPassFrequency: 0
-  butterworthHighPassFrequency: 0
-  adaptiveFactor: 0
-  proportional: 0.5
   fPS: 0
   totalCount: 0
   countPerWindow: 0
@@ -2392,7 +2349,6 @@ MonoBehaviour:
   percentageThreshold: 0
   minCount: 0
   maxCount: 0
-  slope: []
   currencount: 0
   tcp: {fileID: 0}
   tcpDelay: 0.01
@@ -2418,10 +2374,6 @@ MonoBehaviour:
   adaptationUp: 0
   adaptationDown: 0
   timeWindowInSeconds: 20
-  butterworthLowPassFrequency: 0
-  butterworthHighPassFrequency: 0
-  adaptiveFactor: 0
-  proportional: 0.5
   fPS: 0
   totalCount: 0
   countPerWindow: 0
@@ -2429,7 +2381,6 @@ MonoBehaviour:
   percentageThreshold: 0
   minCount: 0
   maxCount: 0
-  slope: []
   currencount: 0
   tcp: {fileID: 0}
   tcpDelay: 0.01
@@ -2455,10 +2406,6 @@ MonoBehaviour:
   adaptationUp: 0
   adaptationDown: 0
   timeWindowInSeconds: 20
-  butterworthLowPassFrequency: 0
-  butterworthHighPassFrequency: 0
-  adaptiveFactor: 0
-  proportional: 0.5
   fPS: 0
   totalCount: 0
   countPerWindow: 0
@@ -2466,7 +2413,6 @@ MonoBehaviour:
   percentageThreshold: 0
   minCount: 0
   maxCount: 0
-  slope: []
   currencount: 0
   tcp: {fileID: 0}
   tcpDelay: 0.01
@@ -2492,10 +2438,6 @@ MonoBehaviour:
   adaptationUp: 0
   adaptationDown: 0
   timeWindowInSeconds: 20
-  butterworthLowPassFrequency: 0
-  butterworthHighPassFrequency: 0
-  adaptiveFactor: 0
-  proportional: 0.5
   fPS: 0
   totalCount: 0
   countPerWindow: 0
@@ -2503,7 +2445,6 @@ MonoBehaviour:
   percentageThreshold: 0
   minCount: 0
   maxCount: 0
-  slope: []
   currencount: 0
   tcp: {fileID: 0}
   tcpDelay: 0.01
@@ -2529,10 +2470,6 @@ MonoBehaviour:
   adaptationUp: 0
   adaptationDown: 0
   timeWindowInSeconds: 20
-  butterworthLowPassFrequency: 0
-  butterworthHighPassFrequency: 0
-  adaptiveFactor: 0
-  proportional: 0.5
   fPS: 0
   totalCount: 0
   countPerWindow: 0
@@ -2540,7 +2477,6 @@ MonoBehaviour:
   percentageThreshold: 0
   minCount: 0
   maxCount: 0
-  slope: []
   currencount: 0
   tcp: {fileID: 0}
   tcpDelay: 0.01
@@ -3714,10 +3650,6 @@ MonoBehaviour:
   adaptationUp: 0
   adaptationDown: 0
   timeWindowInSeconds: 20
-  butterworthLowPassFrequency: 0
-  butterworthHighPassFrequency: 0
-  adaptiveFactor: 0
-  proportional: 0.5
   fPS: 0
   totalCount: 0
   countPerWindow: 0
@@ -3725,7 +3657,6 @@ MonoBehaviour:
   percentageThreshold: 0
   minCount: 0
   maxCount: 0
-  slope: []
   currencount: 0
   tcp: {fileID: 0}
   tcpDelay: 0.01
@@ -4260,6 +4191,40 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 166490765101909118}
   m_Mesh: {fileID: 4300000, guid: 39bcb2bc55ab6c14a8d3f24fc5e07575, type: 3}
+--- !u!21 &2142227733
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Sprites/Default
+  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - PixelSnap: 0
+    - _EnableExternalAlpha: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &166490765101909118
 GameObject:
   m_ObjectHideFlags: 0
@@ -4317,10 +4282,6 @@ MonoBehaviour:
   adaptationUp: 0
   adaptationDown: 0
   timeWindowInSeconds: 20
-  butterworthLowPassFrequency: 0
-  butterworthHighPassFrequency: 0
-  adaptiveFactor: 0
-  proportional: 0.5
   fPS: 0
   totalCount: 0
   countPerWindow: 0
@@ -4328,7 +4289,6 @@ MonoBehaviour:
   percentageThreshold: 0
   minCount: 0
   maxCount: 0
-  slope: []
   currencount: 0
   tcp: {fileID: 0}
   tcpDelay: 0.01
