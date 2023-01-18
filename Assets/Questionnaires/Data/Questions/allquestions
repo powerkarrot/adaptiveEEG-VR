@@ -73,13 +73,12 @@
       },
       {
         "pId":"page3",
-         "qType":"linearGrid",
+         "qType":"linearSlider",
          "qInstructions":"Please rate all measures by clicking a point on the scale.",
          "qData":[
             {
                "qId":"g7",
                "qText":"I found it tiresome",
-               "qMandatory":"true",
                "qMin":"0",
                "qMinLabel":"Not at all",
                "qMax":"4",
@@ -88,7 +87,6 @@
             {
                "qId":"g8",
                "qText":"I felt skillful.",
-               "qMandatory":"true",
                "qMin":"0",
                "qMinLabel":"Not at all",
                "qMax":"4",
@@ -97,7 +95,6 @@
             {
                "qId":"g9",
                "qText":"I was interested in the game's story.",
-               "qMandatory":"true",
                "qMin":"0",
                "qMinLabel":"Not at all",
                "qMax":"4",
@@ -107,13 +104,12 @@
       },
       {
         "pId":"page4",
-         "qType":"linearGrid",
+         "qType":"linearSlider",
          "qInstructions":"Please rate all measures by clicking a point on the scale.",
          "qData":[
             {
                "qId":"g10",
                "qText":"I found it impressive",
-               "qMandatory":"true",
                "qMin":"0",
                "qMinLabel":"Not at all",
                "qMax":"4",
@@ -122,7 +118,6 @@
             {
                "qId":"g11",
                "qText":"I felt content.",
-               "qMandatory":"true",
                "qMin":"0",
                "qMinLabel":"Not at all",
                "qMax":"4",
@@ -131,7 +126,6 @@
             {
                "qId":"g12",
                "qText":"I felt good.",
-               "qMandatory":"true",
                "qMin":"0",
                "qMinLabel":"Not at all",
                "qMax":"4",
@@ -141,7 +135,7 @@
       },
       {
          "pId":"page5",
-         "qType":"linearGrid",
+         "qType":"linearSlider",
          "qInstructions":"Thank you for participating, please wait for the instructions!"
       },
       {
@@ -214,13 +208,12 @@
       },
       {
         "pId":"page8",
-         "qType":"linearGrid",
+         "qType":"linearSlider",
          "qInstructions":"Please rate all measures by clicking a point on the scale.",
          "qData":[
             {
                "qId":"g19",
                "qText":"I found it tiresome",
-               "qMandatory":"true",
                "qMin":"0",
                "qMinLabel":"Not at all",
                "qMax":"4",
@@ -229,7 +222,6 @@
             {
                "qId":"g20",
                "qText":"I felt skillful.",
-               "qMandatory":"true",
                "qMin":"0",
                "qMinLabel":"Not at all",
                "qMax":"4",
@@ -238,7 +230,6 @@
             {
                "qId":"g21",
                "qText":"I was interested in the game's story.",
-               "qMandatory":"true",
                "qMin":"0",
                "qMinLabel":"Not at all",
                "qMax":"4",
@@ -248,13 +239,12 @@
       },
       {
         "pId":"page9",
-         "qType":"linearGrid",
+         "qType":"linearSlider",
          "qInstructions":"Please rate all measures by clicking a point on the scale.",
          "qData":[
             {
                "qId":"g22",
                "qText":"I found it impressive",
-               "qMandatory":"true",
                "qMin":"0",
                "qMinLabel":"Not at all",
                "qMax":"4",
@@ -263,7 +253,6 @@
             {
                "qId":"g23",
                "qText":"I felt content.",
-               "qMandatory":"true",
                "qMin":"0",
                "qMinLabel":"Not at all",
                "qMax":"4",
@@ -272,7 +261,6 @@
             {
                "qId":"g24",
                "qText":"I felt good.",
-               "qMandatory":"true",
                "qMin":"0",
                "qMinLabel":"Not at all",
                "qMax":"4",
@@ -282,7 +270,7 @@
       },
       {
          "pId":"page10",
-         "qType":"linearGrid",
+         "qType":"linearSlider",
          "qInstructions":"Thank you for participating, please wait for the instructions!"
       }
         
