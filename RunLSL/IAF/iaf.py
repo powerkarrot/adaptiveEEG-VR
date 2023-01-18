@@ -32,7 +32,6 @@ def get_alpha_bands(subject):
         except Exception as e:
             print("Didn't work ", e)
             
-    
     if not alpha: alpha = [7., 14.] 
         
     print("ID", subject , "ch_group ", g, alpha )

@@ -36,17 +36,18 @@ def preprocess_raw(raw):
     raw.set_eeg_reference('average', projection=True)
     return raw
 
-
-
 #TODO: ask francesco if welch or multitaper
-def compute_freq_power(raw, fmin, fmax):
-    spectrum = raw.compute_psd(method = 'welch', fmin=fmin, fmax = fmax, n_jobs=2, picks=alpha_ch_groups[0])
-    psds_alpha, freqs_alpha = spectrum.get_data(return_freqs=True)
-    psds_mean_alpha = psds_alpha.mean(0)
-    freq_res_alpha = freqs_alpha[1] - freqs_alpha[0]
+def compute_freq_power(raw, fmin, fmax, picks):
+    spectrum = raw.compute_psd(method = 'multitaper', fmin=fmin, fmax = fmax, n_jobs=2, picks=picks)
+    print("did spectrum")
+    psds, freqs = spectrum.get_data(return_freqs=True)
+    psds_mean= psds.mean(0)
+    print("num frequencies is: ", len(freqs))
+    freq_res = freqs[1] - freqs[0]
     
-    bp_alpha = simpson(psds_mean_alpha, dx=freq_res_alpha)
+    bp = simpson(psds_mean, dx=freq_res)
+    print("did power")
 
-    return bp_alpha
+    return bp
 
     
