@@ -19,39 +19,18 @@ public class AdaptiveEEG: MonoBehaviour
     public int adaptationUp;
     public int adaptationDown;
 
-
-
     public double timeWindowInSeconds = 20.0;
-    public double butterworthLowPassFrequency;
-    public double butterworthHighPassFrequency;
-
-    public double adaptiveFactor = 0.0;
-    //private double averageLast = 0.0;
-    public double proportional = 0.5;
 
     private float nextActionTime = 20.0f;
-    private float nextActionTime2 = 20.0f;
-
-    private float firstadaptationtime = 20.0f;
-    private float firstadaptationtime2 = 20.0f;
 
     public double fPS;
     public int totalCount;
     public int countPerWindow;
     public double average;
-
     public double percentageThreshold;
-    //public double offset; 
-    // Pedestrian Spawning Variables
-
     public int minCount ;
-    
     public int maxCount ;
-
-    public List<float> slope = new List<float>();
-
     public ServerAdaptationResponse response;
-
 
     [ReadOnly] public int currencount = 0;
 
@@ -60,7 +39,6 @@ public class AdaptiveEEG: MonoBehaviour
     private SignalSample signalsamp;
     public float tcpDelay = 0.01f;
     private double timeLastSendTcp = 0.0;
-    //private bool newDataArrived = false;
 
     public Mytask mytask;
 
@@ -77,7 +55,6 @@ public class AdaptiveEEG: MonoBehaviour
             return;
 
         double time = UnixTime.GetTime();
-        //Debug.Log(mytask.TimeSinceStart);
 
         if (nextActionTime < tcpDelay) 
         {
@@ -108,41 +85,28 @@ public class AdaptiveEEG: MonoBehaviour
                         
                         //var cutValues = value.values.Take(20);
                         var cutValues = value.values.Take(64);
-                        //string tmp = String.Join(",", value.values.Select(p=>p.ToString("0.000000")).ToArray());
-                        //string tmp = String.Join(",", cutValues.Select(p=>p.ToString("0.000000")).ToArray());
+
                         string tmp = String.Join(",", cutValues.Select(p=>p.ToString()).ToArray());
 
                         string arr = "[" + tmp + "],";
-                        outputValues += arr;
-                        //outputTimes += arr; //TODO: use the correct array. or don't use it at all :D
-    
+                        outputValues += arr;    
                         i++;
                     }
                 }
 
                 if (i > 0) 
                 { 
-                //Debug.Log(outputValues);
 
                     timeLastSendTcp = time;
                     outputValues = outputValues.Remove(outputValues.Length-1);
-                    //outputTimes = outputTimes.Remove(outputTimes.Length-1);
-                    //string message = "{\"type\":\"eeg_data\",\"values\":[" + outputValues + "],\"times\":[" + outputTimes + "]}";
-                   
                     tcp.SendMessageNoReturn("{\"type\":\"eeg_data\",\"values\":[" + outputValues + "]}");
                 totalCount = lst.Count;
                 }
                 
-                
-                // get data after every 20s
-                //else if (mytask.TimeSinceStart > nextActionTime )
                 else if (Time.realtimeSinceStartup > nextActionTime )
 
                 {
-                    
                     nextActionTime += adaptionRate;
-                    Debug.Log(nextActionTime.ToString() + " , cur: " + Time.realtimeSinceStartup.ToString());
-                    Debug.Log("Sending calc_eeg");
                     String s = tcp.SendMessage("{\"type\":\"calc_eeg\"}");                   
                     response = JsonUtility.FromJson<ServerAdaptationResponse>(s);
                     Debug.Log("got response " + response);
@@ -153,17 +117,16 @@ public class AdaptiveEEG: MonoBehaviour
                         float percentageDiff = ((response.ratio2 - response.ratio1) / response.ratio1) * 100;
                         Debug.Log("PercentageDiff" + percentageDiff);
                          
-                        //TODO task 4 and task 5 are inverted here
                         if(percentageDiff >  percentageThreshold) 
                         {
                             if(mytask.currentBlock == 4) 
                             {
                                 Debug.Log("TASK 4 " + percentageDiff.ToString()  + ">" + percentageThreshold.ToString());
                                 currentCount = pedestrianSpawner.pedestriansToSpawn;
-                                currentCount -= adaptationDown;
+                                currentCount += adaptationDown;
                                 pedestrianSpawner.pedestriansToSpawn = currentCount;
-                                logger.writeAdaption(time, "less", currentCount, response.ratio1, response.ratio2, 6);
-                                Debug.Log("Less LIAMS");
+                                logger.writeAdaption(time, "more", currentCount, response.ratio1, response.ratio2, 6);
+                                Debug.Log("More LIAMS");
                             }
 
                             if(mytask.currentBlock == 5) 
@@ -171,10 +134,10 @@ public class AdaptiveEEG: MonoBehaviour
                                 Debug.Log("TASK 5 " + percentageDiff.ToString()  + ">" + percentageThreshold.ToString());
 
                                 currentCount = pedestrianSpawner.pedestriansToSpawn;
-                                currentCount += adaptationUp;
+                                currentCount -= adaptationUp;
                                 pedestrianSpawner.pedestriansToSpawn = currentCount;
-                                logger.writeAdaption(time, "more", currentCount, response.ratio1, response.ratio2, 7); 
-                                Debug.Log("More LIAMS");
+                                logger.writeAdaption(time, "less", currentCount, response.ratio1, response.ratio2, 7); 
+                                Debug.Log("Less LIAMS");
                             }
                         }
                         
@@ -185,20 +148,20 @@ public class AdaptiveEEG: MonoBehaviour
                                 Debug.Log("TASK 4 " + percentageDiff.ToString()  + "< -" + percentageThreshold.ToString());
 
                                 currentCount = pedestrianSpawner.pedestriansToSpawn;
-                                currentCount += adaptationUp;
+                                currentCount -= adaptationUp;
                                 pedestrianSpawner.pedestriansToSpawn = currentCount;
-                                logger.writeAdaption(time, "more", currentCount, response.ratio1, response.ratio2, 6); 
-                                Debug.Log("More LIAMS");
+                                logger.writeAdaption(time, "less", currentCount, response.ratio1, response.ratio2, 6); 
+                                Debug.Log("Less LIAMS");
                             }
                             if(mytask.currentBlock == 5) 
                             {
                                 Debug.Log("TASK 4 " + percentageDiff.ToString()  + "< -" + percentageThreshold.ToString());
 
                                 currentCount = pedestrianSpawner.pedestriansToSpawn;
-                                currentCount -= adaptationDown;
+                                currentCount += adaptationDown;
                                 pedestrianSpawner.pedestriansToSpawn = currentCount;
-                                logger.writeAdaption(time, "less", currentCount, response.ratio1, response.ratio2, 7);
-                                Debug.Log("Less LIAMS");
+                                logger.writeAdaption(time, "more", currentCount, response.ratio1, response.ratio2, 7);
+                                Debug.Log("More LIAMS");
                             }
                         } 
                     }
