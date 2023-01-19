@@ -97,12 +97,14 @@ while True:
                        
                     elif (obj["type"] == "calc_eeg"):
                         #print("calculating pws for adaptation")
-                        cur_ratio = calculate_iaf_power(curId, lst_eeg_values)
+                        cur = calculate_iaf_power(curId, lst_eeg_values)
                         filename = './RunLSL/adaptation/pickles/' + str(curId) + '-baseline.pickle'
                         with open(filename, 'rb') as handle:
-                            baseline_ratio = pickle.load(handle)
+                            baseline = pickle.load(handle)
                         
-                        signals_data = json.dumps({"ratio1":baseline_ratio, "ratio2":cur_ratio,"error":""})
+                        signals_data = json.dumps({"ratio1":baseline, "ratio2":cur,"error":""})
+                        signals_data = json.dumps({"curroi1":cur[0], "curroi2":cur[1],"basroi1":baseline[0], "curroi2":baseline[1],"error":""})
+
                         connection.sendall(signals_data.encode("utf-8"))
                                             
                     elif (obj["type"] == "calc"):
