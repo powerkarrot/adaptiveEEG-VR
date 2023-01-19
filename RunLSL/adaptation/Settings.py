@@ -1,6 +1,6 @@
 from fooof.bands import Bands
 
-sfreq = 250
+sfreq = 500
 path = r'D:\adaptive-eeg - Copy\LogData\Baseline'
 logpath =  r'D:\adaptive-eeg - Copy\LogData'
 
@@ -23,6 +23,6 @@ alpha_ch_groups = [
 
 #TODO change channels and rename vars
 #TODO: arda change here
-roi1 = ['Fp1','Fz','F3','F7','F9','FC5','FC1','C3','T7','CP5','CP1']
-roi2 = [ 'Pz','P3','P7','P9','O1','Oz','O2','P10','P8','P4','CP2','CP6']
+roi1 = ['P3','Pz','PO3','POz','PO4','O1','O2']
+roi2 = [ 'Fp1','Fp2','AFz','AF3','AF4','F1','F2','PF3','Fz','F4','FC1','FC2']
 
