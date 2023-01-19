@@ -153,7 +153,7 @@ public class AdaptiveEDA: MonoBehaviour
                             currentCount = pedestrianSpawner.pedestriansToSpawn;
                             currentCount -= adaptationDown;
                             pedestrianSpawner.pedestriansToSpawn = currentCount;
-                            logger.writeAdaption(time, "less", currentCount, response.slopet1, response.slopet2, 6);
+                            logger.writeAdaption(time, "less",  "",currentCount, response.slopet1, response.slopet2, 6);
                             Debug.Log("Less LIAMS");
                             
                         }
@@ -163,7 +163,7 @@ public class AdaptiveEDA: MonoBehaviour
                             currentCount = pedestrianSpawner.pedestriansToSpawn;
                             currentCount += adaptationUp;
                             pedestrianSpawner.pedestriansToSpawn = currentCount;
-                            logger.writeAdaption(time, "more", currentCount, response.slopet1, response.slopet2, 6); 
+                            logger.writeAdaption(time, "more", "", currentCount, response.slopet1, response.slopet2, 6); 
                             Debug.Log("More LIAMS");
                             
                         }
@@ -185,7 +185,7 @@ public class AdaptiveEDA: MonoBehaviour
                             currentCount = pedestrianSpawner.pedestriansToSpawn;
                             currentCount += adaptationUp;
                             pedestrianSpawner.pedestriansToSpawn = currentCount;
-                            logger.writeAdaption(time, "more", currentCount, response.slopet1, response.slopet2, 7); 
+                            logger.writeAdaption(time, "more",  "",currentCount, response.slopet1, response.slopet2, 7); 
                             Debug.Log("More LIAMS");
                         
                         }
@@ -195,7 +195,7 @@ public class AdaptiveEDA: MonoBehaviour
                             currentCount = pedestrianSpawner.pedestriansToSpawn;
                             currentCount -= adaptationDown;
                             pedestrianSpawner.pedestriansToSpawn = currentCount;
-                            logger.writeAdaption(time, "less", currentCount, response.slopet1, response.slopet2, 7);
+                            logger.writeAdaption(time, "less",  "",currentCount, response.slopet1, response.slopet2, 7);
                             Debug.Log("Less LIAMS");
                             
                         }

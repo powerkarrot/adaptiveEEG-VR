@@ -43,13 +43,32 @@ public struct ServerAlphaBaselineResponse
     public string error;
 }
 
+public struct ServerAdaptationResponse2
+{
+    [SerializeField]
+    public Array ratio1;
+
+    [SerializeField]
+    public Array ratio2;
+
+    [SerializeField]
+    public string error;
+}
+
+
 public struct ServerAdaptationResponse
 {
     [SerializeField]
-    public float ratio1;
+    public float curroi1;
 
     [SerializeField]
-    public float ratio2;
+    public float curroi2;
+
+    [SerializeField]
+    public float basroi1;
+
+    [SerializeField]
+    public float basroi2;
 
     [SerializeField]
     public string error;

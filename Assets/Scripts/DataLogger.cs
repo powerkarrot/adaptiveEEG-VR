@@ -168,7 +168,7 @@ public class DataLogger : MonoBehaviour
         {
             filepath = rootFolder + "ID" + participantId + "-adaptation.csv";
             swAdaption = (!File.Exists(filepath)) ? File.CreateText(filepath) : File.AppendText(filepath);
-            swAdaption.WriteLine("Time,Direction,CurrentCount,SlopeT1,SlopeT2,Status");
+            swAdaption.WriteLine("Time,Direction,Attention,CurrentCount,SlopeT1,SlopeT2,Status");
             swAdaption.Flush();
         }
         
@@ -240,14 +240,14 @@ public class DataLogger : MonoBehaviour
     }
 
 
-    internal void writeAdaption(double timestamp, string direction, int currentCount, double slopet1, double slopet2, int status) //(double timestamp, string direction, int currentCount, float slopeBaseline, double slopeEDA)
+    internal void writeAdaption(double timestamp, string direction, string attention, int currentCount, double slopet1, double slopet2, int status) 
     {
 
         if (swAdaption == null)
         {
             init();
         }
-        swAdaption.WriteLine(timestamp  + "," + direction + "," + currentCount + "," + slopet1 + "," + slopet2 + "," + status); //(timestamp + "," + direction + "," + currentCount + "," + slopeBaseline + "," + slopeEDA);
+        swAdaption.WriteLine(timestamp  + "," + direction + "," + attention + "," + currentCount + "," + slopet1 + "," + slopet2 + "," + status); 
         swAdaption.Flush();
     }
 
