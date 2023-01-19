@@ -2512,7 +2512,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputName: EEG
   StreamType: 1
-  StreamValue: LiveAmpSN-055602-0306
+  StreamValue: LiveAmpSN-055602-0315
   streamTimeout: 0
   streamMinimum: 1
   scaleInput: 0.1
