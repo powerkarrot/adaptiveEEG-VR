@@ -73,7 +73,7 @@ def get_alpha_bands_old(subject):
             alpha_iaf = philistine.mne.savgol_iaf(raws[0], picks=picks, resolution=.1)
             alpha = [alpha_iaf.AlphaBand[0], alpha_iaf.AlphaBand[1]]
         except Exception as e:
-            alpha = [7., 14.]
+            alpha = [8., 12.]
             
 
         print("ID", subject , "ch_group ", g, alpha )

@@ -1,6 +1,6 @@
 from fooof.bands import Bands
 
-sfreq = 250
+sfreq = 500
 path = r'D:\adaptive-eeg - Copy\LogData\IAF'
 logpath =  r'D:\adaptive-eeg - Copy\LogData'
 
@@ -26,8 +26,7 @@ channels = ['Fp1','Fz','F3','F7','F9','FC5','FC1','C3','T7','CP5','CP1',
 #alpha_ch_groups = [channels] # otherwise out of bounds error/cant automatically detect upper end of alpha band
 #TODO: get correct channel groups from Francesco
 alpha_ch_groups = [
-                   ['Pz','P3', 'P4','O1','O2', 'Oz'],
-                   channels, 
-                   channels #NOTE: remove, just for testing
+                   ['Pz','P3','P7','P9', 'P4', 'P8','P6','O1','O2', 'Oz','O3','O5','O7','O4'],
+                   channels
                    ]
 
