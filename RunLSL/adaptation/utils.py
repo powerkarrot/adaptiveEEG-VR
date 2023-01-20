@@ -39,7 +39,10 @@ def preprocess_raw(raw):
 def compute_freq_power(raw, fmin, fmax, picks):
     spectrum = raw.compute_psd(method = 'welch', fmin=fmin, fmax = fmax, n_jobs=2, picks=picks)
     psds, freqs = spectrum.get_data(return_freqs=True)
+    print(len(freqs))
     psds_mean= psds.mean(0)
+    #psds_mean = 10 * np.log10(psds_mean)
+
     freq_res = freqs[1] - freqs[0]
     bp = simpson(psds_mean, dx=freq_res)
     return bp
