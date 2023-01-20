@@ -165,7 +165,7 @@ public class Mytask : MonoBehaviour
             questionnaire.SetActive(true);
             vivepointer.SetActive(false);
             blockDesigner.IsIAfBaseline = true;
-            blockDesigner.duration = 10.00;
+            blockDesigner.duration = 120.00;
         }
 
         else if (state == STATES.wait && currentBlock == 2)
@@ -204,7 +204,7 @@ public class Mytask : MonoBehaviour
             {
                 StartCoroutine(countNrCoroutine(timestamp));         
             } 
-            blockDesigner.duration = 3.00;
+            blockDesigner.duration = 360.00;
             //sendData();
         
         }
@@ -572,7 +572,7 @@ public class Mytask : MonoBehaviour
             int y;
             do {
                 y = rnd.Next(-9,9);
-            } while (y == 0);
+            } while (y == 0); //TODO: change to: while (y == 0 || y == 1 || y == -1)
 
             TextMeshPro tmp = CountNr.GetComponent<TextMeshPro>() as TextMeshPro;
             
@@ -583,7 +583,7 @@ public class Mytask : MonoBehaviour
             }
             
             startCountNrCoroutine = false;
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(120f);
             }
             Debug.Log("5 seconds passed");
             //CountNr.SetActive(false);

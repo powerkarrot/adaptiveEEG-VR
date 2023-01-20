@@ -32,7 +32,8 @@ def get_alpha_bands(subject):
         except Exception as e:
             print("Didn't work ", e)
             
-    if not alpha: alpha = [7., 14.] 
+    #TODO:fails if fmin is 8??????
+    if not alpha: alpha = [8., 12.] 
         
     print("ID", subject , "ch_group ", g, alpha )
     return alpha
@@ -81,4 +82,5 @@ def get_alpha_bands_old(subject):
     
 
     
+
 # %%

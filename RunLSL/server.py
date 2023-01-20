@@ -103,7 +103,7 @@ while True:
                             baseline = pickle.load(handle)
                         
                         signals_data = json.dumps({"ratio1":baseline, "ratio2":cur,"error":""})
-                        signals_data = json.dumps({"curroi1":cur[0], "curroi2":cur[1],"basroi1":baseline[0], "curroi2":baseline[1],"error":""})
+                        signals_data = json.dumps({"curroi1":cur[0], "curroi2":cur[1],"basroi1":baseline[0], "basroi2":baseline[1],"error":""})
 
                         connection.sendall(signals_data.encode("utf-8"))
                                             
