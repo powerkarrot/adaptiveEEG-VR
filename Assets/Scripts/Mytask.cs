@@ -165,7 +165,7 @@ public class Mytask : MonoBehaviour
             questionnaire.SetActive(true);
             vivepointer.SetActive(false);
             blockDesigner.IsIAfBaseline = true;
-            blockDesigner.duration = 120.00;
+            blockDesigner.duration = 10.00;
         }
 
         else if (state == STATES.wait && currentBlock == 2)
@@ -204,7 +204,7 @@ public class Mytask : MonoBehaviour
             {
                 StartCoroutine(countNrCoroutine(timestamp));         
             } 
-            blockDesigner.duration = 360.00;
+            blockDesigner.duration = 3.00;
             //sendData();
         
         }
@@ -222,7 +222,7 @@ public class Mytask : MonoBehaviour
             questionnaire.SetActive(false);
             vivepointer.SetActive(false);
             adaptiveEEG.isActive = true;
-            pedestrianSpawner.pedestriansToSpawn = 50;
+            pedestrianSpawner.pedestriansToSpawn = 100;
 
         }
         else if (state == STATES.wait && currentBlock == 5)
@@ -241,7 +241,8 @@ public class Mytask : MonoBehaviour
 
             questionnaire.SetActive(false);
             vivepointer.SetActive(false);
-            pedestrianSpawner.pedestriansToSpawn = 200;
+            pedestrianSpawner.pedestriansToSpawn = 100;
+
 
         }
         else
@@ -562,7 +563,10 @@ public class Mytask : MonoBehaviour
 
     IEnumerator countNrCoroutine(double timestamp)
     {
+        Color32[] ColorListRGBA  = new Color32[] { new Color32 (255, 0, 0, 255), new Color32 (1, 255, 1, 255), new Color32 (1, 1, 255, 255) };
 
+
+        // TODO: Change colors
         for(int z = 0; z < 3; z++) 
         {
             
@@ -572,7 +576,7 @@ public class Mytask : MonoBehaviour
             int y;
             do {
                 y = rnd.Next(-9,9);
-            } while (y == 0); //TODO: change to: while (y == 0 || y == 1 || y == -1)
+            } while (y == 0 || Math.Abs(y) == 1 || Math.Abs(y) == 2);
 
             TextMeshPro tmp = CountNr.GetComponent<TextMeshPro>() as TextMeshPro;
             
@@ -581,9 +585,11 @@ public class Mytask : MonoBehaviour
             } else {
                 tmp.SetText(i + " \n " + y );
             }
+
+            tmp.color = ColorListRGBA[z];
             
             startCountNrCoroutine = false;
-            yield return new WaitForSeconds(120f);
+            yield return new WaitForSeconds(1f);
             }
             Debug.Log("5 seconds passed");
             //CountNr.SetActive(false);
