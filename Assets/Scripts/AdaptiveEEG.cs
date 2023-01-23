@@ -85,7 +85,6 @@ public class AdaptiveEEG: MonoBehaviour
                 List<SignalSample> lst = SignalSample.convertEEG(lstInput);
             
                 string outputValues = "";
-                //string outputTimes = "";
                 int i = 0;
                
                 foreach (SignalSample1D value in lstInput)
@@ -95,7 +94,7 @@ public class AdaptiveEEG: MonoBehaviour
                     {
                         
                         //var cutValues = value.values.Take(20);
-                        var cutValues = value.values.Take(64);
+                        var cutValues = value.values.Take(64); //TODO: 
 
                         string tmp = String.Join(",", cutValues.Select(p=>p.ToString()).ToArray());
 
@@ -107,7 +106,6 @@ public class AdaptiveEEG: MonoBehaviour
 
                 if (i > 0) 
                 { 
-
                     timeLastSendTcp = time;
                     outputValues = outputValues.Remove(outputValues.Length-1);
                     tcp.SendMessageNoReturn("{\"type\":\"eeg_data\",\"values\":[" + outputValues + "]}");
@@ -120,7 +118,6 @@ public class AdaptiveEEG: MonoBehaviour
                     nextActionTime += adaptionRate;
                     String s = tcp.SendMessage("{\"type\":\"calc_eeg\"}");                   
                     response = JsonUtility.FromJson<ServerAdaptationResponse>(s);
-                    //Debug.Log("got response " + response);
 
                     if(response.error == "")
                     {
@@ -131,10 +128,7 @@ public class AdaptiveEEG: MonoBehaviour
                         Debug.Log("percentageDiffExternalAtt " + percentageDiffExternalAtt);
                         Debug.Log("percentageDiffInternalAtt " + percentageDiffInternalAtt);
 
-                        
-                        //NOTE: this is just so i don't get confused :D
                         attention = (Math.Abs(percentageDiffExternalAtt) > Math.Abs(percentageDiffInternalAtt)) ? Attention.External : Attention.Internal;
-
                         
                         if(setCurrentCount)
                         {
@@ -257,8 +251,7 @@ public class AdaptiveEEG: MonoBehaviour
                 }
                 // Debug.Log(tonicEDA + " " + slopeBaseline + " " + (tonicEDA - slopeBaseline) + " " + percentageThreshold
             }
-        }    
-
+        }   
     }
     
 
