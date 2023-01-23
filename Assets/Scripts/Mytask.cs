@@ -566,7 +566,6 @@ public class Mytask : MonoBehaviour
         Color32[] ColorListRGBA  = new Color32[] { new Color32 (255, 0, 0, 255), new Color32 (1, 255, 1, 255), new Color32 (1, 1, 255, 255) };
 
 
-        // TODO: Change colors
         for(int z = 0; z < 3; z++) 
         {
             
