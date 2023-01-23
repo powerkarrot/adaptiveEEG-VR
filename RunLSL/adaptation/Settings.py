@@ -23,6 +23,6 @@ alpha_ch_groups = [
 
 #TODO change channels and rename vars
 #TODO: arda change here
-roi1 = ['P3','Pz','PO3','POz','PO4','O1','O2']
-roi2 = ['Fp1','Fp2','AFz','AF3','AF4','F1','F2','F3','Fz','F4','FC1','FC2']
+roi1 = ['P3','Pz','PO3','POz','PO4','O1','O2'] # ALPHA CHANNELS #alpha down - external
+roi2 = ['Fp1','Fp2','AFz','AF3','AF4','F1','F2','F3','Fz','F4','FC1','FC2'] # THETA CHANNELS # theta up internal
 
