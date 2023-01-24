@@ -93,6 +93,8 @@ public class Mytask : MonoBehaviour
     private double timeLastSendTcp = 0.0;
     //private bool newDataArrived = false;
 
+    private bool TEST = true;
+
 
     // Start is called before the first frame update
     void Start() //initializationstep 
@@ -165,7 +167,7 @@ public class Mytask : MonoBehaviour
             questionnaire.SetActive(true);
             vivepointer.SetActive(false);
             blockDesigner.IsIAfBaseline = true;
-            blockDesigner.duration = 10.00;
+            blockDesigner.duration = TEST ? 10f : 120f;
         }
 
         else if (state == STATES.wait && currentBlock == 2)
@@ -204,7 +206,8 @@ public class Mytask : MonoBehaviour
             {
                 StartCoroutine(countNrCoroutine(timestamp));         
             } 
-            blockDesigner.duration = 3.00;
+            blockDesigner.duration = TEST ? 3f : 360f;;
+            
             //sendData();
         
         }
@@ -242,7 +245,6 @@ public class Mytask : MonoBehaviour
             questionnaire.SetActive(false);
             vivepointer.SetActive(false);
             pedestrianSpawner.pedestriansToSpawn = 100;
-
 
         }
         else
@@ -588,7 +590,7 @@ public class Mytask : MonoBehaviour
             tmp.color = ColorListRGBA[z];
             
             startCountNrCoroutine = false;
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(TEST ? 1f : 120f);
             }
             Debug.Log("5 seconds passed");
             //CountNr.SetActive(false);
