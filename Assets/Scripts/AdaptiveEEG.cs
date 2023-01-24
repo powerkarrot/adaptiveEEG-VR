@@ -46,7 +46,7 @@ public class AdaptiveEEG: MonoBehaviour
 
     public Mytask mytask;
 
-    private bool setCurrentCount = true;
+    private bool[] setCurrentCount = {true, true};
 
     public int currentCount
     {
@@ -71,6 +71,24 @@ public class AdaptiveEEG: MonoBehaviour
         {
             Debug.LogWarning("TCP Delay is smaller than next adaptation call!");
         }
+
+        if(mytask.currentBlock == 4) 
+        {
+            if(setCurrentCount[0])
+            {
+            currentCount = 100;
+            setCurrentCount[0] = false;
+            } 
+        }
+        if(mytask.currentBlock == 5) 
+        {
+            if(setCurrentCount[1])
+            {
+            currentCount = 100;
+            setCurrentCount[1] = false;
+            } 
+        }
+       
 
         // send data to py fast.
         if (time - timeLastSendTcp > tcpDelay)
@@ -129,13 +147,8 @@ public class AdaptiveEEG: MonoBehaviour
                         Debug.Log("percentageDiffInternalAtt " + percentageDiffInternalAtt);
 
                         attention = (Math.Abs(percentageDiffExternalAtt) > Math.Abs(percentageDiffInternalAtt)) ? Attention.External : Attention.Internal;
-                        
-                        if(setCurrentCount)
-                        {
-                            currencount = pedestrianSpawner.pedestriansToSpawn;
-                            setCurrentCount = false;
-                        }
-                    
+                        Debug.Log("Current count is" + currentCount);
+
                         if(attention == Attention.External) {
                             float percentageDiff = percentageDiffExternalAtt;
                             Debug.Log("EXTERNAL ATTENTION");
@@ -144,23 +157,25 @@ public class AdaptiveEEG: MonoBehaviour
                             {
                                 if(mytask.currentBlock == 4) 
                                 {
+                                    
                                     //Debug.Log("TASK 4 " + percentageDiff.ToString()  + ">" + percentageThreshold.ToString());
                                     //currentCount = pedestrianSpawner.pedestriansToSpawn;
                                     currentCount -= adaptationDown;
                                     pedestrianSpawner.pedestriansToSpawn = currentCount;
-                                    logger.writeAdaption(time, "more", "external", currentCount, response.curroi1, response.basroi1, 4);
-                                    Debug.Log("More LIAMS");
+                                    logger.writeAdaption(time, "less", "external", currentCount, response.curroi1, response.basroi1, 4);
+                                    Debug.Log("Less LIAMS");
                                 }
 
                                 if(mytask.currentBlock == 5) 
                                 {
+                                    
                                     //Debug.Log("TASK 5 " + percentageDiff.ToString()  + ">" + percentageThreshold.ToString());
 
                                     //currentCount = pedestrianSpawner.pedestriansToSpawn;
                                     currentCount += adaptationUp;
                                     pedestrianSpawner.pedestriansToSpawn = currentCount;
-                                    logger.writeAdaption(time, "less", "external", currentCount, response.curroi1, response.basroi1, 5); 
-                                    Debug.Log("Less LIAMS");
+                                    logger.writeAdaption(time, "more", "external", currentCount, response.curroi1, response.basroi1, 5); 
+                                    Debug.Log("More LIAMS");
                                 }
                             }
                             
@@ -173,18 +188,19 @@ public class AdaptiveEEG: MonoBehaviour
                                     //currentCount = pedestrianSpawner.pedestriansToSpawn;
                                     currentCount += adaptationUp;
                                     pedestrianSpawner.pedestriansToSpawn = currentCount;
-                                    logger.writeAdaption(time, "less", "external", currentCount, response.curroi1, response.basroi1, 4); 
-                                    Debug.Log("Less LIAMS");
+                                    logger.writeAdaption(time, "more", "external", currentCount, response.curroi1, response.basroi1, 4); 
+                                    Debug.Log("More LIAMS");
                                 }
                                 if(mytask.currentBlock == 5) 
                                 {
+                                    
                                     //Debug.Log("TASK 4 " + percentageDiff.ToString()  + "< -" + percentageThreshold.ToString());
 
                                     //currentCount = pedestrianSpawner.pedestriansToSpawn;
                                     currentCount -= adaptationDown;
                                     pedestrianSpawner.pedestriansToSpawn = currentCount;
-                                    logger.writeAdaption(time, "more", "external", currentCount, response.curroi1, response.basroi1, 5);
-                                    Debug.Log("More LIAMS");
+                                    logger.writeAdaption(time, "less", "external", currentCount, response.curroi1, response.basroi1, 5);
+                                    Debug.Log("Less LIAMS");
                                 }
                             } 
                         }  
@@ -198,6 +214,7 @@ public class AdaptiveEEG: MonoBehaviour
                             {
                                 if(mytask.currentBlock == 4) 
                                 {
+                                    
                                     //Debug.Log("TASK 4 " + percentageDiff.ToString()  + ">" + percentageThreshold.ToString());
                                     //currentCount = pedestrianSpawner.pedestriansToSpawn;
                                     currentCount += adaptationDown;
@@ -208,6 +225,7 @@ public class AdaptiveEEG: MonoBehaviour
 
                                 if(mytask.currentBlock == 5) 
                                 {
+                                    
                                     //Debug.Log("TASK 5 " + percentageDiff.ToString()  + ">" + percentageThreshold.ToString());
 
                                     //currentCount = pedestrianSpawner.pedestriansToSpawn;
@@ -222,6 +240,7 @@ public class AdaptiveEEG: MonoBehaviour
                             {
                                 if(mytask.currentBlock == 4) 
                                 {
+                                    
                                     //Debug.Log("TASK 4 " + percentageDiff.ToString()  + "< -" + percentageThreshold.ToString());
 
                                     //currentCount = pedestrianSpawner.pedestriansToSpawn;
@@ -232,6 +251,7 @@ public class AdaptiveEEG: MonoBehaviour
                                 }
                                 if(mytask.currentBlock == 5) 
                                 {
+                                    
                                     //Debug.Log("TASK 4 " + percentageDiff.ToString()  + "< -" + percentageThreshold.ToString());
 
                                     //currentCount = pedestrianSpawner.pedestriansToSpawn;
