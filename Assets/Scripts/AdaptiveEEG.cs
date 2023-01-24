@@ -143,11 +143,10 @@ public class AdaptiveEEG: MonoBehaviour
                         float percentageDiffExternalAtt = ((response.curroi1 - response.basroi1) / response.basroi1) * 100; //NOTE: alpha channels: external attention
                         float percentageDiffInternalAtt = ((response.curroi2 - response.basroi2) / response.basroi2) * 100; //NOTE: theta channels: internal attention
 
-                        Debug.Log("percentageDiffExternalAtt " + percentageDiffExternalAtt);
-                        Debug.Log("percentageDiffInternalAtt " + percentageDiffInternalAtt);
+                        Debug.Log("External Delta: " + percentageDiffExternalAtt);
+                        Debug.Log("Internal Delta: " + percentageDiffInternalAtt);
 
                         attention = (Math.Abs(percentageDiffExternalAtt) > Math.Abs(percentageDiffInternalAtt)) ? Attention.External : Attention.Internal;
-                        Debug.Log("Current count is" + currentCount);
 
                         if(attention == Attention.External) {
                             float percentageDiff = percentageDiffExternalAtt;
