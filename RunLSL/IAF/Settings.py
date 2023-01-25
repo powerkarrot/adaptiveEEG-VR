@@ -4,11 +4,12 @@ sfreq = 500
 path = r'D:\adaptive-eeg - Copy\LogData\IAF'
 logpath =  r'D:\adaptive-eeg - Copy\LogData'
 
+#32
 #ch_names = ['Fp1','Fz','F3','F7','F9','FC5','FC1','C3','T7','CP5','CP1',
 #            'Pz','P3','P7','P9','O1','Oz','O2','P10','P8','P4','CP2','CP6',
 #            'T8','C4','Cz','FC2','FC6','F10','F8','F4','Fp2']
 
-
+#64
 ch_names = ['Fp1','Fz','F3','F7','F9','FC5','FC1','C3','T7','CP5','CP1',
             'Pz','P3','P7','P9','O1','Oz','O2','P10','P8','P4','CP2','CP6',
             'T8','C4','Cz','FC2','FC6','F10','F8','F4','Fp2','AF7','AF3','AFz'
