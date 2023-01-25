@@ -19,6 +19,8 @@ def make_raw_csv(pid=1,preprocess=True):
     info.set_montage('standard_1020',  match_case=False)
     samples = dfEEG.T
     raw = mne.io.RawArray(samples, info)
+    if preprocess:
+        raw = preprocess_raw(raw)
     return raw
 
 def make_raw_arr(preprocess=True, samples=None):
@@ -30,19 +32,17 @@ def make_raw_arr(preprocess=True, samples=None):
     return raw
 
 def preprocess_raw(raw):
-    raw.notch_filter(60., n_jobs=2)       
-    raw.filter(1., 70., None, fir_design='firwin', n_jobs=2)
+    #raw.notch_filter(60., n_jobs=2)       
+    #raw.filter(1., 70., None, fir_design='firwin', n_jobs=2)
     raw.set_eeg_reference('average', projection=True)
     return raw
 
 #TODO: ask francesco if welch or multitaper
 def compute_freq_power(raw, fmin, fmax, picks):
-    spectrum = raw.compute_psd(method = 'welch', fmin=fmin, fmax = fmax, n_jobs=2, picks=picks)
+    spectrum = raw.compute_psd(method = 'welch', fmin=fmin, fmax = fmax, n_jobs=2, picks=picks, **{'n_fft': 1024})
     psds, freqs = spectrum.get_data(return_freqs=True)
-    #print(len(freqs))
     psds_mean= psds.mean(0)
     #psds_mean = 10 * np.log10(psds_mean)
-
     freq_res = freqs[1] - freqs[0]
     bp = simpson(psds_mean, dx=freq_res)
     return bp
