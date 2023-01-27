@@ -46,6 +46,9 @@ public class AdaptiveEEG: MonoBehaviour
 
     public Mytask mytask;
 
+    private string outputValues = "";
+
+
     private bool[] setCurrentCount = {true, true};
 
     public int currentCount
@@ -54,6 +57,7 @@ public class AdaptiveEEG: MonoBehaviour
 
         get { return currencount; }
     }
+
 
     private void Start() {
 
@@ -76,8 +80,12 @@ public class AdaptiveEEG: MonoBehaviour
         {
             if(setCurrentCount[0])
             {
-            currentCount = 100;
-            setCurrentCount[0] = false;
+                currentCount = 100;
+                setCurrentCount[0] = false;
+                outputValues = "";
+                nextActionTime += Time.realtimeSinceStartup; //NOTE: this is a hack to cover the initial lag
+
+
             } 
         }
         if(mytask.currentBlock == 5) 
@@ -86,23 +94,23 @@ public class AdaptiveEEG: MonoBehaviour
             {
             currentCount = 100;
             setCurrentCount[1] = false;
+            outputValues = "";
+
             } 
         }
-       
-
-        // send data to py fast.
+      
+        // send data to py fast.       
         if (time - timeLastSendTcp > tcpDelay)
         {
             List<SignalSample1D> lstInput = lSLInput.samples;
             //Debug.Log(lSLInput.samples[0].values[0]);
             //Debug.Log(lstInput.Count);
 
-            //TODO: suggestion: start script in beginning and then only run this part on blocks 4 and 5 to get rid of the initial delay
             if (lstInput.Count > 0)
             {
                 List<SignalSample> lst = SignalSample.convertEEG(lstInput);
             
-                string outputValues = "";
+                outputValues = "";
                 int i = 0;
                
                 foreach (SignalSample1D value in lstInput)
@@ -122,16 +130,21 @@ public class AdaptiveEEG: MonoBehaviour
                     }
                 }
 
-                if (i > 0) 
+
+                if (i > 0 ) 
                 { 
+                    
                     timeLastSendTcp = time;
                     outputValues = outputValues.Remove(outputValues.Length-1);
                     tcp.SendMessageNoReturn("{\"type\":\"eeg_data\",\"values\":[" + outputValues + "]}");
                     totalCount = lst.Count;
+                    
                 }
-                
-                else if (Time.realtimeSinceStartup > nextActionTime )
 
+                
+
+                
+                else if (mytask.blockDesigner.currentDuration > nextActionTime)// && (mytask.currentBlock == 4 || mytask.currentBlock == 5) 
                 {
                     nextActionTime += adaptionRate;
                     String s = tcp.SendMessage("{\"type\":\"calc_eeg\"}");                   
@@ -148,6 +161,8 @@ public class AdaptiveEEG: MonoBehaviour
 
                         attention = (Math.Abs(percentageDiffExternalAtt) > Math.Abs(percentageDiffInternalAtt)) ? Attention.External : Attention.Internal;
 
+
+    	                //if it decreases, we want less liams. if it is closer to zero, there is competition... so still less liams. if it is high, leave as is until a certain percentage increase? then add liams.
                         if(attention == Attention.External) {
                             float percentageDiff = percentageDiffExternalAtt;
                             Debug.Log("EXTERNAL ATTENTION");
@@ -270,7 +285,8 @@ public class AdaptiveEEG: MonoBehaviour
                 }
                 // Debug.Log(tonicEDA + " " + slopeBaseline + " " + (tonicEDA - slopeBaseline) + " " + percentageThreshold
             }
-        }   
+        } 
+     
     }
     
 
