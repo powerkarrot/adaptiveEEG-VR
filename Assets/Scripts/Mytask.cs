@@ -596,9 +596,8 @@ public class Mytask : MonoBehaviour
             //CountNr.SetActive(false);
             sendData(timestamp);
 
+            adaptiveEEG.isActive = true;
+
+
     }
 }
-
-
-
-
