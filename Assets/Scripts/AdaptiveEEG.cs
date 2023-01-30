@@ -117,7 +117,6 @@ public class AdaptiveEEG: MonoBehaviour
                
                 foreach (SignalSample1D value in lstInput)
                 {
-
                     if (value.time > timeLastSendTcp)
                     {
                         
@@ -132,21 +131,14 @@ public class AdaptiveEEG: MonoBehaviour
                     }
                 }
 
-
                 if (i > 0 ) 
                 { 
-                    
                     timeLastSendTcp = time;
                     outputValues = outputValues.Remove(outputValues.Length-1);
                     tcp.SendMessageNoReturn("{\"type\":\"eeg_data\",\"values\":[" + outputValues + "]}");
                     totalCount = lst.Count;
-                    //Debug.Log(mytask.blockDesigner.currentDuration  + " next time:" + nextActionTime);
-
-                    
                 }
-
                 
-
                 else if (mytask.blockDesigner.currentDuration > nextActionTime)// && (mytask.currentBlock == 4 || mytask.currentBlock == 5) 
                 {
                     nextActionTime += adaptionRate;
@@ -163,7 +155,6 @@ public class AdaptiveEEG: MonoBehaviour
                         Debug.Log("Internal Delta: " + percentageDiffInternalAtt);
 
                         attention = (Math.Abs(percentageDiffExternalAtt) > Math.Abs(percentageDiffInternalAtt)) ? Attention.External : Attention.Internal;
-
 
     	                //if it decreases, we want less liams. if it is closer to zero, there is competition... so still less liams. if it is high, leave as is until a certain percentage increase? then add liams.
                         if(attention == Attention.External) {
@@ -289,9 +280,7 @@ public class AdaptiveEEG: MonoBehaviour
                 // Debug.Log(tonicEDA + " " + slopeBaseline + " " + (tonicEDA - slopeBaseline) + " " + percentageThreshold
             }
         } 
-     
     }
-    
 
     public List<SignalSample> getAffectedSamples(List<SignalSample> samples, double time)
     {
