@@ -174,10 +174,10 @@ public class AdaptiveEEG: MonoBehaviour
                                     
                                     //Debug.Log("TASK 4 " + percentageDiff.ToString()  + ">" + percentageThreshold.ToString());
                                     //currentCount = pedestrianSpawner.pedestriansToSpawn;
-                                    currentCount -= adaptationDown;
+                                    currentCount += adaptationDown;
                                     pedestrianSpawner.pedestriansToSpawn = currentCount;
-                                    logger.writeAdaption(time, "less", "external", currentCount, response.curroi1, response.basroi1, 4);
-                                    Debug.Log("Less LIAMS");
+                                    logger.writeAdaption(time, "more", "external", currentCount, response.curroi1, response.basroi1, 4);
+                                    Debug.Log("More LIAMS");
                                 }
 
                                 if(mytask.currentBlock == 5) 
@@ -186,10 +186,10 @@ public class AdaptiveEEG: MonoBehaviour
                                     //Debug.Log("TASK 5 " + percentageDiff.ToString()  + ">" + percentageThreshold.ToString());
 
                                     //currentCount = pedestrianSpawner.pedestriansToSpawn;
-                                    currentCount += adaptationUp;
+                                    currentCount -= adaptationUp;
                                     pedestrianSpawner.pedestriansToSpawn = currentCount;
-                                    logger.writeAdaption(time, "more", "external", currentCount, response.curroi1, response.basroi1, 5); 
-                                    Debug.Log("More LIAMS");
+                                    logger.writeAdaption(time, "less", "external", currentCount, response.curroi1, response.basroi1, 5); 
+                                    Debug.Log("Less LIAMS");
                                 }
                             }
                             
@@ -200,10 +200,10 @@ public class AdaptiveEEG: MonoBehaviour
                                     //Debug.Log("TASK 4 " + percentageDiff.ToString()  + "< -" + percentageThreshold.ToString());
 
                                     //currentCount = pedestrianSpawner.pedestriansToSpawn;
-                                    currentCount += adaptationUp;
+                                    currentCount -= adaptationUp;
                                     pedestrianSpawner.pedestriansToSpawn = currentCount;
-                                    logger.writeAdaption(time, "more", "external", currentCount, response.curroi1, response.basroi1, 4); 
-                                    Debug.Log("More LIAMS");
+                                    logger.writeAdaption(time, "less", "external", currentCount, response.curroi1, response.basroi1, 4); 
+                                    Debug.Log("Less LIAMS");
                                 }
                                 if(mytask.currentBlock == 5) 
                                 {
@@ -211,10 +211,10 @@ public class AdaptiveEEG: MonoBehaviour
                                     //Debug.Log("TASK 4 " + percentageDiff.ToString()  + "< -" + percentageThreshold.ToString());
 
                                     //currentCount = pedestrianSpawner.pedestriansToSpawn;
-                                    currentCount -= adaptationDown;
+                                    currentCount += adaptationDown;
                                     pedestrianSpawner.pedestriansToSpawn = currentCount;
-                                    logger.writeAdaption(time, "less", "external", currentCount, response.curroi1, response.basroi1, 5);
-                                    Debug.Log("Less LIAMS");
+                                    logger.writeAdaption(time, "more", "external", currentCount, response.curroi1, response.basroi1, 5);
+                                    Debug.Log("More LIAMS");
                                 }
                             } 
                         }  
