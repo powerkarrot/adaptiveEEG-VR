@@ -83,7 +83,8 @@ public class AdaptiveEEG: MonoBehaviour
                 currentCount = 100;
                 setCurrentCount[0] = false;
                 outputValues = "";
-                nextActionTime += Time.realtimeSinceStartup; //NOTE: this is a hack to cover the initial lag
+                //nextActionTime += Time.realtimeSinceStartup; //NOTE: this is a hack to cover the initial lag
+                nextActionTime = 20.0f;
 
 
             } 
@@ -95,6 +96,7 @@ public class AdaptiveEEG: MonoBehaviour
             currentCount = 100;
             setCurrentCount[1] = false;
             outputValues = "";
+            nextActionTime = 20.0f;
 
             } 
         }
@@ -138,12 +140,13 @@ public class AdaptiveEEG: MonoBehaviour
                     outputValues = outputValues.Remove(outputValues.Length-1);
                     tcp.SendMessageNoReturn("{\"type\":\"eeg_data\",\"values\":[" + outputValues + "]}");
                     totalCount = lst.Count;
+                    //Debug.Log(mytask.blockDesigner.currentDuration  + " next time:" + nextActionTime);
+
                     
                 }
 
                 
 
-                
                 else if (mytask.blockDesigner.currentDuration > nextActionTime)// && (mytask.currentBlock == 4 || mytask.currentBlock == 5) 
                 {
                     nextActionTime += adaptionRate;
