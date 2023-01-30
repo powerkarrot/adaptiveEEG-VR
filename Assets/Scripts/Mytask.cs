@@ -93,7 +93,7 @@ public class Mytask : MonoBehaviour
     private double timeLastSendTcp = 0.0;
     //private bool newDataArrived = false;
 
-    private bool TEST = true;
+    private bool TEST = false;
 
 
     // Start is called before the first frame update
@@ -577,7 +577,7 @@ public class Mytask : MonoBehaviour
             int y;
             do {
                 y = rnd.Next(-9,9);
-            } while (y == 0 || Math.Abs(y) == 1 || Math.Abs(y) == 2);
+            } while (y == 0 || Math.Abs(y) == 1 || Math.Abs(y) == 2|| Math.Abs(y) == 5);
 
             TextMeshPro tmp = CountNr.GetComponent<TextMeshPro>() as TextMeshPro;
             
@@ -597,7 +597,5 @@ public class Mytask : MonoBehaviour
             sendData(timestamp);
 
             adaptiveEEG.isActive = true;
-
-
     }
 }
