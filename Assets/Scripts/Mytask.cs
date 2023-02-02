@@ -99,6 +99,7 @@ public class Mytask : MonoBehaviour
     // Start is called before the first frame update
     void Start() //initializationstep 
     {
+        questionnaire.SetActive(false);
 
         if (logger == null)
         {
@@ -150,6 +151,11 @@ public class Mytask : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+         if (Input.GetKeyDown("q")) 
+        {
+            questionnaire.SetActive(!questionnaire.activeSelf);
+        }
+
         currentBlock = blockDesigner.getCurrentBlock();
 
         double timestamp = UnixTime.GetTime();
@@ -164,7 +170,7 @@ public class Mytask : MonoBehaviour
             //feedbackCorrect.SetActive(false);
             //feedbackWrong.SetActive(false);
             //feedbackStats.SetActive(false);
-            questionnaire.SetActive(true);
+            //questionnaire.SetActive(true);
             vivepointer.SetActive(false);
             blockDesigner.IsIAfBaseline = true;
             blockDesigner.duration = TEST ? 3f : 120f;
@@ -181,10 +187,11 @@ public class Mytask : MonoBehaviour
             //feedbackCorrect.SetActive(false);
             //feedbackWrong.SetActive(false);
             //feedbackStats.SetActive(false);
-            questionnaire.SetActive(false);
+            //questionnaire.SetActive(false);
             vivepointer.SetActive(false);
             blockDesigner.IsIAfBaseline = false;
             pedestrianSpawner.pedestriansToSpawn = 0;
+            blockDesigner.duration =  480f;
         }
         else if (state == STATES.wait && currentBlock == 3)
         {
@@ -195,7 +202,7 @@ public class Mytask : MonoBehaviour
             //feedbackCorrect.SetActive(false);
             //feedbackWrong.SetActive(false);
             //feedbackStats.SetActive(false);
-            questionnaire.SetActive(false);
+            //questionnaire.SetActive(false);
             vivepointer.SetActive(false);
             blockDesigner.IsIAfBaseline = false;
             CountNr.SetActive(true);
@@ -206,7 +213,7 @@ public class Mytask : MonoBehaviour
             {
                 StartCoroutine(countNrCoroutine(timestamp));         
             } 
-            blockDesigner.duration = TEST ? 15f : 360f;;
+            blockDesigner.duration = TEST ? 15f : 480f;
             
             //sendData();
         
@@ -222,9 +229,11 @@ public class Mytask : MonoBehaviour
             //feedbackWrong.SetActive(true);
             //feedbackStats.SetActive(true);
             blockDesigner.IsIAfBaseline = false;
-            questionnaire.SetActive(false);
+            //questionnaire.SetActive(false);
             vivepointer.SetActive(false);
             adaptiveEEG.isActive = true;
+            blockDesigner.duration =  480f;
+
             //pedestrianSpawner.pedestriansToSpawn = 100;
 
         }
@@ -237,12 +246,12 @@ public class Mytask : MonoBehaviour
             //feedbackCorrect.SetActive(true);
             //feedbackWrong.SetActive(true);
             //feedbackStats.SetActive(true);
-            blockDesigner.duration = 360.00;
+            blockDesigner.duration = 480.00;
             blockDesigner.IsIAfBaseline = false;
             adaptiveEEG.isActive = true;
 
 
-            questionnaire.SetActive(false);
+            //questionnaire.SetActive(false);
             vivepointer.SetActive(false);
             //pedestrianSpawner.pedestriansToSpawn = 100;
 
@@ -255,10 +264,10 @@ public class Mytask : MonoBehaviour
             ///feedbackCorrect.SetActive(true);
             //feedbackWrong.SetActive(true);
             //feedbackStats.SetActive(true);
-            questionnaire.SetActive(true);
+            //questionnaire.SetActive(true);
             vivepointer.SetActive(true);
             blockDesigner.IsIAfBaseline = false;
-            blockDesigner.duration = 360.00;
+            blockDesigner.duration = 480.00;
            
         }
 
@@ -372,7 +381,6 @@ public class Mytask : MonoBehaviour
         }
 
         if(blockDesigner.IsIAfBaseline) 
-        print("doing baseline");
 
         {
                 if(blockDesigner.getIAF) 
@@ -423,7 +431,6 @@ public class Mytask : MonoBehaviour
                             blockDesigner.gotAlphaPowBaseline = Convert.ToBoolean(alphabaselineResponse.baselineDone); 
                         }
                     }
-                    
                 }                    
         }
     }
