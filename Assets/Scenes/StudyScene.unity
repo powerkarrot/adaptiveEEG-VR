@@ -4976,7 +4976,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   order: 0100000002000000030000000400000005000000
-  duration: 360
+  duration: 480
   currentDuration: 0
   gotIAF: 0
   gotAlphaPowBaseline: 0
