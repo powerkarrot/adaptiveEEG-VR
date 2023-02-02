@@ -79,3 +79,6 @@ RunLSL/adaptation/pickles
 *.pickle
 
 .fake
+
+__pycache__/
+*.pyc
