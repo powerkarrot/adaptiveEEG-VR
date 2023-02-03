@@ -35,6 +35,9 @@ def preprocess_raw(raw):
     #raw.notch_filter(60., n_jobs=2)       
     #raw.filter(1., 70., None, fir_design='firwin', n_jobs=2)
     raw.set_eeg_reference('average', projection=True)
+    if(bads):
+        raw.info['bads'] = bads
+        raw.interpolate_bads(reset_bads=False)
     return raw
 
 #TODO: ask francesco if welch or multitaper
