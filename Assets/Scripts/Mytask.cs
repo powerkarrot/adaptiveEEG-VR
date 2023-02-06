@@ -213,7 +213,7 @@ public class Mytask : MonoBehaviour
             {
                 StartCoroutine(countNrCoroutine(timestamp));         
             } 
-            blockDesigner.duration = TEST ? 15f : 480f;
+            blockDesigner.duration = TEST ? 20f : 480f;
             
             //sendData();
         
@@ -246,7 +246,7 @@ public class Mytask : MonoBehaviour
             //feedbackCorrect.SetActive(true);
             //feedbackWrong.SetActive(true);
             //feedbackStats.SetActive(true);
-            blockDesigner.duration = 480.00;
+            blockDesigner.duration = 480f;
             blockDesigner.IsIAfBaseline = false;
             adaptiveEEG.isActive = true;
 
@@ -572,10 +572,10 @@ public class Mytask : MonoBehaviour
 
     IEnumerator countNrCoroutine(double timestamp)
     {
-        Color32[] ColorListRGBA  = new Color32[] { new Color32 (255, 0, 0, 255), new Color32 (1, 255, 1, 255), new Color32 (1, 1, 255, 255) };
+        Color32[] ColorListRGBA  = new Color32[] { new Color32 (255, 0, 0, 255), new Color32 (1, 255, 1, 255), new Color32 (1, 1, 255, 255), new Color32 (255, 255, 0, 255) };
 
 
-        for(int z = 0; z < 3; z++) 
+        for(int z = 0; z < 4; z++) 
         {
             
             System.Random rnd = new System.Random();
