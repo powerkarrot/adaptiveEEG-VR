@@ -31,4 +31,4 @@ alpha_ch_groups = [
                    channels
                    ]
 
-bads = ['P3']
+bads = []
