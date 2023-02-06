@@ -191,7 +191,7 @@ public class Mytask : MonoBehaviour
             vivepointer.SetActive(false);
             blockDesigner.IsIAfBaseline = false;
             pedestrianSpawner.pedestriansToSpawn = 0;
-            blockDesigner.duration =  480f;
+            blockDesigner.duration =  360;
         }
         else if (state == STATES.wait && currentBlock == 3)
         {
@@ -213,7 +213,7 @@ public class Mytask : MonoBehaviour
             {
                 StartCoroutine(countNrCoroutine(timestamp));         
             } 
-            blockDesigner.duration = TEST ? 20f : 480f;
+            blockDesigner.duration = TEST ? 15 : 360;
             
             //sendData();
         
@@ -232,7 +232,7 @@ public class Mytask : MonoBehaviour
             //questionnaire.SetActive(false);
             vivepointer.SetActive(false);
             adaptiveEEG.isActive = true;
-            blockDesigner.duration =  480f;
+            blockDesigner.duration =  360;
 
             //pedestrianSpawner.pedestriansToSpawn = 100;
 
@@ -246,7 +246,7 @@ public class Mytask : MonoBehaviour
             //feedbackCorrect.SetActive(true);
             //feedbackWrong.SetActive(true);
             //feedbackStats.SetActive(true);
-            blockDesigner.duration = 480f;
+            blockDesigner.duration = 360;
             blockDesigner.IsIAfBaseline = false;
             adaptiveEEG.isActive = true;
 
@@ -267,7 +267,7 @@ public class Mytask : MonoBehaviour
             //questionnaire.SetActive(true);
             vivepointer.SetActive(true);
             blockDesigner.IsIAfBaseline = false;
-            blockDesigner.duration = 480.00;
+            blockDesigner.duration = 360.00;
            
         }
 
@@ -572,10 +572,10 @@ public class Mytask : MonoBehaviour
 
     IEnumerator countNrCoroutine(double timestamp)
     {
-        Color32[] ColorListRGBA  = new Color32[] { new Color32 (255, 0, 0, 255), new Color32 (1, 255, 1, 255), new Color32 (1, 1, 255, 255), new Color32 (255, 255, 0, 255) };
+        Color32[] ColorListRGBA  = new Color32[] { new Color32 (255, 0, 0, 255), new Color32 (1, 255, 1, 255), new Color32 (1, 1, 255, 255) };//, new Color32 (255, 255, 0, 255) };
 
 
-        for(int z = 0; z < 4; z++) 
+        for(int z = 0; z < 3; z++) 
         {
             
             System.Random rnd = new System.Random();

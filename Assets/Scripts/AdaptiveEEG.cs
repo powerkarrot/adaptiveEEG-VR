@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Security.Authentication;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
@@ -148,48 +149,101 @@ public class AdaptiveEEG: MonoBehaviour
                     if(response.error == "")
                     {
 
-                        float percentageDiffExternalAtt = ((response.curroi1 - response.basroi1) / response.basroi1) * 100; //NOTE: alpha channels: external attention
-                        float percentageDiffInternalAtt = ((response.curroi2 - response.basroi2) / response.basroi2) * 100; //NOTE: theta channels: internal attention
+                        float percentageDiffApha = ((response.curroi1 - response.basroi1) / response.basroi1) * 100; //NOTE: alpha channels: external attention
+                        float percentageDiffTheta = ((response.curroi2 - response.basroi2) / response.basroi2) * 100; //NOTE: theta channels: internal attention
 
-                        Debug.Log("External Delta: " + percentageDiffExternalAtt);
-                        Debug.Log("Internal Delta: " + percentageDiffInternalAtt);
+                        Debug.Log("Alpha Delta: " + percentageDiffApha);
+                        Debug.Log("Theta Delta: " + percentageDiffTheta);
 
-                        attention = (Math.Abs(percentageDiffExternalAtt) > Math.Abs(percentageDiffInternalAtt)) ? Attention.External : Attention.Internal;
+                        bool thetaIncrease = percentageDiffTheta > percentageThreshold ? true : false;
+                        bool thetaDecrease = percentageDiffTheta < -percentageThreshold ? true : false;
+                        bool alphaIncrease = percentageDiffApha > percentageThreshold ? true : false;
+                        bool alphaDecrease =  percentageDiffApha < -percentageThreshold ? true : false;
 
-    	                //if it decreases, we want less liams. if it is closer to zero, there is competition... so still less liams. if it is high, leave as is until a certain percentage increase? then add liams.
-                        if(attention == Attention.External) {
-                            float percentageDiff = percentageDiffExternalAtt;
-                            Debug.Log("EXTERNAL ATTENTION");
-
-                            if (percentageDiff > percentageThreshold)
+                        // Internal Attention: Liam Increase
+                        if (thetaIncrease && alphaIncrease)
+                        {
+                            if(mytask.currentBlock == 4) 
                             {
-                                if(mytask.currentBlock == 4) 
-                                {
-                                    
-                                    //Debug.Log("TASK 4 " + percentageDiff.ToString()  + ">" + percentageThreshold.ToString());
-                                    //currentCount = pedestrianSpawner.pedestriansToSpawn;
-                                    currentCount += adaptationUp;
-                                    pedestrianSpawner.pedestriansToSpawn = currentCount;
-                                    logger.writeAdaption(time, "more", "external", currentCount, response.curroi1, response.curroi2, response.basroi1, response.basroi2, percentageThreshold, 4);
-                                    Debug.Log("More LIAMS");
-                                }
+                                
+                                //Debug.Log("TASK 4 " + percentageDiff.ToString()  + ">" + percentageThreshold.ToString());
+                                //currentCount = pedestrianSpawner.pedestriansToSpawn;
+                                currentCount += adaptationUp;
+                                pedestrianSpawner.pedestriansToSpawn = currentCount;
+                                logger.writeAdaption(time, "more", "external", currentCount, response.curroi1, response.curroi2, response.basroi1, response.basroi2, percentageThreshold, 4);
+                                Debug.Log("More LIAMS");
+                            }
 
-                                if(mytask.currentBlock == 5) 
+                            if(mytask.currentBlock == 5) 
+                            {
+                                
+                                //Debug.Log("TASK 5 " + percentageDiff.ToString()  + ">" + percentageThreshold.ToString());
+
+                                //currentCount = pedestrianSpawner.pedestriansToSpawn;
+                                currentCount -= adaptationDown;
+                                pedestrianSpawner.pedestriansToSpawn = currentCount;
+                                logger.writeAdaption(time, "less", "external", currentCount,  response.curroi1, response.curroi2, response.basroi1, response.basroi2, percentageThreshold, 5); 
+                                Debug.Log("Less LIAMS");
+                            }
+                        } 
+
+                        // External Attention: Liam Decrease
+                        if (thetaDecrease && alphaDecrease)
+                        {
+                            if(mytask.currentBlock == 4) 
                                 {
-                                    
-                                    //Debug.Log("TASK 5 " + percentageDiff.ToString()  + ">" + percentageThreshold.ToString());
+                                    //Debug.Log("TASK 4 " + percentageDiff.ToString()  + "< -" + percentageThreshold.ToString());
 
                                     //currentCount = pedestrianSpawner.pedestriansToSpawn;
                                     currentCount -= adaptationDown;
                                     pedestrianSpawner.pedestriansToSpawn = currentCount;
-                                    logger.writeAdaption(time, "less", "external", currentCount,  response.curroi1, response.curroi2, response.basroi1, response.basroi2, percentageThreshold, 5); 
+                                    logger.writeAdaption(time, "less", "external", currentCount, response.curroi1, response.curroi2, response.basroi1, response.basroi2, percentageThreshold, 4); 
                                     Debug.Log("Less LIAMS");
                                 }
-                            }
-                            
-                            if (percentageDiff < - percentageThreshold)
+                                if(mytask.currentBlock == 5) 
+                                {
+                                    
+                                    //Debug.Log("TASK 4 " + percentageDiff.ToString()  + "< -" + percentageThreshold.ToString());
+
+                                    //currentCount = pedestrianSpawner.pedestriansToSpawn;
+                                    currentCount += adaptationUp;
+                                    pedestrianSpawner.pedestriansToSpawn = currentCount;
+                                    logger.writeAdaption(time, "more", "external", currentCount, response.curroi1, response.curroi2, response.basroi1, response.basroi2, percentageThreshold, 5);
+                                    Debug.Log("More LIAMS");
+                                }
+                        } 
+
+                        //Ext-Int Competition     
+                        if (thetaDecrease && alphaIncrease)
+                        {
+                            if(mytask.currentBlock == 4) 
                             {
-                                if(mytask.currentBlock == 4) 
+                                
+                                //Debug.Log("TASK 4 " + percentageDiff.ToString()  + ">" + percentageThreshold.ToString());
+                                //currentCount = pedestrianSpawner.pedestriansToSpawn;
+                                currentCount += adaptationUp;
+                                pedestrianSpawner.pedestriansToSpawn = currentCount;
+                                logger.writeAdaption(time, "more", "external", currentCount, response.curroi1, response.curroi2, response.basroi1, response.basroi2, percentageThreshold, 4);
+                                Debug.Log("More LIAMS");
+                            }
+
+                            if(mytask.currentBlock == 5) 
+                            {
+                                
+                                //Debug.Log("TASK 5 " + percentageDiff.ToString()  + ">" + percentageThreshold.ToString());
+
+                                //currentCount = pedestrianSpawner.pedestriansToSpawn;
+                                currentCount -= adaptationDown;
+                                pedestrianSpawner.pedestriansToSpawn = currentCount;
+                                logger.writeAdaption(time, "less", "external", currentCount,  response.curroi1, response.curroi2, response.basroi1, response.basroi2, percentageThreshold, 5); 
+                                Debug.Log("Less LIAMS");
+                            }
+                        } 
+
+                        //Ext-Int Competition     
+                        if (thetaIncrease && alphaDecrease)
+                        {
+                            if(mytask.currentBlock == 4) 
                                 {
                                     //Debug.Log("TASK 4 " + percentageDiff.ToString()  + "< -" + percentageThreshold.ToString());
 
@@ -211,66 +265,9 @@ public class AdaptiveEEG: MonoBehaviour
                                     Debug.Log("More LIAMS");
                                 }
                             } 
-                        }  
-
-                        else if(attention == Attention.Internal) {
-                        float percentageDiff = percentageDiffInternalAtt;
-                            Debug.Log("INTERNAL ATTENTION");
-
-                            
-                            if (percentageDiff > percentageThreshold)
-                            {
-                                if(mytask.currentBlock == 4) 
-                                {
-                                    
-                                    //Debug.Log("TASK 4 " + percentageDiff.ToString()  + ">" + percentageThreshold.ToString());
-                                    //currentCount = pedestrianSpawner.pedestriansToSpawn;
-                                    currentCount -= adaptationDown;
-                                    pedestrianSpawner.pedestriansToSpawn = currentCount;
-                                    logger.writeAdaption(time, "less", "internal", currentCount,  response.curroi1, response.curroi2, response.basroi1, response.basroi2, percentageThreshold, 4);
-                                    Debug.Log("Less LIAMS");
-                                }
-
-                                if(mytask.currentBlock == 5) 
-                                {
-                                    
-                                    //Debug.Log("TASK 5 " + percentageDiff.ToString()  + ">" + percentageThreshold.ToString());
-
-                                    //currentCount = pedestrianSpawner.pedestriansToSpawn;
-                                    currentCount += adaptationUp;
-                                    pedestrianSpawner.pedestriansToSpawn = currentCount;
-                                    logger.writeAdaption(time, "more", "internal", currentCount,  response.curroi1, response.curroi2, response.basroi1, response.basroi2, percentageThreshold, 5); 
-                                    Debug.Log("More LIAMS");
-                                }
-                            }
-                            
-                            if (percentageDiff < - percentageThreshold)
-                            {
-                                if(mytask.currentBlock == 4) 
-                                {
-                                    
-                                    //Debug.Log("TASK 4 " + percentageDiff.ToString()  + "< -" + percentageThreshold.ToString());
-
-                                    //currentCount = pedestrianSpawner.pedestriansToSpawn;
-                                    currentCount += adaptationUp;
-                                    pedestrianSpawner.pedestriansToSpawn = currentCount;
-                                    logger.writeAdaption(time, "more", "internal",currentCount,  response.curroi1, response.curroi2, response.basroi1, response.basroi2, percentageThreshold, 4); 
-                                    Debug.Log("More LIAMS");
-                                }
-                                if(mytask.currentBlock == 5) 
-                                {
-                                    
-                                    //Debug.Log("TASK 4 " + percentageDiff.ToString()  + "< -" + percentageThreshold.ToString());
-
-                                    //currentCount = pedestrianSpawner.pedestriansToSpawn;
-                                    currentCount -= adaptationDown;
-                                    pedestrianSpawner.pedestriansToSpawn = currentCount;
-                                    logger.writeAdaption(time, "less", "internal", currentCount, response.curroi1, response.curroi2, response.basroi1, response.basroi2, percentageThreshold, 5);
-                                    Debug.Log("Less LIAMS");
-                                }
-                            } 
-                        }      
+                       
                     }
+
                 }
                 else 
                 {
