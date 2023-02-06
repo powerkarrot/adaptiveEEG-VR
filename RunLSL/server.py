@@ -71,6 +71,7 @@ while True:
 
                         
                     elif (obj["type"] == "iaf"):
+                        print("DO IAF")
                         curId = obj["values"]
                         alpha = get_alpha_bands(curId)
                         data = {"lowerAlpha":alpha[0],"upperAlpha":alpha[1], "iafDone":1, "error":""}

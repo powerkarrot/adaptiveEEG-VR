@@ -26,14 +26,7 @@ def calculate_iaf_power(pid, lst_eeg_values = None, baseline=False):
     
     roi_power_1 = compute_freq_power(raw, alpha[0], alpha[1],  picks=roi1)  #TODO: double check which picks for iaf
     roi_power_2 = compute_freq_power(raw, theta[0], theta[1],  picks=roi2)  #TODO: double check which picks for iaf, check freq, range. ARDA CHANGE HERE
-    #try: 
-    #    roi_power_1 = compute_freq_power(raw, alpha[0], alpha[1],  picks=roi1)  #TODO: double check which picks for iaf
-    #    roi_power_2 = compute_freq_power(raw, theta[0], theta[1],  picks=roi2)  #TODO: double check which picks for iaf, check freq, range. ARDA CHANGE HERE
-    #except Exception:
-    #    #roi_power_1 = compute_freq_power(raw, 7.9, 12.0,  picks=roi1)  #TODO: double check which picks for iaf
-    #    roi_power_1 = compute_freq_power(raw, 8., 12.0,  picks=roi1)  #TODO: double check which picks for iaf
-    #    roi_power_2 = compute_freq_power(raw, 3.8, 7.8,  picks=roi2)  #TODO: double check which picks for iaf, check freq, range. ARDA CHANGE HERE
-    #print("alpha: ", roi_power_1, "theta: ", roi_power_2)
+
     return [roi_power_1 ,  roi_power_2]
     
 
