@@ -47,7 +47,7 @@ public class tcpClient : MonoBehaviour
 				// Convert string message to byte array.                 
 				byte[] clientMessageAsByteArray = Encoding.UTF8.GetBytes(clientMessage);
 				//byte[] clientMessageAsByteArray = Encoding.ASCII.GetBytes(clientMessage);
-				Debug.Log(clientMessageAsByteArray.Length);
+				//Debug.Log(clientMessageAsByteArray.Length);
 				// Write byte array to socketConnection stream.                 
 				stream.Write(clientMessageAsByteArray, 0, clientMessageAsByteArray.Length);
 			}

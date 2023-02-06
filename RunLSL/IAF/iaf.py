@@ -18,7 +18,15 @@ matplotlib.use('Agg') # supress plots
    
 def get_alpha_bands(subject):
     
-    eyesclosed = make_raw(subject, "01").crop(tmin = 4.0, tmax = 116.) #TODO: add crop back!!!
+    try:
+        eyesclosed = make_raw(subject, "01").crop(tmin = 4.0, tmax = 116.)
+        print("Using full 112 seconds")
+    except Exception as e:
+        print("Not using full 112 seconds: ", e)
+        eyesclosed = make_raw(subject, "01").crop(tmin = 4.0)
+        
+    
+    #eyesclosed = make_raw(subject, "01").crop(tmin = 4.0)#, tmax = 116.) #TODO: add crop back!!!
     raws = [eyesclosed] #NOTE: no need for array anymore 
     
     alpha = []
