@@ -142,15 +142,16 @@ public class AdaptiveEEG: MonoBehaviour
                         tcp.SendMessageNoReturn("{\"type\":\"eeg_data\",\"values\":[" + outputValues + "]}");
                         totalCount = lst.Count;
                    }
-
                 }
                 
                 else if (mytask.blockDesigner.currentDuration > nextActionTime)// && (mytask.currentBlock == 4 || mytask.currentBlock == 5) 
                 {
                     nextActionTime += adaptionRate;
-
-                    String s = tcp.SendMessage("{\"type\":\"calc_eeg\"}");                   
-                    response = JsonUtility.FromJson<ServerAdaptationResponse>(s);
+                    if(mytask.currentBlock != 3) 
+                        {
+                        String s = tcp.SendMessage("{\"type\":\"calc_eeg\"}");                   
+                        response = JsonUtility.FromJson<ServerAdaptationResponse>(s);
+                        }
 
                     if(response.error == "")
                     {

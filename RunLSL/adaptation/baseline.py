@@ -16,14 +16,14 @@ def calculate_iaf_power(pid, lst_eeg_values = None, baseline=False):
         raw = make_raw_csv(pid=pid, preprocess=False)
     else:
         #print((lst_eeg_values[0:5]))
-        print("baseline 1: ", len(lst_eeg_values))
+        #print("baseline 1: ", len(lst_eeg_values))
 
         raw = samples = np.asarray(lst_eeg_values, dtype=object)
         raw = make_raw_arr(preprocess=False, samples=samples.T) 
         scan_durn = raw._data.shape[1] / raw.info['sfreq']
         print('Duration of EEG recording = ', scan_durn, 's, or', scan_durn / 60, 'min.')           
         lst_eeg_values = []
-        print("baseline 2: ", len(lst_eeg_values))
+        #print("baseline 2: ", len(lst_eeg_values))
 
 
     filename = './RunLSL/IAF/pickles/' + str(pid) + '-iaf.pickle'

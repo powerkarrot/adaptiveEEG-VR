@@ -96,9 +96,9 @@ while True:
                        
                     elif (obj["type"] == "calc_eeg"):
                         #print("calculating pws for adaptation")
-                        print("server 1: ", len(lst_eeg_values))
+                        #print("server 1: ", len(lst_eeg_values))
                         lst_eeg_values, cur = calculate_iaf_power(curId, lst_eeg_values, baseline=False)
-                        print("server 2: ", len(lst_eeg_values))
+                        #print("server 2: ", len(lst_eeg_values))
 
                         filename = './RunLSL/adaptation/pickles/' + str(curId) + '-baseline.pickle'
                         with open(filename, 'rb') as handle:
