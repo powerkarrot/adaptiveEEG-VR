@@ -106,6 +106,7 @@ public class AdaptiveEEG: MonoBehaviour
         if (time - timeLastSendTcp > tcpDelay)
         {
             List<SignalSample1D> lstInput = lSLInput.samples;
+
             //Debug.Log(lSLInput.samples[0].values[0]);
             //Debug.Log(lstInput.Count);
 
@@ -136,13 +137,18 @@ public class AdaptiveEEG: MonoBehaviour
                 { 
                     timeLastSendTcp = time;
                     outputValues = outputValues.Remove(outputValues.Length-1);
-                    tcp.SendMessageNoReturn("{\"type\":\"eeg_data\",\"values\":[" + outputValues + "]}");
-                    totalCount = lst.Count;
+                    if(mytask.currentBlock != 3) 
+                    {
+                        tcp.SendMessageNoReturn("{\"type\":\"eeg_data\",\"values\":[" + outputValues + "]}");
+                        totalCount = lst.Count;
+                   }
+
                 }
                 
                 else if (mytask.blockDesigner.currentDuration > nextActionTime)// && (mytask.currentBlock == 4 || mytask.currentBlock == 5) 
                 {
                     nextActionTime += adaptionRate;
+
                     String s = tcp.SendMessage("{\"type\":\"calc_eeg\"}");                   
                     response = JsonUtility.FromJson<ServerAdaptationResponse>(s);
 
