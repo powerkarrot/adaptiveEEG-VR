@@ -19,7 +19,7 @@ matplotlib.use('Agg') # supress plots
 def get_alpha_bands(subject):
     
     try:
-        eyesclosed = make_raw(subject, "01").crop(tmin = 4.0, tmax = 116.)
+        eyesclosed = make_raw(subject, "01")#.crop(tmin = 4.0, tmax = 116.)
         print("Using full 112 seconds")
     except Exception as e:
         print("Not using full 112 seconds: ", e)
