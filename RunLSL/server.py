@@ -32,10 +32,8 @@ lstDataTimes = []
 lstDataTonicStart = []
 lstDataTonicEnd = []
 
-lst_eeg_values = []
-lst_eeg_times = []
-
 lst_eeg_pws = []
+lst_eeg_values = []   
 
 def current_milli_time():
     return round(time.time() * 1000)
@@ -86,7 +84,7 @@ while True:
                     elif (obj["type"] == "alphapow_baseline"):
                         curId = obj["values"]
 
-                        baseline = calculate_iaf_power(curId,baseline=True)
+                        _ , baseline = calculate_iaf_power(curId,baseline=True)
                         filename = './RunLSL/adaptation/pickles/' + str(curId) + '-baseline.pickle'
                         with open(filename, 'wb') as handle:
                             pickle.dump(baseline, handle, protocol=pickle.HIGHEST_PROTOCOL)
@@ -98,7 +96,10 @@ while True:
                        
                     elif (obj["type"] == "calc_eeg"):
                         #print("calculating pws for adaptation")
-                        cur = calculate_iaf_power(curId, lst_eeg_values)
+                        print("server 1: ", len(lst_eeg_values))
+                        lst_eeg_values, cur = calculate_iaf_power(curId, lst_eeg_values, baseline=False)
+                        print("server 2: ", len(lst_eeg_values))
+
                         filename = './RunLSL/adaptation/pickles/' + str(curId) + '-baseline.pickle'
                         with open(filename, 'rb') as handle:
                             baseline = pickle.load(handle)
