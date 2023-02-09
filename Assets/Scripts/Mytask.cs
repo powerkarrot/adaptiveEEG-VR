@@ -93,7 +93,7 @@ public class Mytask : MonoBehaviour
     private double timeLastSendTcp = 0.0;
     //private bool newDataArrived = false;
 
-    private bool TEST = true;
+    private bool TEST = false;
 
 
     // Start is called before the first frame update
@@ -213,7 +213,7 @@ public class Mytask : MonoBehaviour
             {
                 StartCoroutine(countNrCoroutine(timestamp));         
             } 
-            blockDesigner.duration = TEST ? 15 : 360;
+            blockDesigner.duration = TEST ? 6 : 360;
             
             //sendData();
         
@@ -249,7 +249,6 @@ public class Mytask : MonoBehaviour
             blockDesigner.duration = 360;
             blockDesigner.IsIAfBaseline = false;
             adaptiveEEG.isActive = true;
-
 
             //questionnaire.SetActive(false);
             vivepointer.SetActive(false);
@@ -397,7 +396,6 @@ public class Mytask : MonoBehaviour
                             blockDesigner.gotIAF = Convert.ToBoolean(iafResponse.iafDone); 
                         }
                     }
-                    
                 }                    
         }
 
@@ -526,7 +524,7 @@ public class Mytask : MonoBehaviour
 
             if (lastColor == nBackColor && "green" == pickedTrash)   //If the color of the last ball presented matches the Nback Color & it's put in the green trash, feedback is correct
             {
-                Debug.Log("correct");
+                //Debug.Log("correct");
                 isLastCorrect = true;
                 if (showFeedback) { 
                     feedbackCorrect.SetActive(true);
@@ -535,7 +533,7 @@ public class Mytask : MonoBehaviour
 
             else if (lastColor != nBackColor && "red" == pickedTrash)  //If the color of the last ball presented does not match the Nback Color & it's put in the red trash, feedback is correct
             {
-                Debug.Log("correct");
+                //Debug.Log("correct");
                 isLastCorrect = true;
                 if (showFeedback)
                 {
@@ -544,7 +542,7 @@ public class Mytask : MonoBehaviour
             }
             else  //Otherwise if the Last color matches the Nback color and it's put in the red trashcan OR Last color does not match the Nback color and it's put in the green trashcan: Feedback is wrong
             {
-                Debug.Log("wrong");
+                //Debug.Log("wrong");
                 isLastCorrect = false;
                 if (showFeedback)
                 {
@@ -597,7 +595,7 @@ public class Mytask : MonoBehaviour
             tmp.color = ColorListRGBA[z];
             
             startCountNrCoroutine = false;
-            yield return new WaitForSeconds(TEST ? 5f : 120f);
+            yield return new WaitForSeconds(TEST ? 2f : 120f);
             }
             Debug.Log("5 seconds passed");
             //CountNr.SetActive(false);
