@@ -68,6 +68,9 @@ while True:
                     elif (obj["type"] == "eeg_data"):
                         lst_eeg_values.extend(obj["values"])
                         #print(len(lst_eeg_values))
+                        
+                    elif (obj["type"] == "clear_eeg_lst"):
+                        lst_eeg_values = []
 
                         
                     elif (obj["type"] == "iaf"):

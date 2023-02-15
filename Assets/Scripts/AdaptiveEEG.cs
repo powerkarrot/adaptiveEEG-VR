@@ -77,6 +77,7 @@ public class AdaptiveEEG: MonoBehaviour
             Debug.LogWarning("TCP Delay is smaller than next adaptation call!");
         }
 
+        //Make sure values are properly reset at beginning of each adaptation block
         if(mytask.currentBlock == 4) 
         {
             if(setCurrentCount[0])
@@ -85,18 +86,18 @@ public class AdaptiveEEG: MonoBehaviour
                 setCurrentCount[0] = false;
                 outputValues = "";
                 nextActionTime = 20.0f;
-
-
+                tcp.SendMessageNoReturn("{\"type\":\"clear_eeg_lst\"}");                   
             } 
         }
         if(mytask.currentBlock == 5) 
         {
             if(setCurrentCount[1])
             {
-            currentCount = 100;
-            setCurrentCount[1] = false;
-            outputValues = "";
-            nextActionTime = 20.0f;
+                currentCount = 100;
+                setCurrentCount[1] = false;
+                outputValues = "";
+                nextActionTime = 20.0f;
+                tcp.SendMessageNoReturn("{\"type\":\"clear_eeg_lst\"}");                   
 
             } 
         }

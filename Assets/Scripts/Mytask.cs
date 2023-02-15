@@ -284,7 +284,13 @@ public class Mytask : MonoBehaviour
             vivepointer.SetActive(false);
             adaptiveEEG.isActive = true;
             blockDesigner.duration =  360;
+            blockDesigner.duration = TEST ? 40f : 360f;
+
             blockDesigner.isAdaptive = true;
+            //if(blockDesigner.isDone)
+            //{
+            //    tcp.SendMessageNoReturn("{\"type\":\"clear_eeg_lst\"}"); 
+            //}
 
 
             //pedestrianSpawner.pedestriansToSpawn = 100;
@@ -299,7 +305,9 @@ public class Mytask : MonoBehaviour
             //feedbackCorrect.SetActive(true);
             //feedbackWrong.SetActive(true);
             //feedbackStats.SetActive(true);
-            blockDesigner.duration = 360;
+            blockDesigner.duration = TEST ? 40f : 360f;
+            //blockDesigner.duration = 360f;
+
             blockDesigner.IsIAfBaseline = false;
             adaptiveEEG.isActive = true;
             blockDesigner.isAdaptive = true;
@@ -307,6 +315,10 @@ public class Mytask : MonoBehaviour
             //questionnaire.SetActive(false);
             vivepointer.SetActive(false);
             //pedestrianSpawner.pedestriansToSpawn = 100;
+            //if(blockDesigner.isDone) // for some reason if i do this in the adaptiveEEG.cs it sends less data
+            //{
+            //    tcp.SendMessageNoReturn("{\"type\":\"clear_eeg_lst\"}"); 
+            //}
 
         }
         else
