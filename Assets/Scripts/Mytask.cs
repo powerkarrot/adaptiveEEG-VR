@@ -93,7 +93,7 @@ public class Mytask : MonoBehaviour
     private double timeLastSendTcp = 0.0;
     //private bool newDataArrived = false;
 
-    private bool TEST = false;
+    private bool TEST = true;
 
 
     // Start is called before the first frame update
