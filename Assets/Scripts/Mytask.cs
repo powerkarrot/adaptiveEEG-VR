@@ -380,15 +380,13 @@ public class Mytask : MonoBehaviour
                 {
                     currencount += 1;
                     if (currencount==1)  {
-                        if (timestamp - timeLastSendTcp > tcpDelay) 
-                        {
-                            String curID = logger.participantId.ToString();
-                            String s = tcp.SendMessage("{\"type\":\"iaf\", \"values\": " + curID + "}");
-                            iafResponse = JsonUtility.FromJson<ServerIAFResponse>(s); 
-                            print("lower iaf is" + iafResponse.lowerAlpha);
-                            timeLastSendTcp = timestamp;
-                            blockDesigner.gotIAF = Convert.ToBoolean(iafResponse.iafDone); 
-                        }
+
+                        String curID = logger.participantId.ToString();
+                        String s = tcp.SendMessage("{\"type\":\"iaf\", \"values\": " + curID + "}");
+                        iafResponse = JsonUtility.FromJson<ServerIAFResponse>(s); 
+                        print("lower iaf is" + iafResponse.lowerAlpha);
+                        timeLastSendTcp = timestamp;
+                        blockDesigner.gotIAF = Convert.ToBoolean(iafResponse.iafDone); 
                     }
                 }                    
         }
