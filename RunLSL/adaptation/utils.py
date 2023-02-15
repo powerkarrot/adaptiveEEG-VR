@@ -51,7 +51,10 @@ def compute_freq_power(raw, fmin, fmax, picks):
     psds, freqs = spectrum.get_data(return_freqs=True)
     psds_mean= psds.mean(0)
     #psds_mean = 10 * np.log10(psds_mean)
-    freq_res = freqs[1] - freqs[0]
+    try:
+        freq_res = freqs[1] - freqs[0]
+    except:
+        freq_res = freqs[0] #NOTE: this should not happen
     bp = simpson(psds_mean, dx=freq_res)
     return bp
 

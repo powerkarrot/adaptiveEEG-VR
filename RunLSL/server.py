@@ -34,6 +34,7 @@ lstDataTonicEnd = []
 
 lst_eeg_pws = []
 lst_eeg_values = []   
+pws_baseline = [] #TODO: overwrite this every 20 secs
 
 def current_milli_time():
     return round(time.time() * 1000)
@@ -66,6 +67,7 @@ while True:
                         
                     elif (obj["type"] == "eeg_data"):
                         lst_eeg_values.extend(obj["values"])
+                        #print(len(lst_eeg_values))
 
                         
                     elif (obj["type"] == "iaf"):
@@ -80,19 +82,21 @@ while True:
                         with open(filename, 'wb') as handle:
                             pickle.dump(alpha, handle, protocol=pickle.HIGHEST_PROTOCOL)
                             
-
+                    #TODO: change here for baseline
                     elif (obj["type"] == "alphapow_baseline"):
                         curId = obj["values"]
+                        
 
-                        _ , baseline = calculate_iaf_power(curId,baseline=True)
-                        filename = './RunLSL/adaptation/pickles/' + str(curId) + '-baseline.pickle'
-                        with open(filename, 'wb') as handle:
-                            pickle.dump(baseline, handle, protocol=pickle.HIGHEST_PROTOCOL)
+                        lst_eeg_values , pws_baseline = calculate_iaf_power(curId, lst_eeg_values, baseline=False)
+                        #filename = './RunLSL/adaptation/pickles/' + str(curId) + '-baseline.pickle'
+                        #with open(filename, 'wb') as handle:
+                        #    pickle.dump(pws_baseline, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-                        print("baseline is " , str(baseline))
+                        print("baseline is " , str(pws_baseline))
                         data = {"baselineDone":1, "error":""}
                         signals_data = json.dumps(data) 
                         connection.sendall(signals_data.encode("utf-8"))
+                        
                        
                     elif (obj["type"] == "calc_eeg"):
                         #print("calculating pws for adaptation")
@@ -101,11 +105,13 @@ while True:
                         #print("server 2: ", len(lst_eeg_values))
 
                         filename = './RunLSL/adaptation/pickles/' + str(curId) + '-baseline.pickle'
-                        with open(filename, 'rb') as handle:
-                            baseline = pickle.load(handle)
+                        #with open(filename, 'rb') as handle:
+                        #    baseline = pickle.load(handle)
+                            
                         
-                        signals_data = json.dumps({"ratio1":baseline, "ratio2":cur,"error":""})
-                        signals_data = json.dumps({"curroi1":cur[0], "curroi2":cur[1],"basroi1":baseline[0], "basroi2":baseline[1],"error":""})
+                        signals_data = json.dumps({"curroi1":cur[0], "curroi2":cur[1],"basroi1":pws_baseline[0], "basroi2":pws_baseline[1],"error":""})
+                        
+                        pws_baseline = cur # TODO: double check flow
 
                         connection.sendall(signals_data.encode("utf-8"))
                                             
