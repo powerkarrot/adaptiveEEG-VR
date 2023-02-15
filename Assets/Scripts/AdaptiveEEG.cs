@@ -84,7 +84,6 @@ public class AdaptiveEEG: MonoBehaviour
                 currentCount = 100;
                 setCurrentCount[0] = false;
                 outputValues = "";
-                //nextActionTime += Time.realtimeSinceStartup; //NOTE: this is a hack to cover the initial lag
                 nextActionTime = 20.0f;
 
 
@@ -107,8 +106,6 @@ public class AdaptiveEEG: MonoBehaviour
         {
             List<SignalSample1D> lstInput = lSLInput.samples;
 
-            //Debug.Log(lSLInput.samples[0].values[0]);
-            //Debug.Log(lstInput.Count);
 
             if (lstInput.Count > 0)
             {
@@ -122,7 +119,7 @@ public class AdaptiveEEG: MonoBehaviour
                     if (value.time > timeLastSendTcp)
                     {
                         //var cutValues = value.values.Take(20);
-                        var cutValues = value.values.Take(64); //TODO: 
+                        var cutValues = value.values.Take(64); //TODO: remove this
 
                         string tmp = String.Join(",", cutValues.Select(p=>p.ToString()).ToArray());
 
@@ -134,6 +131,7 @@ public class AdaptiveEEG: MonoBehaviour
 
                 if (i > 0 ) 
                 { 
+                   // Debug.Log(mytask.currentBlock);
                     timeLastSendTcp = time;
                     outputValues = outputValues.Remove(outputValues.Length-1);
                     if(mytask.currentBlock != 3) 
@@ -143,7 +141,7 @@ public class AdaptiveEEG: MonoBehaviour
                    }
                 }
                 
-                else if (mytask.blockDesigner.currentDuration > nextActionTime)// && (mytask.currentBlock == 4 || mytask.currentBlock == 5) 
+                else if (mytask.blockDesigner.currentDuration > nextActionTime && !mytask.blockDesigner.isDone)// && (mytask.currentBlock == 4 || mytask.currentBlock == 5) 
                 {
                     nextActionTime += adaptionRate;
                     if(mytask.currentBlock != 3) 
@@ -181,6 +179,7 @@ public class AdaptiveEEG: MonoBehaviour
                             }
 
                             if(mytask.currentBlock == 5) 
+                            
                             {
                                 
                                 //Debug.Log("TASK 5 " + percentageDiff.ToString()  + ">" + percentageThreshold.ToString());
@@ -196,7 +195,7 @@ public class AdaptiveEEG: MonoBehaviour
                         // External Attention: Liam Decrease
                         if (thetaDecrease && alphaDecrease)
                         {
-                            if(mytask.currentBlock == 4) 
+                            if(mytask.currentBlock == 4 ) 
                                 {
                                     //Debug.Log("TASK 4 " + percentageDiff.ToString()  + "< -" + percentageThreshold.ToString());
 
@@ -272,7 +271,6 @@ public class AdaptiveEEG: MonoBehaviour
                                 }
                             }                       
                     }
-
                 }
                 else 
                 {
