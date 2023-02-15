@@ -42,7 +42,12 @@ def preprocess_raw(raw):
 
 #TODO: ask francesco if welch or multitaper
 def compute_freq_power(raw, fmin, fmax, picks):
-    spectrum = raw.compute_psd(method = 'welch', fmin=fmin, fmax = fmax, n_jobs=2, picks=picks, **{'n_fft': 1024})
+    try:
+        spectrum = raw.compute_psd(method = 'welch', fmin=fmin, fmax = fmax, n_jobs=2, picks=picks, **{'n_fft': 1024})
+    except:
+        print("Signal length too short")
+        spectrum = raw.compute_psd(method = 'welch', fmin=fmin, fmax = fmax, n_jobs=2, picks=picks, **{'n_fft': 128})
+
     psds, freqs = spectrum.get_data(return_freqs=True)
     psds_mean= psds.mean(0)
     #psds_mean = 10 * np.log10(psds_mean)
