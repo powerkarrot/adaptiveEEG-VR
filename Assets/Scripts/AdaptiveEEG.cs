@@ -50,7 +50,7 @@ public class AdaptiveEEG: MonoBehaviour
     private string outputValues = "";
 
 
-    private bool[] setCurrentCount = {true, true};
+    private bool[] isStartingBlock = {true, true};
 
     public int currentCount
     {
@@ -80,10 +80,10 @@ public class AdaptiveEEG: MonoBehaviour
         //Make sure values are properly reset at beginning of each adaptation block
         if(mytask.currentBlock == 4) 
         {
-            if(setCurrentCount[0])
+            if(isStartingBlock[0])
             {
                 currentCount = 100;
-                setCurrentCount[0] = false;
+                isStartingBlock[0] = false;
                 outputValues = "";
                 nextActionTime = 20.0f;
                 tcp.SendMessageNoReturn("{\"type\":\"clear_eeg_lst\"}");                   
@@ -91,10 +91,10 @@ public class AdaptiveEEG: MonoBehaviour
         }
         if(mytask.currentBlock == 5) 
         {
-            if(setCurrentCount[1])
+            if(isStartingBlock[1])
             {
                 currentCount = 100;
-                setCurrentCount[1] = false;
+                isStartingBlock[1] = false;
                 outputValues = "";
                 nextActionTime = 20.0f;
                 tcp.SendMessageNoReturn("{\"type\":\"clear_eeg_lst\"}");                   
@@ -124,19 +124,17 @@ public class AdaptiveEEG: MonoBehaviour
                         string tmp = String.Join(",", cutValues.Select(p=>p.ToString()).ToArray());
 
                         string arr = "[" + tmp + "],";
-                        outputValues += arr;    //TODO: this shit is still appending even though its fucking done ffs. should maybe still be okay because it gets discarded every update and we dont send it.
+                        outputValues += arr;  
                         i++;
                     }
                 }
 
                 if (i > 0) //TODO:  TEST this
                 { 
-                   // Debug.Log(mytask.currentBlock);
                     timeLastSendTcp = time;
                     outputValues = outputValues.Remove(outputValues.Length-1);
                     if(mytask.blockDesigner.isAdaptive && mytask.blockDesigner.isDone == false) 
                     {
-                        //Debug.Log("YO");
                         tcp.SendMessageNoReturn("{\"type\":\"eeg_data\",\"values\":[" + outputValues + "]}");
                         totalCount = lst.Count;
                    }
