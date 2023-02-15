@@ -9,7 +9,7 @@ import pickle
 #lst_eeg_values = []   
 alpha = None
     
-#TODO: move to utils
+#TODO merge this file with utils
 def calculate_iaf_power(pid, values = None, baseline=False):
     
     if baseline:   
