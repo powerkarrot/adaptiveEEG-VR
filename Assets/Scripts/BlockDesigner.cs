@@ -52,18 +52,6 @@ public class BlockDesigner : MonoBehaviour
             {
                 getIAF = false;
                 isDone = true;
-
-                // block 3 is only done when alpha power baseline is calculated
-                //if(order[0] == 2 ) 
-                //{
-                //    if(gotAlphaPowBaseline) 
-                //    {
-                //        isDone = true;
-                //    }
-                //} else 
-                //{
-                //    isDone = true;
-                //}
             }
         }
     }
