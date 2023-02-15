@@ -106,11 +106,10 @@ public class AdaptiveEEG: MonoBehaviour
         {
             List<SignalSample1D> lstInput = lSLInput.samples;
 
-
-            if (lstInput.Count > 0)
+            if (lstInput.Count > 0 ) 
             {
                 List<SignalSample> lst = SignalSample.convertEEG(lstInput);
-            
+
                 outputValues = "";
                 int i = 0;
                
@@ -124,30 +123,31 @@ public class AdaptiveEEG: MonoBehaviour
                         string tmp = String.Join(",", cutValues.Select(p=>p.ToString()).ToArray());
 
                         string arr = "[" + tmp + "],";
-                        outputValues += arr;    
+                        outputValues += arr;    //TODO: this shit is still appending even though its fucking done ffs. should maybe still be okay because it gets discarded every update and we dont send it.
                         i++;
                     }
                 }
 
-                if (i > 0 ) 
+                if (i > 0) //TODO:  TEST this
                 { 
                    // Debug.Log(mytask.currentBlock);
                     timeLastSendTcp = time;
                     outputValues = outputValues.Remove(outputValues.Length-1);
-                    if(mytask.currentBlock != 3) 
+                    if(mytask.blockDesigner.isAdaptive && mytask.blockDesigner.isDone == false) 
                     {
+                        //Debug.Log("YO");
                         tcp.SendMessageNoReturn("{\"type\":\"eeg_data\",\"values\":[" + outputValues + "]}");
                         totalCount = lst.Count;
                    }
                 }
                 
-                else if (mytask.blockDesigner.currentDuration > nextActionTime && !mytask.blockDesigner.isDone)// && (mytask.currentBlock == 4 || mytask.currentBlock == 5) 
+                else if (mytask.blockDesigner.currentDuration > nextActionTime && !mytask.blockDesigner.isDone)
                 {
                     nextActionTime += adaptionRate;
-                    if(mytask.currentBlock != 3) 
+                    if( mytask.blockDesigner.isAdaptive) 
                         {
-                        String s = tcp.SendMessage("{\"type\":\"calc_eeg\"}");                   
-                        response = JsonUtility.FromJson<ServerAdaptationResponse>(s);
+                            String s = tcp.SendMessage("{\"type\":\"calc_eeg\"}");                   
+                            response = JsonUtility.FromJson<ServerAdaptationResponse>(s);
                         }
 
                     if(response.error == "")
@@ -280,6 +280,11 @@ public class AdaptiveEEG: MonoBehaviour
                 // Debug.Log(tonicEDA + " " + slopeBaseline + " " + (tonicEDA - slopeBaseline) + " " + percentageThreshold
             }
         } 
+    }
+
+    public void getLast20Secs()
+    {
+
     }
 
     public List<SignalSample> getAffectedSamples(List<SignalSample> samples, double time)

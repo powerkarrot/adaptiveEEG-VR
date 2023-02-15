@@ -19,6 +19,7 @@ public class BlockDesigner : MonoBehaviour
     public int counter = -1; 
     public bool IsIAfBaseline = false;
 
+    public bool isAdaptive = false;
 
     // Start is called before the first frame update
     void Start()
@@ -38,7 +39,7 @@ public class BlockDesigner : MonoBehaviour
 
         if (currentDuration >= duration)
         {
-            if(IsIAfBaseline)
+            if(IsIAfBaseline) 
             {
                 closeswIAF = true;
                 getIAF = true;
@@ -46,21 +47,23 @@ public class BlockDesigner : MonoBehaviour
                 if(gotIAF == true) {
                     isDone = true;
                 }
-            } else
+            } 
+            else
             {
                 getIAF = false;
+                isDone = true;
 
                 // block 3 is only done when alpha power baseline is calculated
-                if(order[0] == 2 ) 
-                {
-                    if(gotAlphaPowBaseline) 
-                    {
-                        isDone = true;
-                    }
-                } else 
-                {
-                    isDone = true;
-                }
+                //if(order[0] == 2 ) 
+                //{
+                //    if(gotAlphaPowBaseline) 
+                //    {
+                //        isDone = true;
+                //    }
+                //} else 
+                //{
+                //    isDone = true;
+                //}
             }
         }
     }

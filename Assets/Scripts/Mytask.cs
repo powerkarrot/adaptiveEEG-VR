@@ -93,6 +93,8 @@ public class Mytask : MonoBehaviour
     private double timeLastSendTcp = 0.0;
     //private bool newDataArrived = false;
 
+    private bool baselineDone = false;
+
     private bool TEST = true;
 
 
@@ -100,6 +102,8 @@ public class Mytask : MonoBehaviour
     void Start() //initializationstep 
     {
         questionnaire.SetActive(false);
+        adaptiveEEG.isActive = false;
+        
 
         if (logger == null)
         {
@@ -173,6 +177,7 @@ public class Mytask : MonoBehaviour
             //questionnaire.SetActive(true);
             vivepointer.SetActive(false);
             blockDesigner.IsIAfBaseline = true;
+            //blockDesigner.isAdaptive = false;
             blockDesigner.duration = TEST ? 3f : 120f;
         }
 
@@ -183,6 +188,7 @@ public class Mytask : MonoBehaviour
             CorrectTrash.SetActive(false);
             trash_square.SetActive(false);
             CountNr.SetActive(false);
+            //blockDesigner.isAdaptive = false;
 
             //feedbackCorrect.SetActive(false);
             //feedbackWrong.SetActive(false);
@@ -191,30 +197,75 @@ public class Mytask : MonoBehaviour
             vivepointer.SetActive(false);
             blockDesigner.IsIAfBaseline = false;
             pedestrianSpawner.pedestriansToSpawn = 0;
-            blockDesigner.duration =  360;
+            blockDesigner.duration = TEST ? 3f : 360f;
+
+            //if (startActivateAdaptation == true) 
+            //{
+            //    StartCoroutine(activationCoroutine(timestamp));         
+            //} 
+            if(blockDesigner.isDone)
+            {
+                adaptiveEEG.isActive = true;
+            }
+
+
         }
         else if (state == STATES.wait && currentBlock == 3)
         {
-            pilar.SetActive(false);
-            sphere.SetActive(false);
-            CorrectTrash.SetActive(false);
-            trash_square.SetActive(false);
+            //pilar.SetActive(false);
+            //sphere.SetActive(false);
+            //CorrectTrash.SetActive(false);
+            //trash_square.SetActive(false);
             //feedbackCorrect.SetActive(false);
             //feedbackWrong.SetActive(false);
             //feedbackStats.SetActive(false);
             //questionnaire.SetActive(false);
-            vivepointer.SetActive(false);
-            blockDesigner.IsIAfBaseline = false;
-            CountNr.SetActive(true);
+            //vivepointer.SetActive(false);
+            //blockDesigner.IsIAfBaseline = false;
+            //CountNr.SetActive(true);
             //pedestrianSpawner.pedestriansToSpawn = 50;
-            TextMeshPro tmp = CountNr.GetComponent<TextMeshPro>() as TextMeshPro;
-            
+            //TextMeshPro tmp = CountNr.GetComponent<TextMeshPro>() as TextMeshPro;
+
             if (startCountNrCoroutine == true) 
             {
                 StartCoroutine(countNrCoroutine(timestamp));         
             } 
-            blockDesigner.duration = TEST ? 6 : 360;
-            
+
+            //blockDesigner.isAdaptive = false;
+            CountNr.SetActive(false);
+            pilar.SetActive(true);
+            CorrectTrash.SetActive(true);
+            trash_square.SetActive(true);
+            //feedbackCorrect.SetActive(true);
+            //feedbackWrong.SetActive(true);
+            //feedbackStats.SetActive(true);
+            blockDesigner.IsIAfBaseline = false;
+            //questionnaire.SetActive(false);
+            vivepointer.SetActive(false);
+            //adaptiveEEG.isActive = true;
+            blockDesigner.duration = TEST ? 20f : 360f;
+            pedestrianSpawner.pedestriansToSpawn = 160;
+           
+            if(blockDesigner.isDone)
+            {
+                Debug.Log("But this is working i guesS?");
+                if(baselineDone == false)
+                {
+                    String curID = logger.participantId.ToString();
+                    
+                    String s = tcp.SendMessage("{\"type\":\"alphapow_baseline\", \"values\": " + curID + "}");
+                    alphabaselineResponse = JsonUtility.FromJson<ServerAlphaBaselineResponse>(s); 
+                    if(alphabaselineResponse.error == "")
+                    {
+                        baselineDone = Convert.ToBoolean(alphabaselineResponse.baselineDone);
+                        Debug.Log("baseline is done" + baselineDone);
+                        blockDesigner.gotAlphaPowBaseline = true;
+                        print("is done: " + alphabaselineResponse.baselineDone);
+                    }
+                    
+                }
+               
+            }
             //sendData();
         
         }
@@ -233,6 +284,8 @@ public class Mytask : MonoBehaviour
             vivepointer.SetActive(false);
             adaptiveEEG.isActive = true;
             blockDesigner.duration =  360;
+            blockDesigner.isAdaptive = true;
+
 
             //pedestrianSpawner.pedestriansToSpawn = 100;
 
@@ -249,6 +302,7 @@ public class Mytask : MonoBehaviour
             blockDesigner.duration = 360;
             blockDesigner.IsIAfBaseline = false;
             adaptiveEEG.isActive = true;
+            blockDesigner.isAdaptive = true;
 
             //questionnaire.SetActive(false);
             vivepointer.SetActive(false);
@@ -300,7 +354,7 @@ public class Mytask : MonoBehaviour
             {
                 //adaptiveEDA.isActive = true;  
                 //rInt = UnityEngine.Random.Range(20, 120);
-                pedestrianSpawner.pedestriansToSpawn = 50;                          
+                pedestrianSpawner.pedestriansToSpawn = 100;                          
                 logger.writeState(timestamp, "start", nextBlock, 1, nBackNumber);
                 //Debug.Log("Start adaptation 6");
                
@@ -310,7 +364,7 @@ public class Mytask : MonoBehaviour
             {
                 //adaptiveEDA.isActive = true;  
                 //rInt = UnityEngine.Random.Range(20, 120);
-                pedestrianSpawner.pedestriansToSpawn = 200;
+                pedestrianSpawner.pedestriansToSpawn = 100;
                 logger.writeState(timestamp, "start", nextBlock, 1, nBackNumber);
                 //Debug.Log("Start adaptation 6");
 
@@ -318,7 +372,7 @@ public class Mytask : MonoBehaviour
             else 
             {
                 adaptiveEDA.isActive = false;
-                adaptiveEEG.isActive = false;
+                //adaptiveEEG.isActive = false;
                 //pedestrianSpawner.pedestriansToSpawn = 0 + ((nextBlock-1)*100);
                 logger.writeState(timestamp, "start", nextBlock, 1, nBackNumber);
             }
@@ -570,37 +624,19 @@ public class Mytask : MonoBehaviour
 
     IEnumerator countNrCoroutine(double timestamp)
     {
-        Color32[] ColorListRGBA  = new Color32[] { new Color32 (255, 0, 0, 255), new Color32 (1, 255, 1, 255), new Color32 (1, 1, 255, 255) };//, new Color32 (255, 255, 0, 255) };
-
-
-        for(int z = 0; z < 3; z++) 
+        
+        while(true) 
         {
-            
-            System.Random rnd = new System.Random();
-            
-            int i = rnd.Next(100,300);
-            int y;
-            do {
-                y = rnd.Next(-9,9);
-            } while (y == 0 || Math.Abs(y) == 1 || Math.Abs(y) == 2|| Math.Abs(y) == 5);
+                    double sendData = TEST ? 2f : (blockDesigner.duration - 20f);
 
-            TextMeshPro tmp = CountNr.GetComponent<TextMeshPro>() as TextMeshPro;
-            
-            if (y > 0) {
-                tmp.SetText(i + " \n + " + y );
-            } else {
-                tmp.SetText(i + " \n " + y );
-            }
+                    yield return new WaitForSeconds((float)(sendData)); 
+                    //do thing
+                    startCountNrCoroutine = false;
 
-            tmp.color = ColorListRGBA[z];
-            
-            startCountNrCoroutine = false;
-            yield return new WaitForSeconds(TEST ? 2f : 120f);
-            }
-            Debug.Log("5 seconds passed");
-            //CountNr.SetActive(false);
-            sendData(timestamp);
-
-            adaptiveEEG.isActive = true;
+                    //Debug.Log("send baseline Data");
+                    blockDesigner.isAdaptive = true;
+                    //adaptiveEEG.isActive = true;
+        }
     }
 }
+
