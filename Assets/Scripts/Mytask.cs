@@ -228,7 +228,7 @@ public class Mytask : MonoBehaviour
             {
                 StartCoroutine(activateAdaptationCoroutine(timestamp));         
             } 
-
+            
             if(blockDesigner.isDone)
             {
                 adaptiveEEG.isActive = true;
@@ -241,10 +241,8 @@ public class Mytask : MonoBehaviour
                     alphabaselineResponse = JsonUtility.FromJson<ServerAlphaBaselineResponse>(s); 
                     if(alphabaselineResponse.error == "")
                     {
-                        //baselineDone = Convert.ToBoolean(alphabaselineResponse.baselineDone);
                         blockBaselineDone[3] = Convert.ToBoolean(alphabaselineResponse.baselineDone);
                         Debug.Log("baseline is done" + blockBaselineDone[3]);
-                        print("is done: " + alphabaselineResponse.baselineDone);
                     }
                 }
             }        
@@ -448,7 +446,6 @@ public class Mytask : MonoBehaviour
                         String curID = logger.participantId.ToString();
                         String s = tcp.SendMessage("{\"type\":\"iaf\", \"values\": " + curID + "}");
                         iafResponse = JsonUtility.FromJson<ServerIAFResponse>(s); 
-                        //print("lower iaf is" + iafResponse.lowerAlpha);
                         timeLastSendTcp = timestamp;
                         blockDesigner.gotIAF = Convert.ToBoolean(iafResponse.iafDone); 
                     }
@@ -466,7 +463,6 @@ public class Mytask : MonoBehaviour
             }
         }
     }
-
 
     public void collision(double timestamp, string pickedTrash)
     {
@@ -607,16 +603,12 @@ public class Mytask : MonoBehaviour
     {
         while(startAdaptiveCoroutine[currentBlock]) 
         {
-                    double sendData = TEST ? 2f : (blockDesigner.duration - 20f); //start sending data on the last 20 secs of the block
+                    double sendData = TEST ? 2f : (blockDesigner.duration - 20f); 
+                    yield return new WaitForSeconds((float)(sendData)); //start sending data on the last 20 secs of the block
 
-                    yield return new WaitForSeconds((float)(sendData)); 
                     startAdaptiveCoroutine[currentBlock] = false;
-
-
-                    //Debug.Log("Coroutine send baseline Data");
                     blockDesigner.isAdaptive = true;
                     StopCoroutine(activateAdaptationCoroutine(timestamp));
-                    //adaptiveEEG.isActive = true;
         }
     }
 }
