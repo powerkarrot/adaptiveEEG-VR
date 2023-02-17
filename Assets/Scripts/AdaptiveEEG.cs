@@ -173,7 +173,7 @@ public class AdaptiveEEG: MonoBehaviour
                                 Debug.Log("More LIAMS");
                             }
 
-                            if(mytask.currentBlock == 5) 
+                            if(mytask.currentBlock == 6) 
                             
                             {
                                 currentCount -= adaptationDown;
@@ -193,7 +193,7 @@ public class AdaptiveEEG: MonoBehaviour
                                     logger.writeAdaption(time, "less", "external", currentCount, response.curroi1, response.curroi2, response.basroi1, response.basroi2, percentageThreshold, 4); 
                                     Debug.Log("Less LIAMS");
                                 }
-                                if(mytask.currentBlock == 5) 
+                                if(mytask.currentBlock == 6) 
                                 {
                                     currentCount += adaptationUp;
                                     pedestrianSpawner.pedestriansToSpawn = currentCount;
@@ -214,7 +214,7 @@ public class AdaptiveEEG: MonoBehaviour
                                 Debug.Log("More LIAMS");
                             }
 
-                            if(mytask.currentBlock == 5) 
+                            if(mytask.currentBlock == 6) 
                             {
 
                                 currentCount -= adaptationDown;
@@ -235,7 +235,7 @@ public class AdaptiveEEG: MonoBehaviour
                                     logger.writeAdaption(time, "less", "competition_less", currentCount, response.curroi1, response.curroi2, response.basroi1, response.basroi2, percentageThreshold, 4); 
                                     Debug.Log("Less LIAMS");
                                 }
-                                if(mytask.currentBlock == 5) 
+                                if(mytask.currentBlock == 6) 
                                 {
                                     
                                     //Debug.Log("TASK 4 " + percentageDiff.ToString()  + "< -" + percentageThreshold.ToString());
