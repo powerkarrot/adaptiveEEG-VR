@@ -3,14 +3,13 @@ using UnityEngine;
 
 public class BlockDesigner : MonoBehaviour
 {
-    public List<int> order = new List<int>{1, 2, 3, 4, 5};
+    public List<int> order = new List<int>{1, 2, 3, 4, 5, 6};
 
     private double timeStart = 0.0;
     public double duration = 360.0;
     public double currentDuration = 0.0;
 
     public bool gotIAF = false;
-    public bool gotAlphaPowBaseline = false;
     public bool getIAF = false;
     public bool closeswIAF = false;
 
@@ -26,7 +25,7 @@ public class BlockDesigner : MonoBehaviour
     {
         order.Shuffle();
 
-        while (order[0] != 1 || order[1] != 2 || order[2] != 3 )
+        while (order[0] != 1 || order[1] != 2 || order[2] != 3 || order [4] != 5)
         {
             order.Shuffle();
         }
