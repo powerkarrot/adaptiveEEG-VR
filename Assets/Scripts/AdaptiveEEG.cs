@@ -89,7 +89,7 @@ public class AdaptiveEEG: MonoBehaviour
                 tcp.SendMessageNoReturn("{\"type\":\"clear_eeg_lst\"}");                   
             } 
         }
-        if(mytask.currentBlock == 5) 
+        if(mytask.currentBlock == 6) 
         {
             if(isStartingBlock[1])
             {
@@ -142,7 +142,7 @@ public class AdaptiveEEG: MonoBehaviour
                 else if (mytask.blockDesigner.currentDuration > nextActionTime && !mytask.blockDesigner.isDone)
                 {
                     nextActionTime += adaptionRate;
-                    if( mytask.blockDesigner.isAdaptive) 
+                    if( mytask.blockDesigner.isAdaptive) //shouldnt this go before setting nextactiontime...
                         {
                             String s = tcp.SendMessage("{\"type\":\"calc_eeg\"}");                   
                             response = JsonUtility.FromJson<ServerAdaptationResponse>(s);
