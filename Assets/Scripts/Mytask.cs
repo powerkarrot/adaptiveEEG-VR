@@ -98,7 +98,7 @@ public class Mytask : MonoBehaviour
 
     private Dictionary < int, bool > startAdaptiveCoroutine = new Dictionary < int, bool > ();
 
-    private bool TEST = true;
+    private bool TEST = false;
 
 
     // Start is called before the first frame update
@@ -222,7 +222,7 @@ public class Mytask : MonoBehaviour
             vivepointer.SetActive(false);
             blockDesigner.IsIAfBaseline = false;
             pedestrianSpawner.pedestriansToSpawn = 0;
-            blockDesigner.duration = TEST ? 20f : 180;
+            blockDesigner.duration = TEST ? 30f : 180;
 
             if (startAdaptiveCoroutine[3] == true) 
             {
@@ -601,14 +601,14 @@ public class Mytask : MonoBehaviour
 
     IEnumerator activateAdaptationCoroutine(double timestamp)
     {
-        while(startAdaptiveCoroutine[currentBlock]) 
+        if(startAdaptiveCoroutine[currentBlock]) 
         {
                     double sendData = TEST ? 2f : (blockDesigner.duration - 20f); 
                     yield return new WaitForSeconds((float)(sendData)); //start sending data on the last 20 secs of the block
-
                     startAdaptiveCoroutine[currentBlock] = false;
                     blockDesigner.isAdaptive = true;
                     StopCoroutine(activateAdaptationCoroutine(timestamp));
+                    
         }
     }
 }
