@@ -3,12 +3,13 @@ import pandas as pd
 from adaptation.utils import *
 from adaptation.Settings import *
 import pickle
+import matplotlib
 
 #TODO: rename file to adaptation.py
 
 #lst_eeg_values = []   
 alpha = None
-    
+
 #TODO merge this file with utils
 def calculate_iaf_power(pid, values = None, baseline=False):
     
@@ -19,7 +20,7 @@ def calculate_iaf_power(pid, values = None, baseline=False):
     raw = samples = np.asarray(values, dtype=object)
     raw = make_raw_arr(preprocess=False, samples=samples.T) 
     scan_durn = raw._data.shape[1] / raw.info['sfreq']
-    print('Duration of EEG recording = ', scan_durn, 's, or', scan_durn / 60, 'min.')           
+    print('Duration of EEG recording = ', scan_durn, 's, or', scan_durn / 60, 'min.')       
     values = []
 
     filename = './RunLSL/IAF/pickles/' + str(pid) + '-iaf.pickle'

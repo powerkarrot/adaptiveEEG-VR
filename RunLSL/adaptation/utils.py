@@ -40,7 +40,6 @@ def preprocess_raw(raw):
         raw.interpolate_bads(reset_bads=False)
     return raw
 
-#TODO: ask francesco if welch or multitaper
 def compute_freq_power(raw, fmin, fmax, picks):
     try:
         spectrum = raw.compute_psd(method = 'welch', fmin=fmin, fmax = fmax, n_jobs=2, picks=picks, **{'n_fft': 1024})

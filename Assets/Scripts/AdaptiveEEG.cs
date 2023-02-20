@@ -50,7 +50,7 @@ public class AdaptiveEEG: MonoBehaviour
     private string outputValues = "";
 
 
-    private bool[] isStartingBlock = {true, true};
+    private bool[] isStartingBlock = {true, true, true};
 
     public int currentCount
     {
@@ -78,6 +78,17 @@ public class AdaptiveEEG: MonoBehaviour
         }
 
         //Make sure values are properly reset at beginning of each adaptation block
+
+         if(mytask.currentBlock == 3) 
+        {
+            if(isStartingBlock[2])
+            {
+                isStartingBlock[2] = false;
+                outputValues = "";
+                tcp.SendMessageNoReturn("{\"type\":\"clear_eeg_lst\"}");                   
+            } 
+        }
+
         if(mytask.currentBlock == 4) 
         {
             if(isStartingBlock[0])
@@ -128,10 +139,13 @@ public class AdaptiveEEG: MonoBehaviour
                     }
                 }
 
-                if (i > 0) //TODO:  TEST this
+                if (i > 0) 
                 { 
                     timeLastSendTcp = time;
                     outputValues = outputValues.Remove(outputValues.Length-1);
+                    if(!mytask.blockDesigner.isAdaptive ){
+                        outputValues = "";
+                    }
                     if(mytask.blockDesigner.isAdaptive && mytask.blockDesigner.isDone == false) 
                     {
                         tcp.SendMessageNoReturn("{\"type\":\"eeg_data\",\"values\":[" + outputValues + "]}");
@@ -142,7 +156,7 @@ public class AdaptiveEEG: MonoBehaviour
                 else if (mytask.blockDesigner.currentDuration > nextActionTime && !mytask.blockDesigner.isDone)
                 {
                     nextActionTime += adaptionRate;
-                    if( mytask.blockDesigner.isAdaptive) //shouldnt this go before setting nextactiontime...
+                    if( mytask.blockDesigner.isAdaptive && !(mytask.currentBlock == 3|| mytask.currentBlock == 5)) //TODO: change this, also, shouldnt this go before setting nextactiontime...
                         {
                             String s = tcp.SendMessage("{\"type\":\"calc_eeg\"}");                   
                             response = JsonUtility.FromJson<ServerAdaptationResponse>(s);

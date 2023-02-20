@@ -71,6 +71,7 @@ while True:
                         
                     elif (obj["type"] == "clear_eeg_lst"):
                         lst_eeg_values = []
+                        print("EEG list empty")
 
                         
                     elif (obj["type"] == "iaf"):
