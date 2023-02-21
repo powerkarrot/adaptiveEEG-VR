@@ -20,19 +20,18 @@ public class DataLogger : MonoBehaviour
     StreamWriter swVisitorCount;
     StreamWriter swAdaption;
    
-    StreamWriter swEda, swEeg, swEcg, swTonic, swIAF, swBaseline;
+    StreamWriter swEda, swEeg, swEcg, swTonic, swIAF;
 
     StringBuilder stringbuilderEda = new StringBuilder();
     StringBuilder stringbuilderEeg = new StringBuilder();
     StringBuilder stringbuilderIAF = new StringBuilder();
-    StringBuilder stringbuilderBaseline = new StringBuilder();
     StringBuilder stringbuilderEcg = new StringBuilder();
     StringBuilder stringbuilderTonic = new StringBuilder();
 
     [SerializeField]
     private tcpClient tcp;
 
-    private int countedEda = 0, countedEeg = 0, countedEcg = 0;              //, countedTonic = 0;
+    private int countedEda = 0, countedEeg = 0, countedEcg = 0;   //, countedTonic = 0;
 
     public BlockDesigner blockDesigner;
 
@@ -136,15 +135,6 @@ public class DataLogger : MonoBehaviour
             swIAF = (!File.Exists(filepath)) ? File.CreateText(filepath) : File.AppendText(filepath);
             swIAF.WriteLine("Time,TimeLsl,Fp1,Fz,F3,F7,F9,FC5,FC1,C3,T7,CP5,CP1,Pz,P3,P7,P9,O1,Oz,O2,P10,P8,P4,CP2,CP6,T8,C4,Cz,FC2,FC6,F10,F8,F4,Fp2,AF7,AF3,AFz,F1,F5,FT7,FC3,C1,C5,TP7,CP3,P1,P5,PO7,PO3,Iz,POz,PO4,PO8,P6,P2,CPz,CP4,TP8,C6,C2,FC4,FT8,F6,F2,AF4,AF8");
             swIAF.Flush();
-        }
-
-        if (swBaseline == null)
-        {
-            filepath = rootFolder + "Baseline/" + "ID" + participantId + "-EEG.csv"; //FIXME: at some point pass var here instead of 01
-            //swEeg = File.CreateText(filepath);
-            swBaseline = (!File.Exists(filepath)) ? File.CreateText(filepath) : File.AppendText(filepath);
-            swBaseline.WriteLine("Time,TimeLsl,Fp1,Fz,F3,F7,F9,FC5,FC1,C3,T7,CP5,CP1,Pz,P3,P7,P9,O1,Oz,O2,P10,P8,P4,CP2,CP6,T8,C4,Cz,FC2,FC6,F10,F8,F4,Fp2,AF7,AF3,AFz,F1,F5,FT7,FC3,C1,C5,TP7,CP3,P1,P5,PO7,PO3,Iz,POz,PO4,PO8,P6,P2,CPz,CP4,TP8,C6,C2,FC4,FT8,F6,F2,AF4,AF8");
-            swBaseline.Flush();
         }
 
         if (swEcg == null)
@@ -298,11 +288,6 @@ public class DataLogger : MonoBehaviour
                     stringbuilderIAF.AppendFormat("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21},{22},{23},{24},{25},{26},{27},{28},{29},{30},{31},{32},{33},{34},{35},{36},{37},{38},{39},{40},{41},{42},{43},{44},{45},{46},{47},{48},{49},{50},{51},{52},{53},{54},{55},{56},{57},{58},{59},{60},{61},{62},{63},{64},{65},{66}{67}",s.time, s.timeLsl, s.values[0], s.values[1], s.values[2], s.values[3], s.values[4], s.values[5], s.values[6], s.values[7], s.values[8], s.values[9], s.values[10], s.values[11], s.values[12], s.values[13], s.values[14], s.values[15], s.values[16], s.values[17], s.values[18], s.values[19], s.values[20], s.values[21], s.values[22], s.values[23], s.values[24], s.values[25], s.values[26], s.values[27], s.values[28], s.values[29], s.values[30], s.values[31],s.values[32], s.values[33], s.values[34], s.values[35], s.values[36], s.values[37], s.values[38], s.values[39], s.values[40], s.values[41], s.values[42], s.values[43], s.values[44], s.values[45], s.values[46], s.values[47], s.values[48], s.values[49], s.values[50], s.values[51], s.values[52], s.values[53], s.values[54], s.values[55], s.values[56], s.values[57], s.values[58], s.values[59], s.values[60], s.values[61], s.values[62], s.values[63], Environment.NewLine);
 
                 }
-                if(blockDesigner.counter == 2)// && !blockDesigner.getIAF)
-                {
-                    stringbuilderBaseline.AppendFormat("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21},{22},{23},{24},{25},{26},{27},{28},{29},{30},{31},{32},{33},{34},{35},{36},{37},{38},{39},{40},{41},{42},{43},{44},{45},{46},{47},{48},{49},{50},{51},{52},{53},{54},{55},{56},{57},{58},{59},{60},{61},{62},{63},{64},{65},{66}{67}",s.time, s.timeLsl, s.values[0], s.values[1], s.values[2], s.values[3], s.values[4], s.values[5], s.values[6], s.values[7], s.values[8], s.values[9], s.values[10], s.values[11], s.values[12], s.values[13], s.values[14], s.values[15], s.values[16], s.values[17], s.values[18], s.values[19], s.values[20], s.values[21], s.values[22], s.values[23], s.values[24], s.values[25], s.values[26], s.values[27], s.values[28], s.values[29], s.values[30], s.values[31],s.values[32], s.values[33], s.values[34], s.values[35], s.values[36], s.values[37], s.values[38], s.values[39], s.values[40], s.values[41], s.values[42], s.values[43], s.values[44], s.values[45], s.values[46], s.values[47], s.values[48], s.values[49], s.values[50], s.values[51], s.values[52], s.values[53], s.values[54], s.values[55], s.values[56], s.values[57], s.values[58], s.values[59], s.values[60], s.values[61], s.values[62], s.values[63], Environment.NewLine);
-
-                }
             }
             else if (s.values.Length == 64)
             {
@@ -310,19 +295,8 @@ public class DataLogger : MonoBehaviour
                 
                 if(blockDesigner.counter == 0 && !blockDesigner.getIAF)
                 {
-                    //print("Sending tcp at insane rates");
-                    //tcp.SendMessageNoReturn("{\"type\":\"iafdata\", \"values\": " + s.values  + "}");
 
-                    //print("Block 1 strinbuilder IAF appending");
                     stringbuilderIAF.AppendFormat("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21},{22},{23},{24},{25},{26},{27},{28},{29},{30},{31},{32},{33},{34},{35},{36},{37},{38},{39},{40},{41},{42},{43},{44},{45},{46},{47},{48},{49},{50},{51},{52},{53},{54},{55},{56},{57},{58},{59},{60},{61},{62},{63},{64},{65}{66}",s.time, s.timeLsl, s.values[0], s.values[1], s.values[2], s.values[3], s.values[4], s.values[5], s.values[6], s.values[7], s.values[8], s.values[9], s.values[10], s.values[11], s.values[12], s.values[13], s.values[14], s.values[15], s.values[16], s.values[17], s.values[18], s.values[19], s.values[20], s.values[21], s.values[22], s.values[23], s.values[24], s.values[25], s.values[26], s.values[27], s.values[28], s.values[29], s.values[30], s.values[31],s.values[32], s.values[33], s.values[34], s.values[35], s.values[36], s.values[37], s.values[38], s.values[39], s.values[40], s.values[41], s.values[42], s.values[43], s.values[44], s.values[45], s.values[46], s.values[47], s.values[48], s.values[49], s.values[50], s.values[51], s.values[52], s.values[53], s.values[54], s.values[55], s.values[56], s.values[57], s.values[58], s.values[59], s.values[60], s.values[61], s.values[62], s.values[63], Environment.NewLine);
-
-                    //stringbuilderIAF.AppendFormat("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21},{22},{23},{24},{25},{26},{27},{28},{29},{30},{31},{32},{33},{34},{35},{36},{37},{38},{39},{40},{41},{42},{43},{44},{45},{46},{47},{48},{49},{50},{51},{52},{53},{54},{55},{56},{57},{58},{59},{60},{61},{62},{63}", s.values[0], s.values[1], s.values[2], s.values[3], s.values[4], s.values[5], s.values[6], s.values[7], s.values[8], s.values[9], s.values[10], s.values[11], s.values[12], s.values[13], s.values[14], s.values[15], s.values[16], s.values[17], s.values[18], s.values[19], s.values[20], s.values[21], s.values[22], s.values[23], s.values[24], s.values[25], s.values[26], s.values[27], s.values[28], s.values[29], s.values[30], s.values[31],s.values[32], s.values[33], s.values[34], s.values[35], s.values[36], s.values[37], s.values[38], s.values[39], s.values[40], s.values[41], s.values[42], s.values[43], s.values[44], s.values[45], s.values[46], s.values[47], s.values[48], s.values[49], s.values[50], s.values[51], s.values[52], s.values[53], s.values[54], s.values[55], s.values[56], s.values[57], s.values[58], s.values[59], s.values[60], s.values[61], s.values[62], s.values[63]);
-                    //tcp.SendMessageNoReturn("{\"type\":\"iafdata\", \"values\": [" + stringbuilderIAF + "]}");
-
-                }
-                if(blockDesigner.counter == 2)// && !blockDesigner.getIAF)
-                {
-                    stringbuilderBaseline.AppendFormat("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21},{22},{23},{24},{25},{26},{27},{28},{29},{30},{31},{32},{33},{34},{35},{36},{37},{38},{39},{40},{41},{42},{43},{44},{45},{46},{47},{48},{49},{50},{51},{52},{53},{54},{55},{56},{57},{58},{59},{60},{61},{62},{63},{64},{65}{66}",s.time, s.timeLsl, s.values[0], s.values[1], s.values[2], s.values[3], s.values[4], s.values[5], s.values[6], s.values[7], s.values[8], s.values[9], s.values[10], s.values[11], s.values[12], s.values[13], s.values[14], s.values[15], s.values[16], s.values[17], s.values[18], s.values[19], s.values[20], s.values[21], s.values[22], s.values[23], s.values[24], s.values[25], s.values[26], s.values[27], s.values[28], s.values[29], s.values[30], s.values[31],s.values[32], s.values[33], s.values[34], s.values[35], s.values[36], s.values[37], s.values[38], s.values[39], s.values[40], s.values[41], s.values[42], s.values[43], s.values[44], s.values[45], s.values[46], s.values[47], s.values[48], s.values[49], s.values[50], s.values[51], s.values[52], s.values[53], s.values[54], s.values[55], s.values[56], s.values[57], s.values[58], s.values[59], s.values[60], s.values[61], s.values[62], s.values[63], Environment.NewLine);
 
                 }
             }
@@ -337,26 +311,12 @@ public class DataLogger : MonoBehaviour
                 
                 if(blockDesigner.counter == 0 && !blockDesigner.getIAF)
                 {
-                    //print("iaf writing line, tcp sending");
                     swIAF.WriteLine(stringbuilderIAF);
-                    //tcp.SendMessageNoReturn("{\"type\":\"iafdata\", \"values\": [" + stringbuilderIAF + "]}");
                     stringbuilderIAF.Clear();
                     swIAF.Flush();
-                }
-
-                
-                if(blockDesigner.counter == 2)// && !blockDesigner.getIAF)
-                {
-                    //print("iaf writing line, tcp sending");
-                    swBaseline.WriteLine(stringbuilderBaseline);
-                    //tcp.SendMessageNoReturn("{\"type\":\"iafdata\", \"values\": [" + stringbuilderIAF + "]}");
-                    stringbuilderBaseline.Clear();
-                    swBaseline.Flush();
-                }
+                }              
                 
                 if(blockDesigner.getIAF) {
-                    //print("close iaf sw");
-                    //swIAF.Close();
                 }
                 
                 swEeg.WriteLine(stringbuilderEeg);
@@ -404,10 +364,6 @@ public class DataLogger : MonoBehaviour
         if (swIAF != null)
         {
             swIAF.Flush();
-        }
-        if (swBaseline != null)
-        {
-            swBaseline.Flush();
         }
         if (swEcg != null)
         {
