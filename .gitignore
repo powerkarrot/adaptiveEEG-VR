@@ -82,3 +82,7 @@ RunLSL/adaptation/pickles
 
 __pycache__/
 *.pyc
+
+error.txt
+error1.txt
+*.7z

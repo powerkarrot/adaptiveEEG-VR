@@ -77,8 +77,6 @@ public class AdaptiveEEG: MonoBehaviour
             Debug.LogWarning("TCP Delay is smaller than next adaptation call!");
         }
 
-        //Make sure values are properly reset at beginning of each adaptation block
-
          if(mytask.currentBlock == 3) 
         {
             if(isStartingBlock[2])
@@ -156,7 +154,7 @@ public class AdaptiveEEG: MonoBehaviour
                 else if (mytask.blockDesigner.currentDuration > nextActionTime && !mytask.blockDesigner.isDone)
                 {
                     nextActionTime += adaptionRate;
-                    if( mytask.blockDesigner.isAdaptive && !(mytask.currentBlock == 3|| mytask.currentBlock == 5)) //TODO: change this, also, shouldnt this go before setting nextactiontime...
+                    if( mytask.blockDesigner.isAdaptive && !(mytask.currentBlock == 3|| mytask.currentBlock == 5))
                         {
                             String s = tcp.SendMessage("{\"type\":\"calc_eeg\"}");                   
                             response = JsonUtility.FromJson<ServerAdaptationResponse>(s);
