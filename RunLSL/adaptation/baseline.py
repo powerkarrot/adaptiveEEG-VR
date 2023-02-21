@@ -17,8 +17,8 @@ def calculate_iaf_power(pid, values = None, baseline=False):
     else:
         raw = samples = np.asarray(values, dtype=object)
         raw = make_raw_arr(preprocess=False, samples=samples.T) 
-        scan_durn = raw._data.shape[1] / raw.info['sfreq']
-        print('Duration of EEG recording = ', scan_durn, 's, or', scan_durn / 60, 'min.')           
+        signal_len = raw._data.shape[1] / raw.info['sfreq']
+        print('Duration of EEG recording = ', signal_len, 's')           
         values = []
 
     filename = './RunLSL/IAF/pickles/' + str(pid) + '-iaf.pickle'
