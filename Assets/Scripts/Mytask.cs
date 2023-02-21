@@ -173,10 +173,9 @@ public class Mytask : MonoBehaviour
         double timestamp = UnixTime.GetTime();
 
 
-        //IAF 
+        //IAF. Not being sent as TCP to avoid lag at beginning of experiment.
         if (state == STATES.wait && currentBlock == 1)
         {
-
             pilar.SetActive(false);
             CorrectTrash.SetActive(false);
             trash_square.SetActive(false);
@@ -185,6 +184,7 @@ public class Mytask : MonoBehaviour
             vivepointer.SetActive(false);
             blockDesigner.IsIAfBaseline = true;
             //blockDesigner.isAdaptive = false;
+            blockDesigner.trainingBlock = false;
             blockDesigner.duration = TEST ? 3f : 120f;
         }
 
@@ -201,9 +201,11 @@ public class Mytask : MonoBehaviour
             vivepointer.SetActive(false);
             blockDesigner.duration = TEST ? 2f : 180;
             pedestrianSpawner.pedestriansToSpawn = 160;
+            blockDesigner.trainingBlock = false;
 
             if(blockDesigner.isDone)
             {
+                //Put lag at end of block 2 when it's not noticed...
                 adaptiveEEG.isActive = true;
                 blockDesigner.isAdaptive = false;
             }                
@@ -223,6 +225,7 @@ public class Mytask : MonoBehaviour
             blockDesigner.IsIAfBaseline = false;
             pedestrianSpawner.pedestriansToSpawn = 0;
             blockDesigner.duration = TEST ? 22f : 180;
+            blockDesigner.trainingBlock = true;
 
             if (startAdaptiveCoroutine[3] == true) 
             {
@@ -260,7 +263,10 @@ public class Mytask : MonoBehaviour
             blockDesigner.duration =  360;
             blockDesigner.duration = TEST ? 65f : 360f;
             blockDesigner.isAdaptive = true;
+            blockDesigner.trainingBlock = false;
             adaptiveEEG.isActive = true;
+            adaptiveEEG.adaptation = AdaptiveEEG.Adaptation.Good;
+
             if(blockDesigner.isDone)
             {
                 blockDesigner.isAdaptive = false;
@@ -279,7 +285,8 @@ public class Mytask : MonoBehaviour
             vivepointer.SetActive(false);
             blockDesigner.IsIAfBaseline = false;
             pedestrianSpawner.pedestriansToSpawn = 0;
-            blockDesigner.duration = TEST ? 20f : 180f;
+            blockDesigner.duration = TEST ? 22f : 180f;
+            blockDesigner.trainingBlock = true;
 
             if (startAdaptiveCoroutine[5] == true) 
             {
@@ -317,7 +324,9 @@ public class Mytask : MonoBehaviour
             blockDesigner.IsIAfBaseline = false;
             adaptiveEEG.isActive = true;
             blockDesigner.isAdaptive = true;
+            blockDesigner.trainingBlock = false;
             vivepointer.SetActive(false);
+            adaptiveEEG.adaptation = AdaptiveEEG.Adaptation.Bad;
             if(blockDesigner.isDone)
             {
                 blockDesigner.isAdaptive = false;

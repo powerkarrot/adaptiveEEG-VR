@@ -1,10 +1,8 @@
-﻿using System.Security.Authentication;
-using System.Linq;
+﻿using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Unity.Collections;
-using System.Threading.Tasks;
 
 public class AdaptiveEEG: MonoBehaviour
 {
@@ -42,15 +40,20 @@ public class AdaptiveEEG: MonoBehaviour
     private double timeLastSendTcp = 0.0;
 
     private enum Attention {Internal, External}
+    public enum Adaptation  {Good, Bad}
 
     private Attention attention;
 
     public Mytask mytask;
 
+    private int curBlock = -1;
+
     private string outputValues = "";
 
 
     private bool[] isStartingBlock = {true, true, true};
+    
+    public Adaptation adaptation;
 
     public int currentCount
     {
@@ -77,39 +80,16 @@ public class AdaptiveEEG: MonoBehaviour
             Debug.LogWarning("TCP Delay is smaller than next adaptation call!");
         }
 
-         if(mytask.currentBlock == 3) 
-        {
-            if(isStartingBlock[2])
-            {
-                isStartingBlock[2] = false;
-                outputValues = "";
-                tcp.SendMessageNoReturn("{\"type\":\"clear_eeg_lst\"}");                   
-            } 
+         if(mytask.currentBlock != curBlock) {
+            Debug.Log("Resetting");
+            curBlock = mytask.currentBlock;
+            currentCount = 100;
+            isStartingBlock[0] = false;
+            outputValues = "";
+            nextActionTime = 20.0f;
+            tcp.SendMessageNoReturn("{\"type\":\"clear_eeg_lst\"}");  
         }
 
-        if(mytask.currentBlock == 4) 
-        {
-            if(isStartingBlock[0])
-            {
-                currentCount = 100;
-                isStartingBlock[0] = false;
-                outputValues = "";
-                nextActionTime = 20.0f;
-                tcp.SendMessageNoReturn("{\"type\":\"clear_eeg_lst\"}");                   
-            } 
-        }
-        if(mytask.currentBlock == 6) 
-        {
-            if(isStartingBlock[1])
-            {
-                currentCount = 100;
-                isStartingBlock[1] = false;
-                outputValues = "";
-                nextActionTime = 20.0f;
-                tcp.SendMessageNoReturn("{\"type\":\"clear_eeg_lst\"}");                   
-            } 
-        }
-      
         // send data to py fast.       
         if (time - timeLastSendTcp > tcpDelay)
         {
@@ -141,10 +121,7 @@ public class AdaptiveEEG: MonoBehaviour
                 { 
                     timeLastSendTcp = time;
                     outputValues = outputValues.Remove(outputValues.Length-1);
-                    if(!mytask.blockDesigner.isAdaptive ){
-                        outputValues = "";
-                    }
-                    if(mytask.blockDesigner.isAdaptive && mytask.blockDesigner.isDone == false) 
+                    if(mytask.blockDesigner.isAdaptive && !mytask.blockDesigner.isDone) 
                     {
                         tcp.SendMessageNoReturn("{\"type\":\"eeg_data\",\"values\":[" + outputValues + "]}");
                         totalCount = lst.Count;
@@ -154,7 +131,7 @@ public class AdaptiveEEG: MonoBehaviour
                 else if (mytask.blockDesigner.currentDuration > nextActionTime && !mytask.blockDesigner.isDone)
                 {
                     nextActionTime += adaptionRate;
-                    if( mytask.blockDesigner.isAdaptive && !(mytask.currentBlock == 3|| mytask.currentBlock == 5))
+                    if( mytask.blockDesigner.isAdaptive && !(mytask.blockDesigner.trainingBlock)) 
                         {
                             String s = tcp.SendMessage("{\"type\":\"calc_eeg\"}");                   
                             response = JsonUtility.FromJson<ServerAdaptationResponse>(s);
@@ -177,7 +154,8 @@ public class AdaptiveEEG: MonoBehaviour
                         // Internal Attention: Liam Increase
                         if (thetaIncrease && alphaIncrease)
                         {
-                            if(mytask.currentBlock == 4) 
+                            //if(mytask.currentBlock == 4) 
+                            if(adaptation == Adaptation.Good)
                             {
                                 currentCount += adaptationUp;
                                 pedestrianSpawner.pedestriansToSpawn = currentCount;
@@ -185,8 +163,7 @@ public class AdaptiveEEG: MonoBehaviour
                                 Debug.Log("More LIAMS");
                             }
 
-                            if(mytask.currentBlock == 6) 
-                            
+                            if(adaptation == Adaptation.Bad)
                             {
                                 currentCount -= adaptationDown;
                                 pedestrianSpawner.pedestriansToSpawn = currentCount;
@@ -198,14 +175,15 @@ public class AdaptiveEEG: MonoBehaviour
                         // External Attention: Liam Decrease
                         if (thetaDecrease && alphaDecrease)
                         {
-                            if(mytask.currentBlock == 4 ) 
-                                {
+                            //if(mytask.currentBlock == 4) 
+                            if(adaptation == Adaptation.Good)                                
+                            {
                                     currentCount -= adaptationDown;
                                     pedestrianSpawner.pedestriansToSpawn = currentCount;
                                     logger.writeAdaption(time, "less", "external", currentCount, response.curroi1, response.curroi2, response.basroi1, response.basroi2, percentageThreshold, 4); 
                                     Debug.Log("Less LIAMS");
                                 }
-                                if(mytask.currentBlock == 6) 
+                                if(adaptation == Adaptation.Bad) 
                                 {
                                     currentCount += adaptationUp;
                                     pedestrianSpawner.pedestriansToSpawn = currentCount;
@@ -217,18 +195,18 @@ public class AdaptiveEEG: MonoBehaviour
                         //Ext-Int Competition     
                         if (thetaDecrease && alphaIncrease)
                         {
-                            if(mytask.currentBlock == 4) 
+                            //if(mytask.currentBlock == 4) 
+                            if(adaptation == Adaptation.Good)  
                             {
-
                                 currentCount += adaptationUp;
                                 pedestrianSpawner.pedestriansToSpawn = currentCount;
                                 logger.writeAdaption(time, "more", "competition_more", currentCount, response.curroi1, response.curroi2, response.basroi1, response.basroi2, percentageThreshold, 4);
                                 Debug.Log("More LIAMS");
                             }
 
-                            if(mytask.currentBlock == 6) 
+                            //if(mytask.currentBlock == 6) 
+                            if(adaptation == Adaptation.Bad)
                             {
-
                                 currentCount -= adaptationDown;
                                 pedestrianSpawner.pedestriansToSpawn = currentCount;
                                 logger.writeAdaption(time, "less", "competition_less", currentCount,  response.curroi1, response.curroi2, response.basroi1, response.basroi2, percentageThreshold, 5); 
@@ -239,19 +217,17 @@ public class AdaptiveEEG: MonoBehaviour
                         //Ext-Int Competition     
                         if (thetaIncrease && alphaDecrease)
                         {
-                            if(mytask.currentBlock == 4) 
+                            //if(mytask.currentBlock == 4) 
+                            if(adaptation == Adaptation.Good)   
                                 {
-
                                     currentCount -= adaptationDown;
                                     pedestrianSpawner.pedestriansToSpawn = currentCount;
                                     logger.writeAdaption(time, "less", "competition_less", currentCount, response.curroi1, response.curroi2, response.basroi1, response.basroi2, percentageThreshold, 4); 
                                     Debug.Log("Less LIAMS");
                                 }
-                                if(mytask.currentBlock == 6) 
+                                //if(mytask.currentBlock == 6) 
+                                if(adaptation == Adaptation.Bad) 
                                 {
-                                    
-                                    //Debug.Log("TASK 4 " + percentageDiff.ToString()  + "< -" + percentageThreshold.ToString());
-                                    //currentCount = pedestrianSpawner.pedestriansToSpawn;
                                     currentCount += adaptationUp;
                                     pedestrianSpawner.pedestriansToSpawn = currentCount;
                                     logger.writeAdaption(time, "more", "competition_more", currentCount, response.curroi1, response.curroi2, response.basroi1, response.basroi2, percentageThreshold, 5);
