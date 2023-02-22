@@ -59,12 +59,23 @@ public class AdaptiveEEG: MonoBehaviour
 
          if(mytask.currentBlock != curBlock) {
             Debug.Log("Resetting");
+            
             curBlock = mytask.currentBlock;
-            currentCount = 100;
-            isStartingBlock[0] = false;
+            if(mytask.blockDesigner.blockType == BlockDesigner.BlockType.Adapt)
+                pedestrianSpawner.pedestriansToSpawn = 100;
+                currencount = 100;
+            if(mytask.blockDesigner.blockType == BlockDesigner.BlockType.Rest) 
+            {
+                pedestrianSpawner.MurderAllTheLiams();
+            }
+            if(mytask.blockDesigner.blockType == BlockDesigner.BlockType.Train) 
+            {
+            }
+            //isStartingBlock[0] = false;
             outputValues = "";
-            nextActionTime = 20.0f;
             tcp.SendMessageNoReturn("{\"type\":\"clear_eeg_lst\"}");  
+            nextActionTime = 20.0f;
+
         }
 
         // send data to py fast.       

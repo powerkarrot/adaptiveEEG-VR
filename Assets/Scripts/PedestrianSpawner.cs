@@ -90,8 +90,18 @@ public class PedestrianSpawner : MonoBehaviour
             }
         }
 
-
         pedestrianCount = characterRoot.transform.childCount;
+
+    }
+
+    public void MurderAllTheLiams() {
+        if (characterRoot.transform.childCount > 0) {
+
+            for(int x = 0; x < characterRoot.transform.childCount; x++) 
+            {
+                Destroy(characterRoot.transform.GetChild(x).gameObject);
+            }
+        }
     }
 
     public void Remove()

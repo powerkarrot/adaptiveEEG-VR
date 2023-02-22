@@ -54,8 +54,6 @@ while True:
             total_data=[]
             while True:
                 data = connection.recv(4096*8*8*8*8).decode("utf-8")
-                #if not data: break
-                #total_data.extend(data)
    
                 try:
                     obj = json.loads(data)
@@ -73,7 +71,6 @@ while True:
                         lst_eeg_values = []
                         #print("EEG list empty")
 
-                        
                     elif (obj["type"] == "iaf"):
                         print("DO IAF")
                         curId = obj["values"]
@@ -86,37 +83,20 @@ while True:
                         with open(filename, 'wb') as handle:
                             pickle.dump(alpha, handle, protocol=pickle.HIGHEST_PROTOCOL)
                             
-                    #TODO: change here for baseline
                     elif (obj["type"] == "alphapow_baseline"):
                         curId = obj["values"]
-                        
-
                         lst_eeg_values , pws_baseline = calculate_iaf_power(curId, lst_eeg_values, baseline=False)
-                        #filename = './RunLSL/adaptation/pickles/' + str(curId) + '-baseline.pickle'
-                        #with open(filename, 'wb') as handle:
-                        #    pickle.dump(pws_baseline, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
                         print("baseline is " , str(pws_baseline))
                         data = {"baselineDone":1, "error":""}
                         signals_data = json.dumps(data) 
                         connection.sendall(signals_data.encode("utf-8"))
-                        
                        
                     elif (obj["type"] == "calc_eeg"):
                         #print("calculating pws for adaptation")
-                        #print("server 1: ", len(lst_eeg_values))
                         lst_eeg_values, cur = calculate_iaf_power(curId, lst_eeg_values, baseline=False)
-                        #print("server 2: ", len(lst_eeg_values))
-
                         filename = './RunLSL/adaptation/pickles/' + str(curId) + '-baseline.pickle'
-                        #with open(filename, 'rb') as handle:
-                        #    baseline = pickle.load(handle)
-                            
-                        
-                        signals_data = json.dumps({"curroi1":cur[0], "curroi2":cur[1],"basroi1":pws_baseline[0], "basroi2":pws_baseline[1],"error":""})
-                        
+                        signals_data = json.dumps({"curroi1":cur[0], "curroi2":cur[1],"basroi1":pws_baseline[0], "basroi2":pws_baseline[1],"error":""})                       
                         pws_baseline = cur # TODO: double check flow
-
                         connection.sendall(signals_data.encode("utf-8"))
                                             
                     elif (obj["type"] == "calc"):

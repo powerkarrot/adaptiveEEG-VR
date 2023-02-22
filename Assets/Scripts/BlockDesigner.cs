@@ -20,6 +20,10 @@ public class BlockDesigner : MonoBehaviour
 
     public bool isAdaptive = false;
 
+    public enum BlockType  {Rest, Train, Adapt}
+
+    public BlockType blockType;
+
     public bool trainingBlock = false;
 
     // Start is called before the first frame update
@@ -44,7 +48,6 @@ public class BlockDesigner : MonoBehaviour
             {
                 closeswIAF = true;
                 getIAF = true;
-                //block 2 is only done when iaf is calculated
                 if(gotIAF == true) {
                     isDone = true;
                 }
