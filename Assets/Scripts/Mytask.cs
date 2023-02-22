@@ -235,7 +235,6 @@ public class Mytask : MonoBehaviour
             if(blockDesigner.isDone)
             {
                 adaptiveEEG.isActive = true;
-                //if(baselineDone == false)
                 if(blockBaselineDone[3] == false)
                 {
                     String curID = logger.participantId.ToString();

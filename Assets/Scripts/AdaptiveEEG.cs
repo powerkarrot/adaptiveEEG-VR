@@ -6,31 +6,20 @@ using Unity.Collections;
 
 public class AdaptiveEEG: MonoBehaviour
 {
-    public RecordBaseline recordBaseline = null;
     public LSLInput lSLInput;
     public DataLogger logger;
-
     public PedestrianSpawner pedestrianSpawner;
-
     public bool isActive = false;
-
     public float adaptionRate = 20.0f;
     public int adaptationUp = 16;
     public int adaptationDown = 8;
-
     public double timeWindowInSeconds = 20.0;
-
     private float nextActionTime = 20.0f;
-
-    public double fPS;
     public int totalCount;
-    public int countPerWindow;
-    public double average;
     public double percentageThreshold;
     public int minCount ;
     public int maxCount ;
     public ServerAdaptationResponse response;
-
     [ReadOnly] public int currencount;
 
     [SerializeField]
@@ -38,30 +27,18 @@ public class AdaptiveEEG: MonoBehaviour
     private SignalSample signalsamp;
     public float tcpDelay = 0.01f;
     private double timeLastSendTcp = 0.0;
-
-    private enum Attention {Internal, External}
     public enum Adaptation  {Good, Bad}
-
-    private Attention attention;
-
     public Mytask mytask;
-
     private int curBlock = -1;
-
     private string outputValues = "";
-
-
     private bool[] isStartingBlock = {true, true, true};
-    
     public Adaptation adaptation;
-
     public int currentCount
     {
         set { currencount = Math.Max(Math.Min(value, maxCount), minCount); }
 
         get { return currencount; }
     }
-
 
     private void Start() {
 
@@ -219,7 +196,7 @@ public class AdaptiveEEG: MonoBehaviour
                         {
                             //if(mytask.currentBlock == 4) 
                             if(adaptation == Adaptation.Good)   
-                                {
+                            {
                                     currentCount -= adaptationDown;
                                     pedestrianSpawner.pedestriansToSpawn = currentCount;
                                     logger.writeAdaption(time, "less", "competition_less", currentCount, response.curroi1, response.curroi2, response.basroi1, response.basroi2, percentageThreshold, 4); 
@@ -232,27 +209,12 @@ public class AdaptiveEEG: MonoBehaviour
                                     pedestrianSpawner.pedestriansToSpawn = currentCount;
                                     logger.writeAdaption(time, "more", "competition_more", currentCount, response.curroi1, response.curroi2, response.basroi1, response.basroi2, percentageThreshold, 5);
                                     Debug.Log("More LIAMS");
-                                }
-                            }                       
+                            }
+                        }                       
                     }
-                }
-                else 
-                {
-                    //TODO: ask yagiz, does this really mean there is an error? 
-                    //Debug.LogWarning("Server:" + response.error);
-                }
-                // Debug.Log(tonicEDA + " " + slopeBaseline + " " + (tonicEDA - slopeBaseline) + " " + percentageThreshold
+                }              
             }
         } 
-    }
-
-    public List<SignalSample> getAffectedSamples(List<SignalSample> samples, double time)
-    {
-        double minAcceptableTime = time - this.timeWindowInSeconds;
-    
-        var ret =  samples.Where(o => o.Time > minAcceptableTime).ToList();
-        this.fPS = ret.Count / this.timeWindowInSeconds;
-        return ret;
     }
 }
 
