@@ -119,13 +119,16 @@ public class AdaptiveEEG: MonoBehaviour
                 else if (mytask.blockDesigner.currentDuration > nextActionTime && !mytask.blockDesigner.isDone)
                 {
                     nextActionTime += adaptionRate;
-                    if( mytask.blockDesigner.isAdaptive && !(mytask.blockDesigner.trainingBlock)) 
+                    //if( mytask.blockDesigner.isAdaptive && !(mytask.blockDesigner.trainingBlock)) // use BlockDesigner.BlockType.Train ... 
+                    //TODO: rename varable isAdaptive to something more meaningful
+                    if( mytask.blockDesigner.isAdaptive && mytask.blockDesigner.blockType == BlockDesigner.BlockType.Adapt) // use BlockDesigner.BlockType.Train ... 
+
                         {
                             String s = tcp.SendMessage("{\"type\":\"calc_eeg\"}");                   
                             response = JsonUtility.FromJson<ServerAdaptationResponse>(s);
                         }
 
-                    if(response.error == "")
+                    if(mytask.blockDesigner.blockType == BlockDesigner.BlockType.Adapt && response.error == "")
                     {
 
                         float percentageDiffApha = ((response.curroi1 - response.basroi1) / response.basroi1) * 100; //NOTE: alpha channels: external attention
@@ -147,7 +150,7 @@ public class AdaptiveEEG: MonoBehaviour
                             {
                                 currentCount += adaptationUp;
                                 pedestrianSpawner.pedestriansToSpawn = currentCount;
-                                logger.writeAdaption(time, "more", "internal", currentCount, response.curroi1, response.curroi2, response.basroi1, response.basroi2, percentageThreshold, 4);
+                                logger.writeAdaption(time, "more", "internal", currentCount, response.curroi1, response.curroi2, response.basroi1, response.basroi2, percentageThreshold, 7);
                                 Debug.Log("More LIAMS");
                             }
 
@@ -155,7 +158,7 @@ public class AdaptiveEEG: MonoBehaviour
                             {
                                 currentCount -= adaptationDown;
                                 pedestrianSpawner.pedestriansToSpawn = currentCount;
-                                logger.writeAdaption(time, "less", "internal", currentCount,  response.curroi1, response.curroi2, response.basroi1, response.basroi2, percentageThreshold, 5); 
+                                logger.writeAdaption(time, "less", "internal", currentCount,  response.curroi1, response.curroi2, response.basroi1, response.basroi2, percentageThreshold, 9); 
                                 Debug.Log("Less LIAMS");
                             }
                         } 
@@ -168,14 +171,14 @@ public class AdaptiveEEG: MonoBehaviour
                             {
                                     currentCount -= adaptationDown;
                                     pedestrianSpawner.pedestriansToSpawn = currentCount;
-                                    logger.writeAdaption(time, "less", "external", currentCount, response.curroi1, response.curroi2, response.basroi1, response.basroi2, percentageThreshold, 4); 
+                                    logger.writeAdaption(time, "less", "external", currentCount, response.curroi1, response.curroi2, response.basroi1, response.basroi2, percentageThreshold, 7); 
                                     Debug.Log("Less LIAMS");
                                 }
                                 if(adaptation == Adaptation.Bad) 
                                 {
                                     currentCount += adaptationUp;
                                     pedestrianSpawner.pedestriansToSpawn = currentCount;
-                                    logger.writeAdaption(time, "more", "external", currentCount, response.curroi1, response.curroi2, response.basroi1, response.basroi2, percentageThreshold, 5);
+                                    logger.writeAdaption(time, "more", "external", currentCount, response.curroi1, response.curroi2, response.basroi1, response.basroi2, percentageThreshold, 9);
                                     Debug.Log("More LIAMS");
                                 }
                         } 
@@ -188,7 +191,7 @@ public class AdaptiveEEG: MonoBehaviour
                             {
                                 currentCount += adaptationUp;
                                 pedestrianSpawner.pedestriansToSpawn = currentCount;
-                                logger.writeAdaption(time, "more", "competition_more", currentCount, response.curroi1, response.curroi2, response.basroi1, response.basroi2, percentageThreshold, 4);
+                                logger.writeAdaption(time, "more", "competition_more", currentCount, response.curroi1, response.curroi2, response.basroi1, response.basroi2, percentageThreshold, 7);
                                 Debug.Log("More LIAMS");
                             }
 
@@ -197,7 +200,7 @@ public class AdaptiveEEG: MonoBehaviour
                             {
                                 currentCount -= adaptationDown;
                                 pedestrianSpawner.pedestriansToSpawn = currentCount;
-                                logger.writeAdaption(time, "less", "competition_less", currentCount,  response.curroi1, response.curroi2, response.basroi1, response.basroi2, percentageThreshold, 5); 
+                                logger.writeAdaption(time, "less", "competition_less", currentCount,  response.curroi1, response.curroi2, response.basroi1, response.basroi2, percentageThreshold, 9); 
                                 Debug.Log("Less LIAMS");
                             }
                         } 
@@ -210,7 +213,7 @@ public class AdaptiveEEG: MonoBehaviour
                             {
                                     currentCount -= adaptationDown;
                                     pedestrianSpawner.pedestriansToSpawn = currentCount;
-                                    logger.writeAdaption(time, "less", "competition_less", currentCount, response.curroi1, response.curroi2, response.basroi1, response.basroi2, percentageThreshold, 4); 
+                                    logger.writeAdaption(time, "less", "competition_less", currentCount, response.curroi1, response.curroi2, response.basroi1, response.basroi2, percentageThreshold, 7); 
                                     Debug.Log("Less LIAMS");
                                 }
                                 //if(mytask.currentBlock == 6) 
@@ -218,7 +221,7 @@ public class AdaptiveEEG: MonoBehaviour
                                 {
                                     currentCount += adaptationUp;
                                     pedestrianSpawner.pedestriansToSpawn = currentCount;
-                                    logger.writeAdaption(time, "more", "competition_more", currentCount, response.curroi1, response.curroi2, response.basroi1, response.basroi2, percentageThreshold, 5);
+                                    logger.writeAdaption(time, "more", "competition_more", currentCount, response.curroi1, response.curroi2, response.basroi1, response.basroi2, percentageThreshold, 9);
                                     Debug.Log("More LIAMS");
                             }
                         }                       

@@ -153,10 +153,16 @@ public class Mytask : MonoBehaviour
         feedbackStats.SetActive(false);
         logger.blockDesigner = blockDesigner;
 
-        blockBaselineDone.Add(3, false);
-        blockBaselineDone.Add(5, false);
-        startAdaptiveCoroutine.Add(3, true);
-        startAdaptiveCoroutine.Add(5, true);
+        blockBaselineDone.Add(2, false);
+        blockBaselineDone.Add(4, false);
+        blockBaselineDone.Add(6, false);
+        blockBaselineDone.Add(8, false);
+
+        startAdaptiveCoroutine.Add(2, true);
+        startAdaptiveCoroutine.Add(4, true);
+        startAdaptiveCoroutine.Add(6, true);
+        startAdaptiveCoroutine.Add(8, true);
+
     }
 
 
@@ -185,35 +191,18 @@ public class Mytask : MonoBehaviour
             //blockDesigner.isAdaptive = false;
             blockDesigner.trainingBlock = false;
             blockDesigner.duration = TEST ? 3f : 120f;
-        }
-
-        //NBack Training
-        else if (state == STATES.wait && currentBlock == 2)
-        {
-
-            CountNr.SetActive(false);
-            pilar.SetActive(true);
-            CorrectTrash.SetActive(true);
-            trash_square.SetActive(true);
-
-            blockDesigner.IsIAfBaseline = false;
-            vivepointer.SetActive(false);
-            blockDesigner.duration = TEST ? 2f : 180;
-            pedestrianSpawner.pedestriansToSpawn = 160;
-            blockDesigner.trainingBlock = false;
-            blockDesigner.blockType = BlockDesigner.BlockType.Train;
 
             if(blockDesigner.isDone)
             {
-                //Put lag at end of block 2 when it's not noticed...
+                //Put lag at end of block 1 when it's not noticed...
                 adaptiveEEG.isActive = true;
                 blockDesigner.isAdaptive = false;
-            }                
+            }
         }
 
         //Resting state
         //Sends last 20 secs EEG data for baseline
-        else if (state == STATES.wait && currentBlock == 3)
+        else if (state == STATES.wait && currentBlock == 2)
         {
 
             pilar.SetActive(false);
@@ -223,20 +212,23 @@ public class Mytask : MonoBehaviour
             CountNr.SetActive(false);
             vivepointer.SetActive(false);
             blockDesigner.IsIAfBaseline = false;
-            blockDesigner.duration = TEST ? 22f : 180;
+            blockDesigner.duration = TEST ? 22f : 360;
             blockDesigner.trainingBlock = true;
+            
 
-            if (startAdaptiveCoroutine[3] == true) 
+            blockDesigner.blockType = BlockDesigner.BlockType.Rest;
+            pedestrianSpawner.pedestriansToSpawn = 0;  
+
+            if (startAdaptiveCoroutine[2] == true) 
             {
                 StartCoroutine(activateAdaptationCoroutine(timestamp));         
             } 
-            blockDesigner.blockType = BlockDesigner.BlockType.Rest;
-            pedestrianSpawner.pedestriansToSpawn = 0;
-
+            
             if(blockDesigner.isDone)
             {
                 adaptiveEEG.isActive = true;
-                if(blockBaselineDone[3] == false)
+                blockDesigner.isAdaptive = false;
+                if(blockBaselineDone[2] == false)
                 {
                     String curID = logger.participantId.ToString();
                     
@@ -244,38 +236,37 @@ public class Mytask : MonoBehaviour
                     alphabaselineResponse = JsonUtility.FromJson<ServerAlphaBaselineResponse>(s); 
                     if(alphabaselineResponse.error == "")
                     {
-                        blockBaselineDone[3] = Convert.ToBoolean(alphabaselineResponse.baselineDone);
-                        Debug.Log("baseline is done" + blockBaselineDone[3]);
+                        blockBaselineDone[2] = Convert.ToBoolean(alphabaselineResponse.baselineDone);
+                        Debug.Log("baseline is done" + blockBaselineDone[2]);
                     }
                 }
             }        
         }
-        
-        //adaptive NBack good
-        else if (state == STATES.wait && currentBlock == 4)
+
+        //NBack External Attention
+        else if (state == STATES.wait && currentBlock == 3)
         {
+
             CountNr.SetActive(false);
-            pilar.SetActive(true);
-            CorrectTrash.SetActive(true);
-            trash_square.SetActive(true);
+            pilar.SetActive(false);
+            sphere.SetActive(false);
+            CorrectTrash.SetActive(false);
+            trash_square.SetActive(false);
             blockDesigner.IsIAfBaseline = false;
             vivepointer.SetActive(false);
-            blockDesigner.duration =  360;
-            blockDesigner.duration = TEST ? 65f : 360f;
-            blockDesigner.isAdaptive = true;
-            blockDesigner.trainingBlock = false;
-            adaptiveEEG.isActive = true;
-            adaptiveEEG.adaptation = AdaptiveEEG.Adaptation.Good;
-            blockDesigner.blockType = BlockDesigner.BlockType.Adapt;
-
+            blockDesigner.duration = TEST ? 65f : 360;
+            pedestrianSpawner.pedestriansToSpawn = 300;
+            blockDesigner.trainingBlock = true;
+            blockDesigner.blockType = BlockDesigner.BlockType.Train;
             if(blockDesigner.isDone)
             {
-                blockDesigner.isAdaptive = false;
-            }   
+                pedestrianSpawner.MurderAllTheLiams();
+            }
+                            
         }
 
         //Rest + baseline
-        else if (state == STATES.wait && currentBlock == 5)
+        else if (state == STATES.wait && currentBlock == 4)
         {
 
             pilar.SetActive(false);
@@ -289,7 +280,7 @@ public class Mytask : MonoBehaviour
             blockDesigner.duration = TEST ? 22f : 180f;
             blockDesigner.trainingBlock = true;
             blockDesigner.blockType = BlockDesigner.BlockType.Rest;
-            if (startAdaptiveCoroutine[5] == true) 
+            if (startAdaptiveCoroutine[4] == true) 
             {
                 StartCoroutine(activateAdaptationCoroutine(timestamp));         
             } 
@@ -298,7 +289,7 @@ public class Mytask : MonoBehaviour
             {
                 blockDesigner.isAdaptive = false;
 
-                if(blockBaselineDone[5] == false)
+                if(blockBaselineDone[4] == false)
                 {
                     String curID = logger.participantId.ToString();
                     
@@ -306,15 +297,137 @@ public class Mytask : MonoBehaviour
                     alphabaselineResponse = JsonUtility.FromJson<ServerAlphaBaselineResponse>(s); 
                     if(alphabaselineResponse.error == "")
                     {
-                        blockBaselineDone[5] = Convert.ToBoolean(alphabaselineResponse.baselineDone);
-                        Debug.Log("baseline is done" + blockBaselineDone[5]);
+                        blockBaselineDone[4] = Convert.ToBoolean(alphabaselineResponse.baselineDone);
+                        Debug.Log("baseline is done" + blockBaselineDone[4]);
+                    }
+                }
+            }        
+        }
+         //NBack internal Attention
+        else if (state == STATES.wait && currentBlock == 5)
+        {
+
+            CountNr.SetActive(false);
+            pilar.SetActive(true);
+            CorrectTrash.SetActive(true);
+            trash_square.SetActive(true);
+
+            blockDesigner.IsIAfBaseline = false;
+            vivepointer.SetActive(false);
+            blockDesigner.duration = TEST ? 65f : 360;
+            pedestrianSpawner.pedestriansToSpawn = 0;
+            blockDesigner.trainingBlock = true;
+            blockDesigner.blockType = BlockDesigner.BlockType.Train;
+            blockDesigner.trainingBlock = true;
+
+            //adaptiveEEG.isActive = false;
+                            
+        }
+
+         //Rest + baseline
+        else if (state == STATES.wait && currentBlock == 6)
+        {
+
+            pilar.SetActive(false);
+            sphere.SetActive(false);
+            CorrectTrash.SetActive(false);
+            trash_square.SetActive(false);
+            CountNr.SetActive(false);
+            vivepointer.SetActive(false);
+            blockDesigner.IsIAfBaseline = false;
+            pedestrianSpawner.pedestriansToSpawn = 0;
+            blockDesigner.duration = TEST ? 22f : 180f;
+            blockDesigner.trainingBlock = true;
+            blockDesigner.blockType = BlockDesigner.BlockType.Rest;
+            if (startAdaptiveCoroutine[6] == true) 
+            {
+                StartCoroutine(activateAdaptationCoroutine(timestamp));         
+            } 
+
+            if(blockDesigner.isDone)
+            {
+                blockDesigner.isAdaptive = false;
+
+                if(blockBaselineDone[6] == false)
+                {
+                    String curID = logger.participantId.ToString();
+                    
+                    String s = tcp.SendMessage("{\"type\":\"alphapow_baseline\", \"values\": " + curID + "}");
+                    alphabaselineResponse = JsonUtility.FromJson<ServerAlphaBaselineResponse>(s); 
+                    if(alphabaselineResponse.error == "")
+                    {
+                        blockBaselineDone[6] = Convert.ToBoolean(alphabaselineResponse.baselineDone);
+                        Debug.Log("baseline is done" + blockBaselineDone[6]);
+                    }
+                }
+            }     
+        }   
+
+        
+        //adaptive NBack good
+        else if (state == STATES.wait && currentBlock == 7)
+        {
+            CountNr.SetActive(false);
+            pilar.SetActive(true);
+            CorrectTrash.SetActive(true);
+            trash_square.SetActive(true);
+            blockDesigner.IsIAfBaseline = false;
+            vivepointer.SetActive(false);
+            blockDesigner.duration = TEST ? 65f : 360f;
+            blockDesigner.isAdaptive = true;
+            blockDesigner.trainingBlock = false;
+            adaptiveEEG.isActive = true;
+            adaptiveEEG.adaptation = AdaptiveEEG.Adaptation.Good;
+            blockDesigner.blockType = BlockDesigner.BlockType.Adapt;
+
+            if(blockDesigner.isDone)
+            {
+                blockDesigner.isAdaptive = false;
+                pedestrianSpawner.MurderAllTheLiams();
+            }   
+        }
+
+        //Rest + baseline
+        else if (state == STATES.wait && currentBlock == 8)
+        {
+
+            pilar.SetActive(false);
+            sphere.SetActive(false);
+            CorrectTrash.SetActive(false);
+            trash_square.SetActive(false);
+            CountNr.SetActive(false);
+            vivepointer.SetActive(false);
+            blockDesigner.IsIAfBaseline = false;
+            pedestrianSpawner.pedestriansToSpawn = 0;
+            blockDesigner.duration = TEST ? 22f : 180f;
+            blockDesigner.trainingBlock = true;
+            blockDesigner.blockType = BlockDesigner.BlockType.Rest;
+            if (startAdaptiveCoroutine[8] == true) 
+            {
+                StartCoroutine(activateAdaptationCoroutine(timestamp));         
+            } 
+
+            if(blockDesigner.isDone)
+            {
+                blockDesigner.isAdaptive = false;
+
+                if(blockBaselineDone[8] == false)
+                {
+                    String curID = logger.participantId.ToString();
+                    
+                    String s = tcp.SendMessage("{\"type\":\"alphapow_baseline\", \"values\": " + curID + "}");
+                    alphabaselineResponse = JsonUtility.FromJson<ServerAlphaBaselineResponse>(s); 
+                    if(alphabaselineResponse.error == "")
+                    {
+                        blockBaselineDone[8] = Convert.ToBoolean(alphabaselineResponse.baselineDone);
+                        Debug.Log("baseline is done" + blockBaselineDone[8]);
                     }
                 }
             }        
         }
 
         //Adaptive NBack bad
-        else if (state == STATES.wait && currentBlock == 6)
+        else if (state == STATES.wait && currentBlock == 9)
         {
             CountNr.SetActive(false);
             pilar.SetActive(true);
@@ -333,6 +446,7 @@ public class Mytask : MonoBehaviour
             if(blockDesigner.isDone)
             {
                 blockDesigner.isAdaptive = false;
+                pedestrianSpawner.MurderAllTheLiams();
             } 
         }
 

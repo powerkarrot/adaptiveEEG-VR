@@ -1,0 +1,630 @@
+{
+   "qTitle":"NASA TLX Workload Assessment",
+   "qInstructions":"Instructions: Please rate all 6 measures by clicking a point on the scale that best represents your experience with the task you just completed.",
+   "qId":"NASATLX",
+   "questions":[
+      {
+         "pId":"page1",
+         "qType":"radio",
+         "qInstructions":"What is the block number? (Please ask this to the experiment supervisor.)",
+         "qData":[
+            {
+               "qId":"g1",
+               "qText":"Block number:",
+               "qMandatory":"true",
+               "qOptions":[
+                  "",
+                  "3",
+                  "5",
+                  "7",
+                  "9",
+                  ""
+               ]
+            }
+         ]
+      },
+      {
+         "pId":"page2",
+         "qType":"linearGrid",
+         "qInstructions":"Please rate all measures by clicking a point on the scale.",
+         "qData":[
+            {
+               "qId":"g2",
+               "qText":"How mentally demanding was the task?",
+               "qMandatory":"true",
+               "qMin":"0",
+               "qMinLabel":"Very Low",
+               "qMax":"21",
+               "qMaxLabel":"Very High"
+            },
+            {
+               "qId":"g3",
+               "qText":"How physically demanding was the task?",
+               "qMandatory":"true",
+               "qMin":"0",
+               "qMinLabel":"Very Low",
+               "qMax":"21",
+               "qMaxLabel":"Very High"
+            },
+            {
+               "qId":"g4",
+               "qText":"How hurried or rushed was the pace of the task?",
+               "qMandatory":"true",
+               "qMin":"0",
+               "qMinLabel":"Very Low",
+               "qMax":"21",
+               "qMaxLabel":"Very High"
+            }
+         ]
+      },
+      {
+         "pId":"page3",
+         "qType":"linearGrid",
+         "qInstructions":"Please rate all measures by clicking a point on the scale.",
+         "qData":[
+            {
+               "qId":"g5",
+               "qText":"How succesful were you in accomplishing what you were asked to do?",
+               "qMandatory":"true",
+               "qMin":"0",
+               "qMinLabel":"Failure",
+               "qMax":"21",
+               "qMaxLabel":"Perfect"
+            },
+            {
+               "qId":"g6",
+               "qText":"How hard did you have to work to accomplish your level of performance?",
+               "qMandatory":"true",
+               "qMin":"0",
+               "qMinLabel":"Very Low",
+               "qMax":"21",
+               "qMaxLabel":"Very High"
+            },
+            {
+               "qId":"g7",
+               "qText":"How frustrated were you during the task?",
+               "qMandatory":"true",
+               "qMin":"0",
+               "qMinLabel":"Very Low",
+               "qMax":"21",
+               "qMaxLabel":"Very High"
+            }
+         ]
+      },
+      {
+        "pId":"page4",
+         "qType":"linearSlider",
+         "qInstructions":"Please rate all measures by clicking a point on the scale.",
+         "qData":[
+            {
+               "qId":"g8",
+               "qText":"I found it tiresome",
+               "qMin":"0",
+               "qMinLabel":"Not at all",
+               "qMax":"4",
+               "qMaxLabel":"Extremely"
+            },
+            {
+               "qId":"g9",
+               "qText":"I felt skillful.",
+               "qMin":"0",
+               "qMinLabel":"Not at all",
+               "qMax":"4",
+               "qMaxLabel":"Extremely"
+            },
+            {
+               "qId":"g10",
+               "qText":"I was interested in the game's story.",
+               "qMin":"0",
+               "qMinLabel":"Not at all",
+               "qMax":"4",
+               "qMaxLabel":"Extremely"
+            }
+         ]
+      },
+      {
+        "pId":"page5",
+         "qType":"linearSlider",
+         "qInstructions":"Please rate all measures by clicking a point on the scale.",
+         "qData":[
+            {
+               "qId":"g11",
+               "qText":"I found it impressive",
+               "qMin":"0",
+               "qMinLabel":"Not at all",
+               "qMax":"4",
+               "qMaxLabel":"Extremely"
+            },
+            {
+               "qId":"g12",
+               "qText":"I felt content.",
+               "qMin":"0",
+               "qMinLabel":"Not at all",
+               "qMax":"4",
+               "qMaxLabel":"Extremely"
+            },
+            {
+               "qId":"g13",
+               "qText":"I felt good.",
+               "qMin":"0",
+               "qMinLabel":"Not at all",
+               "qMax":"4",
+               "qMaxLabel":"Extremely"
+            }
+         ]
+      },
+      {
+         "pId":"page6",
+         "qType":"linearSlider",
+         "qInstructions":"Thank you for participating, please wait for the instructions!"
+      },
+      {
+         "pId":"page7",
+         "qType":"radio",
+         "qInstructions":"What is the block number? (Please ask this to the experiment supervisor.)",
+         "qData":[
+            {
+               "qId":"g14",
+               "qText":"Block number:",
+               "qMandatory":"true",
+               "qOptions":[
+                  "",
+                  "3",
+                  "5",
+                  "7",
+                  "9",
+                  ""
+               ]
+            }
+         ]
+      },
+      {
+         "pId":"page8",
+         "qType":"linearGrid",
+         "qInstructions":"Please rate all measures by clicking a point on the scale.",
+         "qData":[
+            {
+               "qId":"g15",
+               "qText":"How mentally demanding was the task?",
+               "qMandatory":"true",
+               "qMin":"0",
+               "qMinLabel":"Very Low",
+               "qMax":"21",
+               "qMaxLabel":"Very High"
+            },
+            {
+               "qId":"g16",
+               "qText":"How physically demanding was the task?",
+               "qMandatory":"true",
+               "qMin":"0",
+               "qMinLabel":"Very Low",
+               "qMax":"21",
+               "qMaxLabel":"Very High"
+            },
+            {
+               "qId":"g17",
+               "qText":"How hurried or rushed was the pace of the task?",
+               "qMandatory":"true",
+               "qMin":"0",
+               "qMinLabel":"Very Low",
+               "qMax":"21",
+               "qMaxLabel":"Very High"
+            }
+         ]
+      },
+      {
+         "pId":"page9",
+         "qType":"linearGrid",
+         "qInstructions":"Please rate all measures by clicking a point on the scale.",
+         "qData":[
+            {
+               "qId":"g18",
+               "qText":"How succesful were you in accomplishing what you were asked to do?",
+               "qMandatory":"true",
+               "qMin":"0",
+               "qMinLabel":"Failure",
+               "qMax":"21",
+               "qMaxLabel":"Perfect"
+            },
+            {
+               "qId":"g19",
+               "qText":"How hard did you have to work to accomplish your level of performance?",
+               "qMandatory":"true",
+               "qMin":"0",
+               "qMinLabel":"Very Low",
+               "qMax":"21",
+               "qMaxLabel":"Very High"
+            },
+            {
+               "qId":"g20",
+               "qText":"How frustrated were you during the task?",
+               "qMandatory":"true",
+               "qMin":"0",
+               "qMinLabel":"Very Low",
+               "qMax":"21",
+               "qMaxLabel":"Very High"
+            }
+         ]
+      },
+      {
+        "pId":"page10",
+         "qType":"linearSlider",
+         "qInstructions":"Please rate all measures by clicking a point on the scale.",
+         "qData":[
+            {
+               "qId":"g21",
+               "qText":"I found it tiresome",
+               "qMin":"0",
+               "qMinLabel":"Not at all",
+               "qMax":"4",
+               "qMaxLabel":"Extremely"
+            },
+            {
+               "qId":"g22",
+               "qText":"I felt skillful.",
+               "qMin":"0",
+               "qMinLabel":"Not at all",
+               "qMax":"4",
+               "qMaxLabel":"Extremely"
+            },
+            {
+               "qId":"g23",
+               "qText":"I was interested in the game's story.",
+               "qMin":"0",
+               "qMinLabel":"Not at all",
+               "qMax":"4",
+               "qMaxLabel":"Extremely"
+            }
+         ]
+      },
+      {
+        "pId":"page11",
+         "qType":"linearSlider",
+         "qInstructions":"Please rate all measures by clicking a point on the scale.",
+         "qData":[
+            {
+               "qId":"g24",
+               "qText":"I found it impressive",
+               "qMin":"0",
+               "qMinLabel":"Not at all",
+               "qMax":"4",
+               "qMaxLabel":"Extremely"
+            },
+            {
+               "qId":"g25",
+               "qText":"I felt content.",
+               "qMin":"0",
+               "qMinLabel":"Not at all",
+               "qMax":"4",
+               "qMaxLabel":"Extremely"
+            },
+            {
+               "qId":"g26",
+               "qText":"I felt good.",
+               "qMin":"0",
+               "qMinLabel":"Not at all",
+               "qMax":"4",
+               "qMaxLabel":"Extremely"
+            }
+         ]
+      },
+      {
+         "pId":"page12",
+         "qType":"linearSlider",
+         "qInstructions":"Thank you for participating, please wait for the instructions!"
+      },
+      {
+         "pId":"page13",
+         "qType":"radio",
+         "qInstructions":"What is the block number? (Please ask this to the experiment supervisor.)",
+         "qData":[
+            {
+               "qId":"g27",
+               "qText":"Block number:",
+               "qMandatory":"true",
+               "qOptions":[
+                  "",
+                  "3",
+                  "5",
+                  "7",
+                  "9",
+                  ""
+               ]
+            }
+         ]
+      },
+      {
+         "pId":"page14",
+         "qType":"linearGrid",
+         "qInstructions":"Please rate all measures by clicking a point on the scale.",
+         "qData":[
+            {
+               "qId":"g28",
+               "qText":"How mentally demanding was the task?",
+               "qMandatory":"true",
+               "qMin":"0",
+               "qMinLabel":"Very Low",
+               "qMax":"21",
+               "qMaxLabel":"Very High"
+            },
+            {
+               "qId":"g29",
+               "qText":"How physically demanding was the task?",
+               "qMandatory":"true",
+               "qMin":"0",
+               "qMinLabel":"Very Low",
+               "qMax":"21",
+               "qMaxLabel":"Very High"
+            },
+            {
+               "qId":"g30",
+               "qText":"How hurried or rushed was the pace of the task?",
+               "qMandatory":"true",
+               "qMin":"0",
+               "qMinLabel":"Very Low",
+               "qMax":"21",
+               "qMaxLabel":"Very High"
+            }
+         ]
+      },
+
+      {
+         "pId":"page15",
+         "qType":"linearGrid",
+         "qInstructions":"Please rate all measures by clicking a point on the scale.",
+         "qData":[
+            {
+               "qId":"g31",
+               "qText":"How succesful were you in accomplishing what you were asked to do?",
+               "qMandatory":"true",
+               "qMin":"0",
+               "qMinLabel":"Failure",
+               "qMax":"21",
+               "qMaxLabel":"Perfect"
+            },
+            {
+               "qId":"g32",
+               "qText":"How hard did you have to work to accomplish your level of performance?",
+               "qMandatory":"true",
+               "qMin":"0",
+               "qMinLabel":"Very Low",
+               "qMax":"21",
+               "qMaxLabel":"Very High"
+            },
+            {
+               "qId":"g33",
+               "qText":"How frustrated were you during the task?",
+               "qMandatory":"true",
+               "qMin":"0",
+               "qMinLabel":"Very Low",
+               "qMax":"21",
+               "qMaxLabel":"Very High"
+            }
+         ]
+      },
+      {
+        "pId":"page16",
+         "qType":"linearSlider",
+         "qInstructions":"Please rate all measures by clicking a point on the scale.",
+         "qData":[
+            {
+               "qId":"g34",
+               "qText":"I found it tiresome",
+               "qMin":"0",
+               "qMinLabel":"Not at all",
+               "qMax":"4",
+               "qMaxLabel":"Extremely"
+            },
+            {
+               "qId":"g35",
+               "qText":"I felt skillful.",
+               "qMin":"0",
+               "qMinLabel":"Not at all",
+               "qMax":"4",
+               "qMaxLabel":"Extremely"
+            },
+            {
+               "qId":"g36",
+               "qText":"I was interested in the game's story.",
+               "qMin":"0",
+               "qMinLabel":"Not at all",
+               "qMax":"4",
+               "qMaxLabel":"Extremely"
+            }
+         ]
+      },
+      {
+        "pId":"page17",
+         "qType":"linearSlider",
+         "qInstructions":"Please rate all measures by clicking a point on the scale.",
+         "qData":[
+            {
+               "qId":"g37",
+               "qText":"I found it impressive",
+               "qMin":"0",
+               "qMinLabel":"Not at all",
+               "qMax":"4",
+               "qMaxLabel":"Extremely"
+            },
+            {
+               "qId":"g38",
+               "qText":"I felt content.",
+               "qMin":"0",
+               "qMinLabel":"Not at all",
+               "qMax":"4",
+               "qMaxLabel":"Extremely"
+            },
+            {
+               "qId":"g39",
+               "qText":"I felt good.",
+               "qMin":"0",
+               "qMinLabel":"Not at all",
+               "qMax":"4",
+               "qMaxLabel":"Extremely"
+            }
+         ]
+      },
+      {
+         "pId":"page18",
+         "qType":"linearSlider",
+         "qInstructions":"Thank you for participating, please wait for the instructions!"
+      },
+      {
+         "pId":"page19",
+         "qType":"radio",
+         "qInstructions":"What is the block number? (Please ask this to the experiment supervisor.)",
+         "qData":[
+            {
+               "qId":"g40",
+               "qText":"Block number:",
+               "qMandatory":"true",
+               "qOptions":[
+                  "",
+                  "3",
+                  "5",
+                  "7",
+                  "9",
+                  ""
+               ]
+            }
+         ]
+      },
+      {
+         "pId":"page20",
+         "qType":"linearGrid",
+         "qInstructions":"Please rate all measures by clicking a point on the scale.",
+         "qData":[
+            {
+               "qId":"g41",
+               "qText":"How mentally demanding was the task?",
+               "qMandatory":"true",
+               "qMin":"0",
+               "qMinLabel":"Very Low",
+               "qMax":"21",
+               "qMaxLabel":"Very High"
+            },
+            {
+               "qId":"g42",
+               "qText":"How physically demanding was the task?",
+               "qMandatory":"true",
+               "qMin":"0",
+               "qMinLabel":"Very Low",
+               "qMax":"21",
+               "qMaxLabel":"Very High"
+            },
+            {
+               "qId":"g43",
+               "qText":"How hurried or rushed was the pace of the task?",
+               "qMandatory":"true",
+               "qMin":"0",
+               "qMinLabel":"Very Low",
+               "qMax":"21",
+               "qMaxLabel":"Very High"
+            }
+         ]
+      },
+      {
+         "pId":"page21",
+         "qType":"linearGrid",
+         "qInstructions":"Please rate all measures by clicking a point on the scale.",
+         "qData":[
+            {
+               "qId":"g44",
+               "qText":"How succesful were you in accomplishing what you were asked to do?",
+               "qMandatory":"true",
+               "qMin":"0",
+               "qMinLabel":"Failure",
+               "qMax":"21",
+               "qMaxLabel":"Perfect"
+            },
+            {
+               "qId":"g45",
+               "qText":"How hard did you have to work to accomplish your level of performance?",
+               "qMandatory":"true",
+               "qMin":"0",
+               "qMinLabel":"Very Low",
+               "qMax":"21",
+               "qMaxLabel":"Very High"
+            },
+            {
+               "qId":"g46",
+               "qText":"How frustrated were you during the task?",
+               "qMandatory":"true",
+               "qMin":"0",
+               "qMinLabel":"Very Low",
+               "qMax":"21",
+               "qMaxLabel":"Very High"
+            }
+         ]
+      },
+      {
+        "pId":"page22",
+         "qType":"linearSlider",
+         "qInstructions":"Please rate all measures by clicking a point on the scale.",
+         "qData":[
+            {
+               "qId":"g47",
+               "qText":"I found it tiresome",
+               "qMin":"0",
+               "qMinLabel":"Not at all",
+               "qMax":"4",
+               "qMaxLabel":"Extremely"
+            },
+            {
+               "qId":"g48",
+               "qText":"I felt skillful.",
+               "qMin":"0",
+               "qMinLabel":"Not at all",
+               "qMax":"4",
+               "qMaxLabel":"Extremely"
+            },
+            {
+               "qId":"g49",
+               "qText":"I was interested in the game's story.",
+               "qMin":"0",
+               "qMinLabel":"Not at all",
+               "qMax":"4",
+               "qMaxLabel":"Extremely"
+            }
+         ]
+      },
+      {
+        "pId":"page23",
+         "qType":"linearSlider",
+         "qInstructions":"Please rate all measures by clicking a point on the scale.",
+         "qData":[
+            {
+               "qId":"g50",
+               "qText":"I found it impressive",
+               "qMin":"0",
+               "qMinLabel":"Not at all",
+               "qMax":"4",
+               "qMaxLabel":"Extremely"
+            },
+            {
+               "qId":"g51",
+               "qText":"I felt content.",
+               "qMin":"0",
+               "qMinLabel":"Not at all",
+               "qMax":"4",
+               "qMaxLabel":"Extremely"
+            },
+            {
+               "qId":"g52",
+               "qText":"I felt good.",
+               "qMin":"0",
+               "qMinLabel":"Not at all",
+               "qMax":"4",
+               "qMaxLabel":"Extremely"
+            }
+         ]
+      },
+      {
+         "pId":"page24",
+         "qType":"linearSlider",
+         "qInstructions":"Thank you for participating, please wait for the instructions!"
+      }
+        
+      
+    ]
+}

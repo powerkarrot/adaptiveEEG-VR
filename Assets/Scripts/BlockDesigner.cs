@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class BlockDesigner : MonoBehaviour
 {
-    public List<int> order = new List<int>{1, 2, 3, 4, 5, 6};
+    public List<int> order = new List<int>{1, 2, 3, 4, 5, 6, 7, 8, 9};
 
     private double timeStart = 0.0;
     public double duration = 360.0;
@@ -28,14 +28,18 @@ public class BlockDesigner : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {
+    { 
+        order = new List<int>{1, 2, 3, 4, 5, 6, 7, 8, 9};
+
         order.Shuffle();
 
-        while (order[0] != 1 || order[1] != 2 || order[2] != 3 || order [4] != 5)
+        while (order[0] != 1 || order[1] != 2 || order[3] != 4 || order [5] != 6  ||  order [7] != 8)
         {
             order.Shuffle();
         }
+
     }
+
     // Update is called once per frame
     void Update()
     {
