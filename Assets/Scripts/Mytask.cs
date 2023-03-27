@@ -98,7 +98,7 @@ public class Mytask : MonoBehaviour
 
     private Dictionary < int, bool > startAdaptiveCoroutine = new Dictionary < int, bool > ();
 
-    private bool TEST = true;
+    private bool TEST = false;
 
 
     // Start is called before the first frame update
@@ -261,8 +261,7 @@ public class Mytask : MonoBehaviour
             if(blockDesigner.isDone)
             {
                 pedestrianSpawner.MurderAllTheLiams();
-            }
-                            
+            }           
         }
 
         //Rest + baseline
@@ -303,7 +302,8 @@ public class Mytask : MonoBehaviour
                 }
             }        
         }
-         //NBack internal Attention
+
+        //NBack internal Attention
         else if (state == STATES.wait && currentBlock == 5)
         {
 
@@ -320,8 +320,7 @@ public class Mytask : MonoBehaviour
             blockDesigner.blockType = BlockDesigner.BlockType.Train;
             blockDesigner.trainingBlock = true;
 
-            //adaptiveEEG.isActive = false;
-                            
+            //adaptiveEEG.isActive = false;                        
         }
 
          //Rest + baseline
@@ -363,7 +362,6 @@ public class Mytask : MonoBehaviour
             }     
         }   
 
-        
         //adaptive NBack good
         else if (state == STATES.wait && currentBlock == 7)
         {
