@@ -1,54 +1,54 @@
 QuestionType,Question,QuestionID,Answer
-radio,Block number:,g1,3
-linearGrid,How mentally demanding was the task?,g2,15
-linearGrid,How physically demanding was the task?,g3,15
-linearGrid,How hurried or rushed was the pace of the task?,g4,14
-linearGrid,How succesful were you in accomplishing what you were asked to do?,g5,13
-linearGrid,How hard did you have to work to accomplish your level of performance?,g6,14
-linearGrid,How frustrated were you during the task?,g7,14
+radio,Block number:,g1,4
+linearGrid,How mentally demanding was the task?,g2,8
+linearGrid,How physically demanding was the task?,g3,4
+linearGrid,How hurried or rushed was the pace of the task?,g4,3
+linearGrid,How succesful were you in accomplishing what you were asked to do?,g5,12
+linearGrid,How hard did you have to work to accomplish your level of performance?,g6,12
+linearGrid,How frustrated were you during the task?,g7,10
 linearSlider,I found it tiresome,g8,1
-linearSlider,I felt skillful.,g9,2
-linearSlider,I was interested in the game's story.,g10,3
-linearSlider,I found it impressive,g11,3
+linearSlider,I felt skillful.,g9,1
+linearSlider,I was interested in the game's story.,g10,1
+linearSlider,I found it impressive,g11,1
 linearSlider,I felt content.,g12,1
 linearSlider,I felt good.,g13,3
 radio,Block number:,g14,2
-linearGrid,How mentally demanding was the task?,g15,10
-linearGrid,How physically demanding was the task?,g16,14
-linearGrid,How hurried or rushed was the pace of the task?,g17,17
-linearGrid,How succesful were you in accomplishing what you were asked to do?,g18,14
-linearGrid,How hard did you have to work to accomplish your level of performance?,g19,10
-linearGrid,How frustrated were you during the task?,g20,16
+linearGrid,How mentally demanding was the task?,g15,12
+linearGrid,How physically demanding was the task?,g16,5
+linearGrid,How hurried or rushed was the pace of the task?,g17,5
+linearGrid,How succesful were you in accomplishing what you were asked to do?,g18,11
+linearGrid,How hard did you have to work to accomplish your level of performance?,g19,12
+linearGrid,How frustrated were you during the task?,g20,12
 linearSlider,I found it tiresome,g21,3
-linearSlider,I felt skillful.,g22,1
-linearSlider,I was interested in the game's story.,g23,3
-linearSlider,I found it impressive,g24,4
-linearSlider,I felt content.,g25,4
-linearSlider,I felt good.,g26,4
-radio,Block number:,g27,2
-linearGrid,How mentally demanding was the task?,g28,16
-linearGrid,How physically demanding was the task?,g29,9
-linearGrid,How hurried or rushed was the pace of the task?,g30,14
-linearGrid,How succesful were you in accomplishing what you were asked to do?,g31,13
-linearGrid,How hard did you have to work to accomplish your level of performance?,g32,10
-linearGrid,How frustrated were you during the task?,g33,13
-linearSlider,I found it tiresome,g34,3
+linearSlider,I felt skillful.,g22,2
+linearSlider,I was interested in the game's story.,g23,1
+linearSlider,I found it impressive,g24,1
+linearSlider,I felt content.,g25,1
+linearSlider,I felt good.,g26,2
+radio,Block number:,g27,1
+linearGrid,How mentally demanding was the task?,g28,3
+linearGrid,How physically demanding was the task?,g29,2
+linearGrid,How hurried or rushed was the pace of the task?,g30,10
+linearGrid,How succesful were you in accomplishing what you were asked to do?,g31,17
+linearGrid,How hard did you have to work to accomplish your level of performance?,g32,4
+linearGrid,How frustrated were you during the task?,g33,3
+linearSlider,I found it tiresome,g34,1
 linearSlider,I felt skillful.,g35,1
-linearSlider,I was interested in the game's story.,g36,3
-linearSlider,I found it impressive,g37,3
-linearSlider,I felt content.,g38,0
-linearSlider,I felt good.,g39,1
-radio,Block number:,g40,1
-linearGrid,How mentally demanding was the task?,g41,13
-linearGrid,How physically demanding was the task?,g42,9
-linearGrid,How hurried or rushed was the pace of the task?,g43,14
-linearGrid,How succesful were you in accomplishing what you were asked to do?,g44,16
-linearGrid,How hard did you have to work to accomplish your level of performance?,g45,16
-linearGrid,How frustrated were you during the task?,g46,16
-linearSlider,I found it tiresome,g47,3
+linearSlider,I was interested in the game's story.,g36,0
+linearSlider,I found it impressive,g37,1
+linearSlider,I felt content.,g38,1
+linearSlider,I felt good.,g39,2
+radio,Block number:,g40,3
+linearGrid,How mentally demanding was the task?,g41,14
+linearGrid,How physically demanding was the task?,g42,4
+linearGrid,How hurried or rushed was the pace of the task?,g43,5
+linearGrid,How succesful were you in accomplishing what you were asked to do?,g44,12
+linearGrid,How hard did you have to work to accomplish your level of performance?,g45,12
+linearGrid,How frustrated were you during the task?,g46,13
+linearSlider,I found it tiresome,g47,2
 linearSlider,I felt skillful.,g48,1
-linearSlider,I was interested in the game's story.,g49,3
-linearSlider,I found it impressive,g50,3
+linearSlider,I was interested in the game's story.,g49,1
+linearSlider,I found it impressive,g50,1
 linearSlider,I felt content.,g51,1
-linearSlider,I felt good.,g52,4
+linearSlider,I felt good.,g52,3
 
